@@ -1,0 +1,10 @@
+﻿
+.car {
+    display: block;
+}
+.truck{
+    display:none;
+}
+.motorcycle {
+    display: none;
+}

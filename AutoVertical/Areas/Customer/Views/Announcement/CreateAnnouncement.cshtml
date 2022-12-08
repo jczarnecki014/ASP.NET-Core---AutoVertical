@@ -1,0 +1,1226 @@
+﻿<div class="container">
+    <div class="row">
+        <section name="form" class="col-lg-7">
+            <form>
+            <h1>Create announcement</h1>
+            <div class="col-12 pt-4">
+                    <select id="VehicleSelector" class="miniPreviewInfo form-control">
+                        <option value="car">Cars</option>
+                        <option value="motorcycle">Motorcycles</option>
+                        <option value="truck">Trucks</option>
+                    </select>
+            </div>
+
+            @*Main quality*@
+
+            <div class="col-12 mt-5">
+                <h3>Vehicle details</h3>
+                <h5 class="mb-3">Main quality</h5>
+                <div class="row">
+                    <div class="col-lg-6 form-check border border-1 p-3">
+                        <input class="form-check-input" type="checkbox" value="" id="damaged">
+                        <label class="form-check-labe" for="damaged">
+                            Damaged
+                        </label>
+                    </div>
+                    <div class="col-lg-6 btn-group" role="group">
+                        <input type="radio" class="btn-check" name="btnradio" id="btnradio1">
+                        <label class="btn btn-outline-primary" for="btnradio1">Imported</label>
+                        <input type="radio" class="btn-check" name="btnradio" id="btnradio2">
+                        <label class="btn btn-outline-primary" for="btnradio2">Domestic</label>
+                    </div>
+                    
+                    <div class="car col-lg-6 form-check border border-1 p-3 mt-2">
+                        <input class="form-check-input" type="checkbox" value="" id="Righthanddrive">
+                        <label class="form-check-labe" for="Righthanddrive">
+                            Right hand drive ( UK )
+                        </label>
+                    </div>
+                    <div class="truck col-lg-6 form-check border border-1 p-3 mt-2">
+                        <input class="form-check-input" type="checkbox" value="" id="Nonstandardvehicle">
+                        <label class="form-check-labe" for="Nonstandardvehicle">
+                            Non standard vehicle
+                        </label>
+                    </div>
+                    <div class="truck col-lg-6 form-check border border-1 p-3 mt-2">
+                        <input class="form-check-input" type="checkbox" value="" id="Doublerearwheels">
+                        <label class="form-check-labe" for="Doublerearwheels">
+                           Double rear wheels
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            @*Basics information*@
+
+            <div class="col-12 mt-5">
+                <h5 class="mb-3">Basic Information - first registration</h5>
+                <div class="row">
+                    <div class="col-lg-6 p-3 form-group">
+                        <label for="Vin">Vin number</label>
+                        <input type="text" class="miniPreviewInfo form-control p-3" id="Vin" placeholder="WAUZZZ5432FDS45234DX">
+                    </div>
+                    <div class="col-lg-6 p-3 form-group">
+                        <label for="milage">Milage</label>
+                        <input type="text" class="miniPreviewInfo form-control p-3" id="Milage" placeholder="100 000 km">
+                    </div>
+                    <div class="col-lg-6 p-3 form-group">
+                        <label for="registration">vehicle registration number</label>
+                        <input type="text" class="miniPreviewInfo form-control p-3" id="RegistrationNumber" placeholder="DJE 4132">
+                    </div>
+                    <div class="col-lg-6 p-3 form-group">
+                        <div class="row">
+                            <div class="col-lg-4 p-3 form-group">
+                                <label for="regDay">Day</label>
+                                <input type="text" class="miniPreviewInfo form-control" id="RegDay" placeholder="DD">
+                            </div>
+                            <div class="col-lg-4 p-3 form-group">
+                                <label for="regMon">Month</label>
+                                <input type="text" class="miniPreviewInfo form-control" id="RegMon" placeholder="MM">
+                            </div>
+                            <div class="col-lg-4 p-3 form-group">
+                                <label for="regYear">Year</label>
+                                <input type="text" class="miniPreviewInfo form-control" id="RegYear" placeholder="YYYY">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+                @*Technical Data*@
+
+             <div class="col-12 mt-5">
+                <h5 class="mb-3">Technical data</h5>
+                <p class="text-secondary"><smal>Warning ! Please to well cheeck vehicle data before adding announcement !! </small></p>
+                <div class="row">
+                    <div class="col-lg-6 p-3 form-group">
+                        <label for="">Production year</label>
+                        <select class="miniPreviewInfo form-control p-3" id="ProductionYear">
+                            <option selected>--Select--</option>
+                        </select>
+                    </div>
+                    <div class="col-lg-6 p-3 form-group">
+                        <label for="">Brand</label>
+                        <select class="miniPreviewInfo specific form-control p-3" id="Brand">
+                            <option selected>BMW</option>
+                        </select>
+                    </div>
+                    <div class="col-lg-6 p-3 form-group">
+                        <label for="">Model</label>
+                        <input type="text" class="miniPreviewInfo specific form-control p-3" id="Model" placeholder="Model">
+                    </div>
+                    <div class="col-lg-6 p-3 form-group">
+                        <label for="">Fuel</label>
+                        <select class="miniPreviewInfo specific form-control p-3" id="Fuel">
+                            <option selected>Petrol</option>
+                        </select>
+                    </div>
+                    <div class="col-lg-6 p-3 form-group">
+                        <label for="">Power</label>
+                        <input type="number" class="miniPreviewInfo form-control p-3" id="Power" placeholder="150 km">
+                    </div>
+                     <div class="col-lg-6 p-3 form-group">
+                        <label for="">Cubic capacity</label>
+                        <input type="text" class="miniPreviewInfo form-control p-3" id="CubbicCapacity" placeholder="1 800 cm">
+                    </div>
+                    <div class="car col-lg-6 p-3 form-group">
+                        <label for="">Number of door</label>
+                        <select class="specific form-control p-3">
+                            <option selected>5 - doors</option>
+                        </select>
+                    </div>
+                    <div class="col-lg-6 p-3 form-group">
+                        <label for="">Gear box</label>
+                        <select class="miniPreviewInfo specific form-control p-3" id="GearBox">
+                            <option selected>Manual</option>
+                        </select>
+                    </div>
+                    <div class="car motorcycle col-lg-6 p-3 form-group">
+                        <label for="">Drive</label>
+                        <select class="miniPreviewInfo specific form-control p-3" id="Drive"
+                            <option selected>Front-wheel drive (FWD)</option>
+                        </select>
+                    </div>
+                     <div class="col-lg-6 p-3 form-group">
+                        <label for="">Co2 Emision</label>
+                        <input type="text" class="form-control p-3" id="" placeholder="g/km">
+                    </div>
+                </div>
+            </div>
+
+
+                @*Body*@
+
+             <div class="col-12 mt-5">
+                <h5 class="mb-3">Body</h5>
+                <div class="row">
+                    <div class="col-lg-12 p-3 form-group">
+                        <label for="">Body type</label>
+                        <select class="miniPreviewInfo specific form-control p-3" id="BodyType">
+                            <option selected>Sedan</option>
+                        </select>
+                    </div>
+                    <div class="col-lg-6 p-3 form-group">
+                        <label for="">Color</label>
+                        <input type="text" class="miniPreviewInfo form-control p-3" id="Color" placeholder="Silver">
+                    </div>
+                    <div class="col-lg-6 p-3 form-group">
+                        <label for="">Color type</label>
+                        <select class="form-control p-3">
+                            <option selected>Metalic</option>
+                        </select>
+                    </div>
+                    <div class="truck col-lg-6 p-3 form-group">
+                        <label for="">Number of axles</label>
+                        <input type="text" class="form-control p-3" id="" placeholder="3">
+                    </div>
+                    <div class="car col-lg-6 p-3 form-group">
+                        <label for="">Number of seats</label>
+                        <select class="specific form-control p-3">
+                            <option selected>5</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+                @*Cargo - TRUCK*@
+
+            <div class="truck col-12 mt-5">
+                <h5 class="mb-3">Cargo</h5>
+                <div class="row">
+                    <div class="col-lg-6 p-3 form-group">
+                        <label for="">Allowe package</label>
+                        <input type="text" class="form-control p-3" id="" placeholder="kg">
+                    </div>
+                    <div class="col-lg-6 p-3 form-group">
+                        <label for="">permissible gross weight</label>
+                        <input type="text" class="form-control p-3" id="" placeholder="kg">
+                    </div> 
+                </div>
+            </div>
+
+                @*Photo*@
+
+            <div class="col-12 mt-5">
+                <h5 class="mb-3">Photos</h5>
+                <div class="row">
+                    <div class="col-lg-12 p-3 form-group">
+                         <label class="form-label">Multiple files input example</label>
+                         <input id="filesInput" class="form-control bg-warning" type="file" multiple>       
+                    </div>
+                </div>
+
+                <div id="output" class="row">
+                </div>
+
+            </div>
+
+                @*Vehicle description*@
+
+            <div class="col-12 mt-5">
+                <h5 class="mb-3">Vehicle description</h5>
+                <div class="row">
+                    <div class="col-lg-12 p-3 form-group">
+                        <label for="">Announcement Title</label>
+                        <input type="text" class="miniPreviewInfo form-control p-3" id="Title" placeholder="First owner,perfect condition">
+                    </div>
+                    <div class="col-lg-12 p-3 form-group">
+                        <label for="">Description</label>
+                        <textarea class="miniPreviewInfo form-control" id="Description" rows="10"></textarea>
+                        <p class="text-end"><smal><span id="textLength">0</span>/4000</smal></p>
+                    </div>
+                </div>
+            </div>
+
+                @*Vehicle equipment - Truck*@
+
+                <div class="truck col-12 mt-5">
+                <h5 class="mb-3">Vehilce equipment</h5>
+                <div class="row">
+                    <div class="col-lg-2 m-2 p-3 form-check border border-1 p-1">
+                        <input class="miniPreviewEquipment form-check-input" type="checkbox" value="4x4" id="4x4">
+                        <label class="form-check-labe" for="4x4">
+                            4x4
+                        </label>
+                    </div>
+                    <div class="col-lg-2 m-2 form-check p-3 border border-1 p-1">
+                        <input class="miniPreviewEquipment form-check-input" type="checkbox" value="ABS" id="ABS">
+                        <label class="form-check-labe" for="ABS">
+                            ABS
+                        </label>
+                    </div>
+                    <div class="col-lg-2 m-2 form-check p-3 border border-1 p-1">
+                        <input class="miniPreviewEquipment form-check-input" type="checkbox" value="Alarm" id="truckAlarm">
+                        <label class="form-check-labe" for="truckAlarm">
+                            Alarm
+                        </label>
+                    </div>
+                    <div class="col-lg-2 m-1 form-check p-3 border border-1 p-1">
+                        <input class="miniPreviewEquipment form-check-input" type="checkbox" value="ASR" id="ASR">
+                        <label class="form-check-labe" for="ASR">
+                            ASR
+                        </label>
+                    </div>
+                    <div class="col-lg-2 m-2 form-check  p-3 border border-1 p-1">
+                        <input class="miniPreviewEquipment form-check-input" type="checkbox" value="CB Radio" id="CBRadio">
+                        <label class="form-check-labe" for="CBRadio">
+                            CB Radio
+                        </label>
+                    </div>
+                    <div class="col-lg-2 m-2 form-check  p-3 border border-1 p-1">
+                        <input class="miniPreviewEquipment form-check-input" type="checkbox" value="CD" id="CD">
+                        <label class="form-check-labe" for="CD">
+                            CD
+                        </label>
+                    </div>
+                    <div class="col-lg-2 m-2 form-check  p-3 border border-1 p-1">
+                        <input class="miniPreviewEquipment form-check-input" type="checkbox" value="Central lock" id="Centrallock">
+                        <label class="form-check-labe" for="Centrallock">
+                            Central lock
+                        </label>
+                    </div>
+                    <div class="col-lg-2 m-2 form-check  p-3 border border-1 p-1">
+                        <input class="miniPreviewEquipment form-check-input" type="checkbox" value="Parking sencor" id="Parkingsencor">
+                        <label class="form-check-labe" for="Parkingsencor">
+                            Parking sencor
+                        </label>
+                    </div>
+                    <div class="col-lg-2 m-2 form-check  p-3 border border-1 p-1">
+                        <input class="miniPreviewEquipment form-check-input" type="checkbox" value="DVD" id="DVD">
+                        <label class="form-check-labe" for="DVD">
+                            DVD
+                        </label>
+                    </div>
+                    <div class="col-lg-2 m-2 form-check  p-3 border border-1 p-1">
+                        <input class="miniPreviewEquipment form-check-input" type="checkbox" value="Electris glasses" id="Electrisglasses">
+                        <label class="form-check-labe" for="Electrisglasses">
+                            Electris glasses
+                        </label>
+                    </div>
+                    <div class="col-lg-2 m-2 form-check  p-3 border border-1 p-1">
+                        <input class="miniPreviewEquipment form-check-input" type="checkbox" value="ESP" id="carESP">
+                        <label class="form-check-labe" for="carESP">
+                            ESP
+                        </label>
+                    </div>
+                    <div class="col-lg-2 m-2 form-check  p-3 border border-1 p-1">
+                        <input class="miniPreviewEquipment form-check-input" type="checkbox" value="Immobilizer" id="Immobilizer">
+                        <label class="form-check-labe" for="Immobilizer">
+                            Immobilizer
+                        </label>
+                    </div>
+                    <div class="col-lg-2 m-2 form-check  p-3 border border-1 p-1">
+                        <input class="miniPreviewEquipment form-check-input" type="checkbox" value="Intarder" id="Intarder">
+                        <label class="form-check-labe" for="Intarder">
+                            Intarder
+                        </label>
+                    </div>
+                    <div class="col-lg-2 m-2 form-check  p-3 border border-1 p-1">
+                        <input class="miniPreviewEquipment form-check-input" type="checkbox" value="Sleeping cabin" id="Sleepingcabin">
+                        <label class="form-check-labe" for="Sleepingcabin">
+                            Sleeping cabin
+                        </label>
+                    </div>
+                    <div class="col-lg-2 m-2 form-check  p-3 border border-1 p-1">
+                        <input class="miniPreviewEquipment form-check-input" type="checkbox" value="Automatic air condition" id="Automaticaircondition">
+                        <label class="form-check-labe" for="Automaticaircondition">
+                            Automatic air condition
+                        </label>
+                    </div>
+                    <div class="col-lg-2 m-2 form-check  p-3 border border-1 p-1">
+                        <input class="miniPreviewEquipment form-check-input" type="checkbox" value="On-board computer" id="Onboardcomputer">
+                        <label class="form-check-labe" for="Onboardcomputer">
+                            On-board computer
+                        </label>
+                    </div>
+                    <div class="col-lg-2 m-2 form-check  p-3 border border-1 p-1">
+                        <input class="miniPreviewEquipment form-check-input" type="checkbox" value="Kitchen" id="Kitchen">
+                        <label class="form-check-labe" for="Kitchen">
+                            Kitchen
+                        </label>
+                    </div>
+                    <div class="col-lg-2 m-2 form-check  p-3 border border-1 p-1">
+                        <input class="miniPreviewEquipment form-check-input" type="checkbox" value="Fridge" id="Fridge">
+                        <label class="form-check-labe" for="Fridge">
+                            Fridge
+                        </label>
+                    </div>
+                    <div class="col-lg-2 m-2 form-check  p-3 border border-1 p-1">
+                        <input class="miniPreviewEquipment form-check-input" type="checkbox" value="Mini bar" id="Minibar">
+                        <label class="form-check-labe" for="Minibar">
+                            Mini bar
+                        </label>
+                    </div>
+                    <div class="col-lg-2 m-2 form-check  p-3 border border-1 p-1">
+                        <input class="miniPreviewEquipment form-check-input" type="checkbox" value="GPS NAV" id="GPSNAV">
+                        <label class="form-check-labe" for="GPSNAV">
+                            GPS NAV
+                        </label>
+                    </div>
+                    <div class="col-lg-2 m-2 form-check  p-3 border border-1 p-1">
+                        <input class="miniPreviewEquipment form-check-input" type="checkbox" value="Webassto" id="Webassto">
+                        <label class="form-check-labe" for="Webassto">
+                            Webassto
+                        </label>
+                    </div>
+                    <div class="col-lg-2 m-2 form-check  p-3 border border-1 p-1">
+                        <input class="miniPreviewEquipment form-check-input" type="checkbox" value="Air bags" id="Airbags">
+                        <label class="form-check-labe" for="Airbags">
+                            Air bags
+                        </label>
+                    </div>
+                    <div class="col-lg-2 m-2 form-check  p-3 border border-1 p-1">
+                        <input class="miniPreviewEquipment form-check-input" type="checkbox" value="Factory radio" id="Factoryradio">
+                        <label class="form-check-labe" for="Factoryradio">
+                            Factory radio
+                        </label>
+                    </div>
+                    <div class="col-lg-2 m-2 form-check  p-3 border border-1 p-1">
+                        <input class="miniPreviewEquipment form-check-input" type="checkbox" value="Not factory radio" id="Notfactoryradio">
+                        <label class="form-check-labe" for="Notfactoryradio">
+                            Not factory radio
+                        </label>
+                    </div>
+                    <div class="col-lg-2 m-2 form-check  p-3 border border-1 p-1">
+                        <input class="miniPreviewEquipment form-check-input" type="checkbox" value="Adjustable suspension" id="Adjustablesuspension">
+                        <label class="form-check-labe" for="Adjustablesuspension">
+                            Adjustable suspension
+                        </label>
+                    </div>
+                    <div class="col-lg-2 m-2 form-check  p-3 border border-1 p-1">
+                        <input class="miniPreviewEquipment form-check-input" type="checkbox" value="Retarder" id="Retarder">
+                        <label class="form-check-labe" for="Retarder">
+                            Retarder
+                        </label>
+                    </div>
+                    <div class="col-lg-2 m-2 form-check  p-3 border border-1 p-1">
+                        <input class="miniPreviewEquipment form-check-input" type="checkbox" value="Tachograph" id="Tachograph">
+                        <label class="form-check-labe" for="Tachograph">
+                            Tachograph
+                        </label>
+                    </div>
+                    <div class="col-lg-2 m-2 form-check  p-3 border border-1 p-1">
+                        <input class="miniPreviewEquipment form-check-input" type="checkbox" value="Cruise control" id="Cruisecontrol">
+                        <label class="form-check-labe" for="Cruisecontrol">
+                            Cruise control
+                        </label>
+                    </div>
+                    <div class="col-lg-2 m-2 form-check  p-3 border border-1 p-1">
+                        <input class="miniPreviewEquipment form-check-input" type="checkbox" value="Toilet" id="Toilet">
+                        <label class="form-check-labe" for="Toilet">
+                            Toilet
+                        </label>
+                    </div>
+                    <div class="col-lg-2 m-2 form-check  p-3 border border-1 p-1">
+                        <input class="miniPreviewEquipment form-check-input" type="checkbox" value="TV Tuner" id="TVTuner">
+                        <label class="form-check-labe" for="TVTuner">
+                            TV Tuner
+                        </label>
+                    </div>
+                    <div class="col-lg-2 m-2 form-check  p-3 border border-1 p-1">
+                        <input class="miniPreviewEquipment form-check-input" type="checkbox" value="Multifunction steering  wheel" id="Multifunctionsteering">
+                        <label class="form-check-labe" for="Multifunctionsteering">
+                            Multifunction steering  wheel
+                        </label>
+                    </div>
+
+                </div>
+            </div>
+
+
+
+            @*Vehicle equipment - MotorCycle*@
+
+
+
+            <div class="motorcycle col-12 mt-5">
+                <h5 class="mb-3">Vehilce equipment</h5>
+                <div class="row">
+                    <div class="col-lg-5 m-2 p-3 form-check border border-1 p-1">
+                        <input class="miniPreviewEquipment form-check-input" type="checkbox" value="ABS" id="motoABS">
+                        <label class="form-check-labe" for="motoABS">
+                            ABS
+                        </label>
+                    </div>
+                    <div class="col-lg-5 m-2 form-check p-3 border border-1 p-1">
+                        <input class="miniPreviewEquipment form-check-input" type="checkbox" value="Alarm" id="Alarm">
+                        <label class="form-check-labe" for="Alarm">
+                            Alarm
+                        </label>
+                    </div>
+                    <div class="col-lg-5 m-2 form-check p-3 border border-1 p-1">
+                        <input class="miniPreviewEquipment form-check-input" type="checkbox" value="Immobilizer trunk" id="Immobilizertrunk">
+                        <label class="form-check-labe" for="Immobilizertrunk">
+                            Immobilizer trunk
+                        </label>
+                    </div>
+                    <div class="col-lg-5 m-1 form-check p-3 border border-1 p-1">
+                        <input class="miniPreviewEquipment form-check-input" type="checkbox" value="Heated grips" id="Heatedgrips">
+                        <label class="form-check-labe" for="Heatedgrips">
+                            Heated grips
+                        </label>
+                    </div>
+                    <div class="col-lg-5 m-2 form-check  p-3 border border-1 p-1">
+                        <input class="miniPreviewEquipment form-check-input" type="checkbox" value="Radio" id="Radio">
+                        <label class="form-check-labe" for="Radio">
+                            Radio
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+                @*Vehicle equipment - Car*@
+
+            <div class="car col-12 mt-5">
+                  <h5 class="mb-3">Vehicel equipment</h5>
+                  <div class="accordion accordion-flush" id="accordionFlushExample">
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="flush-headingOne">
+                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne">
+                        Audio & Multimedia
+                      </button>
+                    </h2>
+                    <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                      <div class="accordion-body">
+                          <div class="row justify-content-between">
+                                <div class="col-lg-5 form-check border border-1 p-3">
+                                    <input class="miniPreviewEquipment form-check-input" type="checkbox" value="Apple CarPlay" id="AppleCarPlay">
+                                    <label class="form-check-labe" for="AppleCarPlay">
+                                        Apple CarPlay
+                                    </label>
+                                </div>
+
+                                <div class="col-lg-5 form-check border border-1 p-3">
+                                    <input class="miniPreviewEquipment form-check-input" type="checkbox" value="Android Auto" id="AndroidAuto">
+                                    <label class="form-check-labe" for="AndroidAuto">
+                                        Android Auto
+                                    </label>
+                                </div>
+                                <div class="col-lg-5 form-check border border-1 p-3">
+                                    <input class="miniPreviewEquipment form-check-input" type="checkbox" value="Bluetooth Interface" id="BluetoothInterface">
+                                    <label class="form-check-labe" for="BluetoothInterface">
+                                        Bluetooth Interface
+                                    </label>
+                                </div>
+
+                                <div class="col-lg-5 form-check border border-1 p-3">
+                                    <input class="miniPreviewEquipment form-check-input" type="checkbox" value="Radio" id="carRadio">
+                                    <label class="form-check-labe" for="carRadio">
+                                        Radio
+                                    </label>
+                                </div>
+                               <div class="col-lg-5 form-check border border-1 p-3">
+                                    <input class="miniPreviewEquipment form-check-input" type="checkbox" value="Loudspeeker Sysetm" id="LoudspeekerSysetm">
+                                    <label class="form-check-labe" for="LoudspeekerSysetm">
+                                        Loudspeeker Sysetm
+                                    </label>
+                                </div>
+
+                                <div class="col-lg-5 form-check border border-1 p-3">
+                                    <input class="miniPreviewEquipment form-check-input" type="checkbox" value="USB Socket" id="USBSocket">
+                                    <label class="form-check-labe" for="USBSocket">
+                                        USB Socket
+                                    </label>
+                                </div>
+                                <div class="col-lg-5 form-check border border-1 p-3">
+                                    <input class="miniPreviewEquipment form-check-input" type="checkbox" value="Wireless charging devices" id="Wirelesschargingdevices">
+                                    <label class="form-check-labe" for="Wirelesschargingdevices">
+                                        Wireless charging devices
+                                    </label>
+                                </div>
+
+                                <div class="col-lg-5 form-check border border-1 p-3">
+                                    <input class="miniPreviewEquipment form-check-input" type="checkbox" value="Satellite Navigation System" id="SatelliteNavigationSystem">
+                                    <label class="form-check-labe" for="SatelliteNavigationSystem">
+                                        Satellite Navigation System
+                                    </label>
+                                </div>
+                                <div class="col-lg-5 form-check border border-1 p-3">
+                                    <input class="miniPreviewEquipment form-check-input" type="checkbox" value="Sound System" id="SoundSystem">
+                                    <label class="form-check-labe" for="SoundSystem">
+                                        Sound System
+                                    </label>
+                                </div>
+
+                                <div class="col-lg-5 form-check border border-1 p-3">
+                                    <input class="miniPreviewEquipment form-check-input" type="checkbox" value="Head-Up display" id="HeadUpdisplay">
+                                    <label class="form-check-labe" for="HeadUpdisplay">
+                                        Head-Up display
+                                    </label>
+                                </div>
+                                <div class="col-lg-5 form-check border border-1 p-3">
+                                    <input class="miniPreviewEquipment form-check-input" type="checkbox" value="Touchscreen" id="Touchscreen">
+                                    <label class="form-check-labe" for="Touchscreen">
+                                        Touchscreen
+                                    </label>
+                                </div>
+
+                                <div class="col-lg-5 form-check border border-1 p-3">
+                                    <input class="miniPreviewEquipment form-check-input" type="checkbox" value="Function voice stering" id="Functionvoicestering">
+                                    <label class="form-check-labe" for="Functionvoicestering">
+                                        Function voice stering 
+                                    </label>
+                                </div>
+                                <div class="col-lg-5 form-check border border-1 p-3">
+                                    <input class="miniPreviewEquipment form-check-input" type="checkbox" value="Internet acces" id="Internetacces">
+                                    <label class="form-check-labe" for="Internetacces">
+                                        Internet acces
+                                    </label>
+                                </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="flush-headingTwo">
+                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo">
+                        Comfort
+                      </button>
+                    </h2>
+                    <div id="flush-collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                      <div class="accordion-body">
+                          <div class="row justify-content-between">
+                                <div class="col-lg-5 form-check border border-1 p-3">
+                                    <input class="miniPreviewEquipment form-check-input" type="checkbox" value="Air conditioning" id="Airconditioning">
+                                    <label class="form-check-labe" for="Airconditioning">
+                                        Air conditioning
+                                    </label>
+                                </div>
+
+                                <div class="col-lg-5 form-check border border-1 p-3">
+                                    <input class="miniPreviewEquipment form-check-input" type="checkbox" value="Electric stearing seats" id="Electricstearingseats">
+                                    <label class="form-check-labe" for="Electricstearingseats">
+                                        Electric stearing seats
+                                    </label>
+                                </div>
+                                <div class="col-lg-5 form-check border border-1 p-3">
+                                    <input class="miniPreviewEquipment form-check-input" type="checkbox" value="Heating seat" id="Heatingseat">
+                                    <label class="form-check-labe" for="Heatingseat">
+                                        Heating seat
+                                    </label>
+                                </div>
+
+                                <div class="col-lg-5 form-check border border-1 p-3">
+                                    <input class="miniPreviewEquipment form-check-input" type="checkbox" value="Ventilated seats" id="Ventilatedseats">
+                                    <label class="form-check-labe" for="Ventilatedseats">
+                                        Ventilated seats
+                                    </label>
+                                </div>
+                               <div class="col-lg-5 form-check border border-1 p-3">
+                                    <input class="miniPreviewEquipment form-check-input" type="checkbox" value="Massage seats" id="Massageseats">
+                                    <label class="form-check-labe" for="Massageseats">
+                                        Massage seats
+                                    </label>
+                                </div>
+
+                                <div class="col-lg-5 form-check border border-1 p-3">
+                                    <input class="miniPreviewEquipment form-check-input" type="checkbox" value="Sport seats" id="Sportseats">
+                                    <label class="form-check-labe" for="Sportseats">
+                                        Sport seats
+                                    </label>
+                                </div>
+                                <div class="col-lg-5 form-check border border-1 p-3">
+                                    <input class="miniPreviewEquipment form-check-input" type="checkbox" value="Armrests" id="Armrests">
+                                    <label class="form-check-labe" for="Armrests">
+                                        Armrests
+                                    </label>
+                                </div>
+
+                                <div class="col-lg-5 form-check border border-1 p-3">
+                                    <input class="miniPreviewEquipment form-check-input" type="checkbox" value="Leather steering wheel" id="Leathersteeringwheel">
+                                    <label class="form-check-labe" for="Leathersteeringwheel">
+                                        Leather steering wheel
+                                    </label>
+                                </div>
+                                <div class="col-lg-5 form-check border border-1 p-3">
+                                    <input class="miniPreviewEquipment form-check-input" type="checkbox" value="Sport steering wheel" id="Sportsteeringwheel">
+                                    <label class="form-check-labe" for="Sportsteeringwheel">
+                                        Sport steering wheel
+                                    </label>
+                                </div>
+
+                                <div class="col-lg-5 form-check border border-1 p-3">
+                                    <input class="miniPreviewEquipment form-check-input" type="checkbox" value="Multimedia steering wheel" id="Multimediasteeringwheel">
+                                    <label class="form-check-labe" for="Multimediasteeringwheel">
+                                        Multimedia steering wheel
+                                    </label>
+                                </div>
+                                <div class="col-lg-5 form-check border border-1 p-3">
+                                    <input class="miniPreviewEquipment form-check-input" type="checkbox" value="Heating steering wheel" id="Heatingsteeringwheel">
+                                    <label class="form-check-labe" for="Heatingsteeringwheel">
+                                        Heating steering wheel
+                                    </label>
+                                </div>
+
+                                <div class="col-lg-5 form-check border border-1 p-3">
+                                    <input class="miniPreviewEquipment form-check-input" type="checkbox" value="Gear changing in steering wheel" id="Gearchanginginsteeringwheel">
+                                    <label class="form-check-labe" for="Gearchanginginsteeringwheel">
+                                        Gear changing in steering wheel
+                                    </label>
+                                </div>
+                                <div class="col-lg-5 form-check border border-1 p-3">
+                                    <input class="miniPreviewEquipment form-check-input" type="checkbox" value="keyless entry" id="keylessentry">
+                                    <label class="form-check-labe" for="keylessentry">
+                                        keyless entry
+                                    </label>
+                                </div>
+                                <div class="col-lg-5 form-check border border-1 p-3">
+                                    <input class="miniPreviewEquipment form-check-input" type="checkbox" value="Keyless Go" id="KeylessGo">
+                                    <label class="form-check-labe" for="KeylessGo">
+                                        Keyless Go
+                                    </label>
+                                </div>
+                                <div class="col-lg-5 form-check border border-1 p-3">
+                                    <input class="miniPreviewEquipment form-check-input" type="checkbox" value="Webasto" id="Webasto">
+                                    <label class="form-check-labe" for="Webasto">
+                                        Webasto
+                                    </label>
+                                </div>
+                                <div class="col-lg-5 form-check border border-1 p-3">
+                                    <input class="miniPreviewEquipment form-check-input" type="checkbox" value="Rain detector" id="Raindetector">
+                                    <label class="form-check-labe" for="Raindetector">
+                                        Rain detector
+                                    </label>
+                                </div>
+                                <div class="col-lg-5 form-check border border-1 p-3">
+                                    <input class="miniPreviewEquipment form-check-input" type="checkbox" value="Heating front window" id="Heatingfrontwindow">
+                                    <label class="form-check-labe" for="Heatingfrontwindow">
+                                        Heating front window
+                                    </label>
+                                </div>
+                                <div class="col-lg-5 form-check border border-1 p-3">
+                                    <input class="miniPreviewEquipment form-check-input" type="checkbox" value="Electric front windows" id="Electricfrontwindows">
+                                    <label class="form-check-labe" for="Electricfrontwindows">
+                                        Electric front windows
+                                    </label>
+                                </div>
+                                <div class="col-lg-5 form-check border border-1 p-3">
+                                    <input class="miniPreviewEquipment form-check-input" type="checkbox" value="Electric rear windows" id="Electricrearwindows">
+                                    <label class="form-check-labe" for="Electricrearwindows">
+                                        Electric rear windows
+                                    </label>
+                                </div>
+                                <div class="col-lg-5 form-check border border-1 p-3">
+                                    <input class="miniPreviewEquipment form-check-input" type="checkbox" value="Digital key" id="Digitalkey">
+                                    <label class="form-check-labe" for="Digitalkey">
+                                        Digital key
+                                    </label>
+                                </div>
+                                <div class="col-lg-5 form-check border border-1 p-3">
+                                    <input class="miniPreviewEquipment form-check-input" type="checkbox" value="Opening roof" id="Openingroof">
+                                    <label class="form-check-labe" for="Openingroof">
+                                        Opening roof
+                                    </label>
+                                </div>
+
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="flush-headingThree">
+                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree">
+                        Driver support systems
+                      </button>
+                    </h2>
+                    <div id="flush-collapseThree" class="accordion-collapse collapse"  data-bs-parent="#accordionFlushExample">
+                      <div class="accordion-body">
+
+                          <div class="row justify-content-between">
+                                <div class="col-lg-5 form-check border border-1 p-3">
+                                    <input class="miniPreviewEquipment form-check-input" type="checkbox" value="Tempomat" id="Tempomat">
+                                    <label class="form-check-labe" for="Tempomat">
+                                        Tempomat
+                                    </label>
+                                </div>
+
+                                <div class="col-lg-5 form-check border border-1 p-3">
+                                    <input class="miniPreviewEquipment form-check-input" type="checkbox" value="Parking sencors" id="Parkingsencors">
+                                    <label class="form-check-labe" for="Parkingsencors">
+                                        Parking sencors
+                                    </label>
+                                </div>
+                                <div class="col-lg-5 form-check border border-1 p-3">
+                                    <input class="miniPreviewEquipment form-check-input" type="checkbox" value="Park Assistant" id="ParkAssistant">
+                                    <label class="form-check-labe" for="ParkAssistant">
+                                        Park Assistant
+                                    </label>
+                                </div>
+
+                                <div class="col-lg-5 form-check border border-1 p-3">
+                                    <input class="miniPreviewEquipment form-check-input" type="checkbox" value="Panoramic camera 360" id="Panoramiccamera360">
+                                    <label class="form-check-labe" for="Panoramiccamera360">
+                                        Panoramic camera 360
+                                    </label>
+                                </div>
+                               <div class="col-lg-5 form-check border border-1 p-3">
+                                    <input class="miniPreviewEquipment form-check-input" type="checkbox" value="Parkin camera" id="Parkincamera">
+                                    <label class="form-check-labe" for="Parkincamera">
+                                        Parkin camera
+                                    </label>
+                                </div>
+
+                                <div class="col-lg-5 form-check border border-1 p-3">
+                                    <input class="miniPreviewEquipment form-check-input" type="checkbox" value="Electric mirrors" id="Electricmirrors">
+                                    <label class="form-check-labe" for="Electricmirrors">
+                                        Electric mirrors
+                                    </label>
+                                </div>
+                                <div class="col-lg-5 form-check border border-1 p-3">
+                                    <input class="miniPreviewEquipment form-check-input" type="checkbox" value="Blind spot assistance" id="Blindspotassistance">
+                                    <label class="form-check-labe" for="Blindspotassistance">
+                                        Blind spot assistance
+                                    </label>
+                                </div>
+
+                                <div class="col-lg-5 form-check border border-1 p-3">
+                                    <input class="miniPreviewEquipment form-check-input" type="checkbox" value="Lane assist" id="Laneassist">
+                                    <label class="form-check-labe" for="Laneassist">
+                                        Lane assist
+                                    </label>
+                                </div>
+                                <div class="col-lg-5 form-check border border-1 p-3">
+                                    <input class="miniPreviewEquipment form-check-input" type="checkbox" value="Speed limiter" id="Speedlimiter">
+                                    <label class="form-check-labe" for="Speedlimiter">
+                                        Speed limiter
+                                    </label>
+                                </div>
+
+                                <div class="col-lg-5 form-check border border-1 p-3">
+                                    <input class="miniPreviewEquipment form-check-input" type="checkbox" value="Brake Assist" id="BrakeAssist">
+                                    <label class="form-check-labe" for="BrakeAssist">
+                                        Brake Assist
+                                    </label>
+                                </div>
+                                <div class="col-lg-5 form-check border border-1 p-3">
+                                    <input class="miniPreviewEquipment form-check-input" type="checkbox" value="ESP" id="ESP">
+                                    <label class="form-check-labe" for="ESP">
+                                        ESP
+                                    </label>
+                                </div>
+
+                                <div class="col-lg-5 form-check border border-1 p-3">
+                                    <input class="miniPreviewEquipment form-check-input" type="checkbox" value="ABS" id="carABS">
+                                    <label class="form-check-labe" for="carABS">
+                                        ABS
+                                    </label>
+                                </div>
+                                <div class="col-lg-5 form-check border border-1 p-3">
+                                    <input class="miniPreviewEquipment form-check-input" type="checkbox" value="Hill Holder" id="HillHolder">
+                                    <label class="form-check-labe" for="HillHolder">
+                                        Hill Holder
+                                    </label>
+                                </div>
+                                <div class="col-lg-5 form-check border border-1 p-3">
+                                    <input class="miniPreviewEquipment form-check-input" type="checkbox" value="Active recognized road signs" id="Activerecognizedroadsigns">
+                                    <label class="form-check-labe" for="Activerecognizedroadsigns">
+                                        Active recognized road signs
+                                    </label>
+                                </div>
+                                <div class="col-lg-5 form-check border border-1 p-3">
+                                    <input class="miniPreviewEquipment form-check-input" type="checkbox" value="Dusk sensor" id="Dusksensor">
+                                    <label class="form-check-labe" for="Dusksensor">
+                                        Dusk sensor
+                                    </label>
+                                </div>
+                                <div class="col-lg-5 form-check border border-1 p-3">
+                                    <input class="miniPreviewEquipment form-check-input" type="checkbox" value="Daly light" id="Dalylight">
+                                    <label class="form-check-labe" for="Dalylight">
+                                        Daly light
+                                    </label>
+                                </div>
+                                <div class="col-lg-5 form-check border border-1 p-3">
+                                    <input class="miniPreviewEquipment form-check-input" type="checkbox" value="Rear LED light" id="RearLEDlight">
+                                    <label class="form-check-labe" for="RearLEDlight">
+                                        Rear LED light
+                                    </label>
+                                </div>
+                                <div class="col-lg-5 form-check border border-1 p-3">
+                                    <input class="miniPreviewEquipment form-check-input" type="checkbox" value="Leaving home light" id="Leavinghomelight">
+                                    <label class="form-check-labe" for="Leavinghomelight">
+                                        Leaving home light
+                                    </label>
+                                </div>
+                                <div class="col-lg-5 form-check border border-1 p-3">
+                                    <input class="miniPreviewEquipment form-check-input" type="checkbox" value="Start/Stop system" id="StartStopsystem">
+                                    <label class="form-check-labe" for="StartStopsystem">
+                                        Start/Stop system
+                                    </label>
+                                </div>
+                                <div class="col-lg-5 form-check border border-1 p-3">
+                                    <input class="miniPreviewEquipment form-check-input" type="checkbox" value="Electric parking brake" id="Electricparkingbrake">
+                                    <label class="form-check-labe" for="Electricparkingbrake">
+                                        Electric parking brake
+                                    </label>
+                                </div>
+
+                        </div>
+
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="flush-headingThree">
+                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFour">
+                        Safety
+                      </button>
+                    </h2>
+                    <div id="flush-collapseFour" class="accordion-collapse collapse"  data-bs-parent="#accordionFlushExample">
+                      <div class="accordion-body">
+
+                          <div class="row justify-content-between">
+                                <div class="col-lg-5 form-check border border-1 p-3">
+                                    <input class="miniPreviewEquipment form-check-input" type="checkbox" value="Emergency braking assistant" id="Emergencybrakingassistant">
+                                    <label class="form-check-labe" for="Emergencybrakingassistant">
+                                        Emergency braking assistant
+                                    </label>
+                                </div>
+
+                                <div class="col-lg-5 form-check border border-1 p-3">
+                                    <input class="miniPreviewEquipment form-check-input" type="checkbox" value="Protection from accident system" id="Protectionfromaccidentsystem">
+                                    <label class="form-check-labe" for="Protectionfromaccidentsystem">
+                                        Protection from accident system
+                                    </label>
+                                </div>
+                                <div class="col-lg-5 form-check border border-1 p-3">
+                                    <input class="miniPreviewEquipment form-check-input" type="checkbox" value="Airbags" id="carAirbags">
+                                    <label class="form-check-labe" for="carAirbags">
+                                        Airbags
+                                    </label>
+                                </div>
+
+                                <div class="col-lg-5 form-check border border-1 p-3">
+                                    <input class="miniPreviewEquipment form-check-input" type="checkbox" value="Isofix" id="Isofix">
+                                    <label class="form-check-labe" for="Isofix">
+                                        Isofix
+                                    </label>
+                                </div>
+                        </div>
+
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+            </div>
+
+                @*Vehicle History*@
+
+            <div class="col-12 mt-5">
+                <h5 class="mb-3">Vehicle Hisotry</h5>
+                <div class="row">
+                    <div class="col-lg-12 p-3 form-group">
+                        <label for="">Country of origin</label>
+                        <select class="miniPreviewInfo form-control p-3" id="Country">
+                            <option selected>Deutschland</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 mt-5">
+                <h5 class="mb-3">Vehilce stan</h5>
+                <div class="row">
+                    <div class="col-lg-6 form-check border border-1 p-3">
+                        <input class="miniPreviewInfo form-check-input" type="checkbox" value="Yes" id="FirstOwner">
+                        <label class="form-check-labe" for="FirstOwner">
+                            First Owner ( since new )
+                        </label>
+                    </div>
+                    <div class="col-lg-6 form-check border border-1 p-3">
+                        <input class="miniPreviewInfo form-check-input" type="checkbox" value="Yes" id="NoAccident">
+                        <label class="form-check-labe" for="NoAccident">
+                            No accident
+                        </label>
+                    </div>
+                    <div class="col-lg-6 form-check border border-1 p-3">
+                        <input class="miniPreviewInfo form-check-input" type="checkbox" value="Yes" id="AsoServiced">
+                        <label class="form-check-labe" for="AsoServiced">
+                            ASO serviced
+                        </label>
+                    </div>
+                    <div class="col-lg-6 form-check border border-1 p-3">
+                        <input class="form-check-input" type="checkbox" value="Yes" id="Registeredasmonument">
+                        <label class="form-check-labe" for="Registeredasmonument">
+                            Registered as a monument
+                        </label>
+                    </div>
+                    <div class="col-lg-6 form-check border border-1 p-3">
+                        <input class="form-check-input" type="checkbox" value="Yes" id="Tuning">
+                        <label class="form-check-labe" for="Tuning">
+                            Tuning
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            @*PRICE*@
+
+            <div class="col-12 mt-5">
+                <h5 class="mb-3">Vehicle Price</h5>
+                <label for="">Price brutto</label>
+                <input type="number" class="miniPreviewInfo form-control" id="Price" placeholder="np. 8 000 EUR">
+            </div>
+
+            @*Purpose options*@
+
+            <div class="col-12 mt-5">
+                <h5 class="mb-3">Purpose options</h5>
+                <div class="row">
+                    <div class="col-lg-6 form-check border border-1 p-3">
+                        <input class="miniPreviewInfo form-check-input" type="checkbox" value="To negotiate" id="Negotiate">
+                        <label class="form-check-labe" for="Negotiate">
+                            To negotiate
+                        </label>
+                    </div>
+                    <div class="col-lg-6 form-check border border-1 p-3">
+                        <input class="miniPreviewInfo form-check-input" type="checkbox" value="Leasing" id="Leasing">
+                        <label class="form-check-labe" for="Leasing">
+                            Leasing
+                        </label>
+                    </div>
+                    <div class="col-lg-6 form-check border border-1 p-3">
+                        <input class="miniPreviewInfo form-check-input" type="checkbox" value="VAT" id="Vat">
+                        <label class="form-check-labe" for="VAT">
+                            VAT
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+                @*Seller data*@
+
+
+
+            <div class="col-12 mt-5">
+                <h5 class="mb-3">Vehicle description</h5>
+                <div class="row">
+                    <div class="col-lg-6 p-3 form-group">
+                        <label for="">Your name</label>
+                        <input type="text" class="miniPreviewInfo form-control p-3" id="Name" placeholder="Name">
+                    </div>
+                    <div class="col-lg-6 p-3 form-group">
+                        <label for="">City</label>
+                        <input type="text" class="miniPreviewInfo form-control p-3" id="Location" placeholder="City">
+                    </div>
+                    <div class="col-lg-6 p-3 form-group">
+                        <label for="">Phone Number</label>
+                        <input type="text" class="miniPreviewInfo form-control p-3" id="PhoneNumber" placeholder="Phone Number">
+                    </div>
+                </div>
+            </div>
+
+            </form>
+        </section>
+        <div class="col-lg-1" style="border-right: 1px solid #ecf0f1"></div>
+
+        @*MINI PREVIEW*@
+
+        <section name="prompt" class="col-lg-4 px-5">
+
+            @*SLIDER*@
+
+           <div class="row">
+               <div id="carouselExampleControls" class="carousel slide mt-3" data-bs-ride="carousel">
+                  <div class="carousel-inner">
+                    <div class="carousel-item active">
+                      <img src="" class="miniPreviewInputs d-block w-100" alt="...">
+                    </div>
+                    <div class="carousel-item">
+                      <img src="" class="miniPreviewInputs d-block w-100" alt="...">
+                    </div>
+                    <div class="carousel-item">
+                      <img src="" class="miniPreviewInputs d-block w-100" alt="...">
+                    </div>
+                    <div class="carousel-item">
+                      <img src="" class="miniPreviewInputs d-block w-100" alt="...">
+                    </div>
+                  </div>
+                  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                  </button>
+                  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                  </button>
+                </div>
+
+                @*Basic details*@
+
+                   <div class="row mt-3">
+                       <div class="col-12">
+                           <h6 class="miniPreviewInputs" data-element="Title">Title</h6>
+                       </div>
+                       <div class="col-2"><small data-element="ProductionYear" class="miniPreviewInputs"></small></div>
+                       <div class="col-4"><small data-element="Milage" class="miniPreviewInputs"></small></div>
+                       <div class="col-3"><small data-element="Fuel" class="miniPreviewInputs"></small></div>
+                       <div class="col-3"><small data-element="BodyType" class="miniPreviewInputs"></small></div>
+                   </div>
+
+                   @*Price ifno*@
+
+                   <div class="row mt-3">
+                       <div class="col-6 p-2">
+                           <h4 data-element="Price" class="miniPreviewInputs text-danger"></h4>
+                       </div>
+                       <div class="col-lg-1" style="border-right: 1px solid #ecf0f1"></div>
+                       <div class="col-5">
+                           <div class="row">
+                               <div data-element="Vat" class="miniPreviewInputs col-12"><small></small></div>
+                               <div data-element="Negotiate" class="miniPreviewInputs col-12"><small></small></div>
+                           </div>
+                       </div>
+                   </div>
+                   <div class="row mt-3">
+                       <h5>Details</h5>
+                       <hr />
+                       <div class="row">
+                           <div class="col-12">
+                               <div class="col-12">
+                                   <small>Oferta od: </small><span class="miniPreviewInputs" style="color:dodgerblue;"></span>
+                               </div>
+                               <div class="col-12">
+                                  <small>Category: </small><span data-element="VehicleSelector" class="miniPreviewInputs" style="color:dodgerblue;"></span>
+                               </div>
+                               <div class="col-12">
+                                   <small>Brand: </small><span data-element="Brand" class="miniPreviewInputs" style="color:dodgerblue;"></span>
+                               </div>
+                               <div class="col-12">
+                                   <small>Model: </small><span data-element="Model" class="miniPreviewInputs" style="color:dodgerblue;"></span>
+                               </div>
+                               <div class="col-12">
+                                   <small>Cubic capacity: </small><span data-element="CubbicCapacity" class="miniPreviewInputs" style="color:dodgerblue;"></span>
+                               </div>
+                               <div class="col-12">
+                                   <small>Power: </small><span  data-element="Power" class="miniPreviewInputs" style="color:dodgerblue;"></span>
+                               </div>
+                               <div style="opacity:0.5;" class="opacityDetail col-12">
+                                   <small>GearBox: </small><span data-element="GearBox" class="miniPreviewInputs" style="color:dodgerblue;"></span>
+                               </div>
+                               <div style="opacity:0.2;" class="opacityDetail col-12">
+                                   <small>Drive: </small><span data-element="Drive" class="miniPreviewInputs" style="color:dodgerblue;"></span>
+                               </div>
+                               <div style="display:none" id="hiddenDetails" class="row">
+                                   <div class="col-12">
+                                        <small>Body Type: </small><span data-element="BodyType" class="miniPreviewInputs" style="color:dodgerblue;"></span>
+                                   </div>
+                                   <div class="col-12">
+                                        <small>Color: </small><span data-element="Color" class="miniPreviewInputs" style="color:dodgerblue;"></span>
+                                   </div>
+                                   <div class="col-12">
+                                        <small>Country: </small><span data-element="Country" class="miniPreviewInputs" style="color:dodgerblue;"></span>
+                                   </div>
+                                   <div class="col-12">
+                                        <small>First register: </small><span data-element="FirstRegister" class="miniPreviewInputs" style="color:dodgerblue;"></span>
+                                   </div>
+                                   <div class="col-12">
+                                        <small>Registration Number: </small><span data-element="RegistrationNumber" class="miniPreviewInputs" style="color:dodgerblue;"></span>
+                                   </div>
+                                   <div class="col-12">
+                                        <small>First Owner: </small><span data-element="FirstOwner" class="miniPreviewInputs" style="color:dodgerblue;"></span>
+                                   </div>
+                                   <div class="col-12">
+                                        <small>No accident: </small><span data-element="NoAccident" class="miniPreviewInputs" style="color:dodgerblue;"></span>
+                                   </div>
+                                   <div class="col-12">
+                                        <small>ASO serviced:</small><span data-element="AsoServiced" class="miniPreviewInputs" style="color:dodgerblue;"></spandata-element>
+                                   </div>
+                                   <div class="col-12">
+                                        <small>VIN: </small><span data-element="Vin" class="miniPreviewInputs" style="color:dodgerblue;"></span>
+                                   </div>
+                               </div>
+                               <div class="col-12 mt-2">
+                                   <a style="text-decoration:none;" onClick="MiniPreview.DetailsToggler('hiddenDetails')" class="hover-darker">Show more...</a>
+                               </div>
+                           </div>
+                       </div>
+                   </div>
+                   <div class="row mt-5">
+                       <div class="col-12">
+                           <h5>Vehicle History</h5>
+                           <hr />
+                            <small>Before you decided buy this vehicle get to know about it's history. Download raport from our confidential partner</small>
+                        </div>
+                        <div class="col-6 p-2">
+                            <a class="btn btn-dark">Get raport</a>
+                        </div>
+                        <div class="col-6 pt-3">
+                            <img class="img-fluid" src="~/image/helpfull/CVlogo.png">
+                        </div>
+                   </div>
+                   <div class="row mt-5">
+                       <h5>Equipment</h5>
+                       <hr />
+                       <div class="row">
+                           <div id="equipmentContainer" class="miniPreviewInputs col-12"></div>
+                           <div class="col-12 mt-2">
+                                 <span onclick="MiniPreview.refreshContainer('toggle')" class="hover-darker">Show more...</span>
+                            </div>
+                           </div>
+                       </div>
+                       <div class="row mt-5">
+                            <h5>Description</h5>
+                            <hr />
+                            <p data-element="Description" class="miniPreviewInputs">
+                                 Your description
+                            </p>
+                       </div>
+
+                       <div class="row mt-5">
+                            <h5>Seller Information</h5>
+                            <hr />
+                            <h6 data-element="Name" class="miniPreviewInputs">Your name</h6>
+                            <div class="row mt-3">
+                                <div class="col-3 m-1 bg-primary text-light rounded-1 p-2 text-center">
+                                     <small><i class="bi bi-check-circle"></i> Private person</small>
+                                </div>
+                                <div class="col-4 m-1 bg-primary text-light rounded-1 p-2 text-center">
+                                    <small><i class="bi bi-check-circle"></i> Reply very quickly </small>
+                                </div>
+                                <div class="col-4 m-1 bg-primary text-light rounded-1 p-2 text-center">
+                                    <small><i class="bi bi-check-circle"></i> Register in 2018 </small>
+                                </div>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col-12">
+                                    <h6>Contact</h6>
+                                </div>
+                                 <div class="col-12">
+                                    <div class="bg-dark text-light p-2 rounded-2 text-center">
+                                        <h6 data-element="PhoneNumber" class="miniPreviewInputs">Your phone number</h6>
+                                    </div>
+                                </div>
+                                <div class="col-12 mt-2">
+                                    <div class="bg-info text-light p-2 rounded-2 text-center">
+                                        <h6> Write message</h6>
+                                    </div>
+                                </div>
+                                <div class="col-12 mt-">
+                                    <div class="p-2 rounded-2 text-center">
+                                        <span data-element="Location" class="miniPreviewInputs">
+                                            <i class="bi bi-geo-alt"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                       </div>
+
+                   </div>
+               </div>
+           </div>
+        </section>
+    </div>
+</div>
+
+
+@section Scripts
+{
+    <script src="~/js/Vehicles/Vehicle.js"></script>
+    <script src="~/js/Vehicles/Car.js"></script>
+    <script src="~/js/Vehicles/Motorcycle.js"></script>
+    <script src="~/js/Vehicles/Truck.js"></script>
+    <script src="~/js/CreateAnnouncementFormScripts.js"></script>
+    <script src="~/js/CreateAnnouncementMiniExampleScript.js"></script>
+}
