@@ -155,14 +155,14 @@ namespace AutoVertical_Model.Models
         //____________________________________________________________________________________________ Specific vehicle
 
 
-        /*public int? CarId { get;set;}
+        public int? CarId { get;set;}
         public Car Car{ get;set;}
 
         public int? TruckId { get;set;}
         public Truck Truck{ get;set;}
 
         public int? MotorcycleId { get;set;}
-        public Motorcycle Motorcycle{ get;set;}*/
+        public Motorcycle Motorcycle{ get;set;}
 
     }
 }
