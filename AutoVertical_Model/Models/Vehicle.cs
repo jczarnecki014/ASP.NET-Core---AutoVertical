@@ -1,4 +1,5 @@
 ﻿using AutoVertical_Utility.Attributes;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -24,7 +25,7 @@ namespace AutoVertical_Model.Models
         public string VehicleType { get;set;}
 
         [Required]
-        public bool Imported { get; set; }
+        public string Imported { get; set; }
 
         [DefaultValue(false)]
         public bool Damaged { get; set; }
@@ -35,13 +36,12 @@ namespace AutoVertical_Model.Models
         public string VinNumber{ get;set;}
 
         [Required]
-        [Range(10,1500,ErrorMessage="You should type value between 10 and 1500")]
         public int Milage { get;set;}
 
         [Required]
         public string VehicleRegistrationNumber { get;set;}
 
-        [Required]
+        [Required(ErrorMessage="This value is required")]
         [Range(1,31,ErrorMessage="You should type value between 1 and 31")]
         public int RegDay{ get;set;}
 
@@ -52,6 +52,7 @@ namespace AutoVertical_Model.Models
         [Required]
         [RangeUntilCurrentYearAttribute(1920)]
         public int RegYear{ get;set;}
+
 
         //____________________________________________________________________________________________ Technical data
 
@@ -69,6 +70,7 @@ namespace AutoVertical_Model.Models
         public string Fuel{ get;set;}
 
         [Required]
+        [Range(10,1500,ErrorMessage="You should type value between 10 and 1500")]
         public string Power{ get;set;}
 
         [Required]
@@ -76,6 +78,9 @@ namespace AutoVertical_Model.Models
 
         [Required]
         public string GearBox{ get;set;}
+
+        [Required]
+        public string? Drive { get; set; }
 
         public bool? Co2Emision{ get;set;}
 
@@ -89,11 +94,6 @@ namespace AutoVertical_Model.Models
 
         [Required]
         public string ColorType { get;set;}
-        [Required]
-        public int GalleryId{ get;set;}
-
-        [ForeignKey("GalleryId")]
-        public ImgGallery Gallery{ get;set;}
 
         //____________________________________________________________________________________________ Vehicle description
 
@@ -156,12 +156,15 @@ namespace AutoVertical_Model.Models
 
 
         public int? CarId { get;set;}
+        [ValidateNever]
         public Car Car{ get;set;}
 
         public int? TruckId { get;set;}
+        [ValidateNever]
         public Truck Truck{ get;set;}
 
         public int? MotorcycleId { get;set;}
+        [ValidateNever]
         public Motorcycle Motorcycle{ get;set;}
 
     }

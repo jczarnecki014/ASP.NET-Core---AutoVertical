@@ -121,8 +121,7 @@
         }
  
     updateSelectAndTextInputs(event){
-        if(event.target.id == "RegDay" || event.target.id == "RegMon" || event.target.id == "RegYear"){
-            console.log(this.infoList[4].value != "" && this.infoList[5].value != "" && this.infoList[6].value != "");
+        if(event.target.id == "RegDay" || event.target.id == "RegMon" || event.target.id == "RegYear"){;
             if(this.infoList[4].value != "" && this.infoList[5].value != "" && this.infoList[6].value != ""){
                 this.miniPreviewInputsList[23].textContent = this.infoList[4].value + "/" + this.infoList[5].value + "/" + this.infoList[6].value
                 return;
@@ -146,9 +145,8 @@
                     element.textContent = event.target.value.substring(0,4000);
                 }
                 else if(event.target.type == "checkbox"){
-                    console.log("test");
                     if(event.target.checked  == true){
-                        element.textContent = event.target.value;
+                        element.textContent = event.target.dataset.value;
                     }
                     else{
                         element.textContent = "";
@@ -167,7 +165,7 @@
 
             let div = document.createElement("div");
             div.classList.add("col-12");
-            div.innerHTML = `${i} ${event.target.value}`
+            div.innerHTML = `${i} ${event.target.dataset.value}`
             div.dataset.Id = this.EquipmentListId;
             this.EquipmentListId++;
             MiniPreview.ActiveEquipmentArray.push(div);

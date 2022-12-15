@@ -17,5 +17,6 @@
         this.fuel = ["Petrol","LPG","CNG","Diesel","Electric","LNG"] ;
         this.gearBox = ["Automatic","Manual"];
         this.bodyType = ["Box","Cab and chassis","Chassis-mounted camper","Crew cab","Crew-cab service truck","Cube van","Dump","Extended cab"]
+        this.drive = ["Rear-wheel drive","4x4"]
 }
 }

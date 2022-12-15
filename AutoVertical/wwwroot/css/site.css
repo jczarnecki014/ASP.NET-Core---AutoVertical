@@ -34,3 +34,10 @@ h5{
 .hiddenElement{
     display:none;
 }
+
+.shadow-hover:hover {
+    cursor: pointer;
+    /*box-shadow: 8px 8px 24px 0px rgba(66, 68, 90, 1);*/
+    box-shadow: 8px 8px 24px 0px rgba(23, 62, 88, 1);
+    transition: box-shadow 300ms;
+}

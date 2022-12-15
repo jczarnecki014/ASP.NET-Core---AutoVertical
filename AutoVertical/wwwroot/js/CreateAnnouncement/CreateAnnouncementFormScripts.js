@@ -1,4 +1,4 @@
-﻿
+
 class FormHandler{
     constructor([...selectList]){
         this.specificSelectList = selectList.filter(element=>element.classList.contains("specific"));
@@ -6,6 +6,20 @@ class FormHandler{
             return !this.specificSelectList.includes(element);
         })
         this.activeInputsOfVehicle = document.querySelectorAll(".car");
+    }
+    static FileInputIsNotEmpty(){
+        if(document.querySelector("#filesInput").value == ""){
+            Swal.fire({
+                icon: 'error',
+                title: 'Files ERROR',
+                text: `The minimum number of images is 1 !`,
+                footer: '<a href="">Why do I have this issue?</a>'
+              })
+              return false;
+        }
+        else{
+            return true;
+        }
     }
     SetEventListener(){
         this.commonSelectList[0].addEventListener("change",(event)=>{this.SetVehicle(event.target.value)})
@@ -30,38 +44,75 @@ class FormHandler{
         }
         textLengthSpan.textContent = e.target.value.length;
     }
+
     ShowUserIMG(e){
-        let test = "test";
+
         if (window.File && window.FileReader && window.FileList && window.Blob) {
-            const files = e.target.files;
-            const output = document.querySelector("#output");
-            const imgSRC = [];
-            output.innerHTML = "";
-            
-            for(let i=0; i < files.length; i++){
-                if(!files[i].type.match("image")) continue;
-                const imgReader = new FileReader();
-                // imageGalery[i] = "tekst";
-                imgReader.addEventListener("load",(event)=>{
-                    const imgFile = event.target;
-                    const div = document.createElement("div");
-                    div.classList.add("col-lg-4");
-                    div.classList.add("mb-3");
-                    const img = document.createElement("img");
-                    img.classList.add("img-thumbnail");
-                    img.src = imgFile.result;
-                    imgSRC.push(img.src);
-                    div.appendChild(img);
-                    output.appendChild(div);
-                    if(i == files.length-1){
-                        new MiniPreview().setGallery('userVehicle',imgSRC)
-                    }
-                })
-                imgReader.readAsDataURL(files[i]);
+            let fileInputError = this.CheckFileValidation(e); 
+            if(fileInputError == "" )
+            {
+                const files = e.target.files;
+                const output = document.querySelector("#output");
+                const imgSRC = [];
+                output.innerHTML = "";
+                
+                for(let i=0; i < files.length; i++){
+                    if(!files[i].type.match("image")) continue;
+                    const imgReader = new FileReader();
+                    // imageGalery[i] = "tekst";
+                    imgReader.addEventListener("load",(event)=>{
+                        const imgFile = event.target;
+                        const div = document.createElement("div");
+                        div.classList.add("col-lg-4");
+                        div.classList.add("mb-3");
+                        const img = document.createElement("img");
+                        img.classList.add("img-thumbnail");
+                        img.src = imgFile.result;
+                        imgSRC.push(img.src);
+                        div.appendChild(img);
+                        output.appendChild(div);
+                        if(i == files.length-1){
+                            new MiniPreview().setGallery('userVehicle',imgSRC)
+                        }
+                    })
+                    imgReader.readAsDataURL(files[i]);
+                }
+            }
+            else{
+                e.target.value = "";
+                output.innerHTML = "";
+                let activeVehicle = this.commonSelectList[0].value; // recive value from first input ( type of vehicle ) to change slider in minipreview
+                new MiniPreview().setGallery(activeVehicle)
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Files ERROR',
+                    text: `${fileInputError}`,
+                    footer: '<a href="">Why do I have this issue?</a>'
+                  })
             }
           } else {
             alert("Your browser does not support File API");
           }
+    }
+    CheckFileValidation(e){
+            let Error = "";
+            if(e.target.files.length > 12)
+            {
+                Error = "The maxium number of images is 12 !";
+            }
+            var files = [...e.target.files]
+            files.forEach(file => {
+                if(!file.name.includes(".png") && !file.name.includes(".jpg") && !file.name.includes(".jpeg") )
+                {
+                    Error = "AutoVertical allow only images. Please select only (.png .jpg .jpeg) files";
+                    
+                }
+                else if(file.size > 1572864)
+                {
+                    Error = "File size is greater than 1.5MB please reduce size of the images by decrease resolution";
+                }
+            });
+            return Error
     }
     SetVehicle(event){
         this.SwitchInputs(event)
@@ -85,6 +136,8 @@ class FormHandler{
 
             let defaultOption = document.createElement("option");
             defaultOption.innerHTML = "-- Select --"
+            defaultOption.disabled = true;
+            defaultOption.selected = true;
 
             selectTag.appendChild(defaultOption);
             values.forEach(element => {

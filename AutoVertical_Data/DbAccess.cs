@@ -14,6 +14,7 @@ namespace AutoVertical_Data
         DbSet<Car> Cars{ get; set;}
         DbSet<Truck> Trucks{ get; set; }
         DbSet<Motorcycle> Motorcycles{ get; set;}
+        DbSet<ImgGallery> ImgGallery{ get; set; }
 
     }
 }

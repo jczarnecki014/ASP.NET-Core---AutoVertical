@@ -11,15 +11,12 @@ namespace AutoVertical_Model.Models
     {
         [Key]
         public int Id { get; set; }
+
         [Required]
-        public string imgOneUrl { get;set; }
-        public string? imgTwoUrl { get;set; }
-        public string? imgThreeUrl { get;set; }
-        public string? imgFourUrl { get;set; }
-        public string? imgFiveUrl { get;set;}
-        public string? imgSixUrl { get;set;}
-        public string? imgSevenUrl { get;set;}
-        public string? imgEightUrl { get;set;}
+        public int VehicleId { get; set; }
+
+        [Required]
+        public string Name { get;set; }
     }
     
 }

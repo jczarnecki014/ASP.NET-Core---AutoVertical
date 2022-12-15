@@ -29,8 +29,6 @@ namespace AutoVertical_Model.Models
 
         [Required]
         public int NumberOfSeats{ get;set; }
-        [Required]
-       public string Drive { get; set; }
 
         //____________________________________________________________________________________________ Specify vehicle equipemnt
 

@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/AnnouncementVehicleTypes.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/AutoVertical.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
 </head>
 <body>
     <header>
@@ -30,7 +31,7 @@
                             <a href="#" class="nav-link"><span class="badge text-bg-danger">NEW</span>&nbsp;Funding by <span style="color:#22a6b3; font-weight:bold;">AutoVertical</span></a>
                         </li>
                         <li class="nav-item mx-2">
-                            <a href="https://www.auto-swiat.pl/" class="nav-link">Moto News</a>
+                            <a asp-area="customer" asp-controller="Home" asp-action="StartSellingMenu" class="nav-link">Moto News</a>
                         </li>
                         <li class="nav-item mx-2">
                             <a href="https://www.facebook.com/" class="nav-link"><i class="bi bi-dribbble"></i>Socials</a>
@@ -39,18 +40,16 @@
                             <a href="#" class="nav-link"><i class="bi bi-person"></i>Login | Register</a>
                         </li>
                         <li class="nav-item mx-2">
-                            <a asp-area="customer" asp-controller="Home" asp-action="StartSellingMenu" style="width: 200px;" class="text-light btn btn-primary"><i class="bi bi-arrow-left"></i>&nbsp; Start Selling</a>
+                            <a asp-area="customer" asp-controller="Announcement" asp-action="ShowAnnouncement" style="width: 200px;" class="text-light btn btn-primary"><i class="bi bi-arrow-left"></i>&nbsp; Start Selling</a>
                         </li>
                     </ul>
                 </div>
             </div>
         </nav>
     </header>
-    <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
-    </div>
 
     <footer class="border-top footer text-muted">
         <div class="container">

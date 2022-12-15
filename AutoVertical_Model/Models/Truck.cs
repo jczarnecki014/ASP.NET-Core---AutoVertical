@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -24,17 +25,17 @@ namespace AutoVertical_Model.Models
 
         //____________________________________________________________________________________________ Technical data
 
-        [Required]
+
         [Range(2,3, ErrorMessage = "Please type a correct value")]
         public int NumberOfAxles { get; set; }
 
         //____________________________________________________________________________________________ Cargo
 
-        [Required]
+        
         [Range(5000,40000, ErrorMessage = "Please type a correct value")]
         public int AllowPackage { get; set; }
 
-        [Required]
+        
         [Range(5000,50000, ErrorMessage = "Please type a correct value")]
         public int PermissibleGrossWeight { get; set; }
 
@@ -45,6 +46,9 @@ namespace AutoVertical_Model.Models
 
         [DefaultValue(false)]
         public bool ABS{ get;set;}
+
+        [DefaultValue(false)]
+        public bool ASR{ get;set;}
         
         [DefaultValue(false)]
         public bool Alarm{ get;set;}
@@ -65,7 +69,7 @@ namespace AutoVertical_Model.Models
         public bool DVD{ get;set;}
 
         [DefaultValue(false)]
-        public bool ElectrisGlasses{ get;set;}
+        public bool ElectrisWindows{ get;set;}
 
         [DefaultValue(false)]
         public bool ESP{ get;set;}

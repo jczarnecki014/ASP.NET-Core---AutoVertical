@@ -23,6 +23,9 @@
     <Folder Include="Areas\Admin\Data\" />
     <Folder Include="Areas\Admin\Models\" />
     <Folder Include="Areas\Admin\Views\" />
+    <Folder Include="wwwroot\image\advertisements\medium\" />
+    <Folder Include="wwwroot\image\advertisements\small\" />
+    <Folder Include="wwwroot\image\tempAnnouncement\" />
   </ItemGroup>
 
   <ItemGroup>

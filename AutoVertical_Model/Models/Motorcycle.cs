@@ -14,9 +14,6 @@ namespace AutoVertical_Model.Models
        [Key]
        public int Id { get; set; }
 
-       [Required]
-       public string Drive { get; set; }
-
        //____________________________________________________________________________________________ Specify vehicle equipemnt
 
         [DefaultValue(false)]

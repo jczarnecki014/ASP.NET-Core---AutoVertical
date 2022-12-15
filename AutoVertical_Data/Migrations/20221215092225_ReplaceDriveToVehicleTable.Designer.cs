@@ -4,6 +4,7 @@ using AutoVertical_Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AutoVerticalData.Migrations
 {
     [DbContext(typeof(DbAccess))]
-    partial class DbAccessModelSnapshot : ModelSnapshot
+    [Migration("20221215092225_ReplaceDriveToVehicleTable")]
+    partial class ReplaceDriveToVehicleTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -230,12 +233,30 @@ namespace AutoVerticalData.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Name")
+                    b.Property<string>("imgEightUrl")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("imgFiveUrl")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("imgFourUrl")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("imgOneUrl")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("VehicleId")
-                        .HasColumnType("int");
+                    b.Property<string>("imgSevenUrl")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("imgSixUrl")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("imgThreeUrl")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("imgTwoUrl")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -284,9 +305,6 @@ namespace AutoVerticalData.Migrations
                     b.Property<bool>("ABS")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("ASR")
-                        .HasColumnType("bit");
-
                     b.Property<bool>("AdjustableSuspension")
                         .HasColumnType("bit");
 
@@ -326,7 +344,7 @@ namespace AutoVerticalData.Migrations
                     b.Property<bool>("ESP")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("ElectrisWindows")
+                    b.Property<bool>("ElectrisGlasses")
                         .HasColumnType("bit");
 
                     b.Property<bool>("FactoryRadio")
@@ -457,13 +475,15 @@ namespace AutoVerticalData.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("GalleryId")
+                        .HasColumnType("int");
+
                     b.Property<string>("GearBox")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Imported")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<bool>("Imported")
+                        .HasColumnType("bit");
 
                     b.Property<bool>("Leasing")
                         .HasColumnType("bit");
@@ -535,6 +555,8 @@ namespace AutoVerticalData.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CarId");
+
+                    b.HasIndex("GalleryId");
 
                     b.HasIndex("MotorcycleId");
 
@@ -747,6 +769,12 @@ namespace AutoVerticalData.Migrations
                         .WithMany()
                         .HasForeignKey("CarId");
 
+                    b.HasOne("AutoVertical_Model.Models.ImgGallery", "Gallery")
+                        .WithMany()
+                        .HasForeignKey("GalleryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("AutoVertical_Model.Models.Motorcycle", "Motorcycle")
                         .WithMany()
                         .HasForeignKey("MotorcycleId");
@@ -756,6 +784,8 @@ namespace AutoVerticalData.Migrations
                         .HasForeignKey("TruckId");
 
                     b.Navigation("Car");
+
+                    b.Navigation("Gallery");
 
                     b.Navigation("Motorcycle");
 
