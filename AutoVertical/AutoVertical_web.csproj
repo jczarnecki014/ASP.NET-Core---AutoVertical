@@ -25,6 +25,7 @@
     <Folder Include="Areas\Admin\Views\" />
     <Folder Include="wwwroot\image\advertisements\medium\" />
     <Folder Include="wwwroot\image\advertisements\small\" />
+    <Folder Include="wwwroot\image\PriceEstimateIcons\" />
     <Folder Include="wwwroot\image\tempAnnouncement\" />
   </ItemGroup>
 

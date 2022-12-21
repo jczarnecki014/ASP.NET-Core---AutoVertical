@@ -317,8 +317,9 @@ namespace AutoVerticalData.Migrations
                     b.Property<bool>("DVD")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("DoubleRearWheels")
-                        .HasColumnType("bit");
+                    b.Property<string>("DoubleRearWheels")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("Drive4x4")
                         .HasColumnType("bit");
@@ -353,8 +354,9 @@ namespace AutoVerticalData.Migrations
                     b.Property<bool>("MultifunctionSteeringWheel")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("NonStandarVehicle")
-                        .HasColumnType("bit");
+                    b.Property<string>("NonStandarVehicle")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("NotFactoryRadio")
                         .HasColumnType("bit");
@@ -481,9 +483,8 @@ namespace AutoVerticalData.Migrations
                     b.Property<bool>("NoAccident")
                         .HasColumnType("bit");
 
-                    b.Property<string>("Power")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Power")
+                        .HasColumnType("int");
 
                     b.Property<int>("PriceBrutto")
                         .HasColumnType("int");
@@ -743,23 +744,23 @@ namespace AutoVerticalData.Migrations
 
             modelBuilder.Entity("AutoVertical_Model.Models.Vehicle", b =>
                 {
-                    b.HasOne("AutoVertical_Model.Models.Car", "Car")
+                    b.HasOne("AutoVertical_Model.Models.Car", "car")
                         .WithMany()
                         .HasForeignKey("CarId");
 
-                    b.HasOne("AutoVertical_Model.Models.Motorcycle", "Motorcycle")
+                    b.HasOne("AutoVertical_Model.Models.Motorcycle", "motorcycle")
                         .WithMany()
                         .HasForeignKey("MotorcycleId");
 
-                    b.HasOne("AutoVertical_Model.Models.Truck", "Truck")
+                    b.HasOne("AutoVertical_Model.Models.Truck", "truck")
                         .WithMany()
                         .HasForeignKey("TruckId");
 
-                    b.Navigation("Car");
+                    b.Navigation("car");
 
-                    b.Navigation("Motorcycle");
+                    b.Navigation("motorcycle");
 
-                    b.Navigation("Truck");
+                    b.Navigation("truck");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

@@ -17,11 +17,11 @@ namespace AutoVertical_Model.Models
 
         //____________________________________________________________________________________________ Main quality
 
-        [DefaultValue(false)]
-        public bool NonStandarVehicle { get; set; }
+        [DefaultValue("No")]
+        public string NonStandarVehicle { get; set; }
 
-        [DefaultValue(false)]
-        public bool DoubleRearWheels { get; set; }
+        [DefaultValue("No")]
+        public string DoubleRearWheels { get; set; }
 
         //____________________________________________________________________________________________ Technical data
 

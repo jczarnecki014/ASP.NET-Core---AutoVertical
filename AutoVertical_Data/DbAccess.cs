@@ -10,11 +10,11 @@ namespace AutoVertical_Data
         public DbAccess(DbContextOptions<DbAccess> options):base(options)
         {
         }
-        DbSet<Vehicle> Vehicles{ get; set; }
-        DbSet<Car> Cars{ get; set;}
-        DbSet<Truck> Trucks{ get; set; }
-        DbSet<Motorcycle> Motorcycles{ get; set;}
-        DbSet<ImgGallery> ImgGallery{ get; set; }
+        public DbSet<Vehicle> Vehicles{ get; set; }
+        public DbSet<Car> Cars{ get; set;}
+        public DbSet<Truck> Trucks{ get; set; }
+        public  DbSet<Motorcycle> Motorcycles{ get; set;}
+        public  DbSet<ImgGallery> ImgGallery{ get; set; }
 
     }
 }

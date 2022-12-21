@@ -14,4 +14,8 @@
     <ProjectReference Include="..\AutoVertical_Utility\AutoVertical_Utility.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Models\Viewmodels\" />
+  </ItemGroup>
+
 </Project>

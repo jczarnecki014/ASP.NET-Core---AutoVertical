@@ -1,4 +1,6 @@
-﻿<section name="advertisement" class="container-fluid advertisement-lg">
+﻿@using AutoVertical_Model.Models;
+@model Vehicle
+<section name="advertisement" class="container-fluid advertisement-lg">
     <div style="max-height:300px;" class="row">
         <div class="p-0">
             <img style="max-height:300px;" src="~/image/advertisements/large/example_one.png" class="img-fluid w-100"/>
@@ -8,47 +10,403 @@
 
 <section name="Announcement" class="container mt-5">
     <div class="row">
-        <section name="VehicleDetails" class="col-lg-9">
+           <div class="col-12 text-end">
+                   <a id="observerBtn" class="btn hover-darker"><i class="bi bi-heart h5"></i> Observe</a>
+            </div>
+    </div>
+    <div class="row">
+        <section name="AnnouncementDetails" class="col-lg-9">
             <section name="UsedFilter">
                 <div class="row">
                     <div style="color:dodgerblue" class="col-12">
-                        <span>Vehicle Type</span> / <span>Body Type</span> / <span>Brand</span> / <span>Model</span>
+                        <span class="hover-darker">@Model.VehicleType</span> / <span class="hover-darker">@Model.BodyType</span> / <span class="hover-darker">@Model.Brand</span> / <span class="hover-darker">@Model.Model</span>
                     </div>
                 </div>
             </section>
             <section name="Slider" class="mt-3">
                 <div class="row">
-                    <div id="MainPicture" class="col-12">
+                    <div id="MainContainer" class="col-12">
                         <div id="MainPictureFrame" class="row bg-light">
-                            <div class="col-2 d-flex justify-content-center align-items-center">
+                            <div id="LeftArrow" class="col-2 d-flex justify-content-center align-items-center">
                                 <i class="bi bi-arrow-left-square h1"></i>
                             </div>
                             <div class="col-8">
-                                <img style="box-shadow: 8px 8px 24px 0px rgba(66, 68, 90, 1);" id="ActivePicture" class="img-fluid" src="~/image/tempAnnouncement/ef609408-50c9-4d34-847c-24fec71f1532.jpg" />
+                                <img id="MainPicture" style="box-shadow: 8px 8px 24px 0px rgba(66, 68, 90, 1);" id="ActivePicture" class="img-fluid" src="" />
                             </div>
-                            <div class="col-2 d-flex justify-content-center align-items-center">
-                                <i class="bi bi-arrow-bar-right h1"></i>
+                            <div id="RightArrow" class="col-2 d-flex justify-content-center align-items-center">
+                                <i class="bi bi-arrow-right-square h1"></i>
                             </div>
                         </div>
                     </div>
                     <div id="PicturesCarousel" class="col-12 d-none d-lg-block">
                         <div id="Carousel" class="row mt-2">
-                            <div class="col-2"><img class="img-thumbnail shadow-hover" src="~/image/tempAnnouncement/4bc0897e-8679-4269-9ed5-b419716f6fe2.jpg" /></div>
-                            <div class="col-2"><img class="img-thumbnail shadow-hover" src="~/image/tempAnnouncement/4fe97830-69d7-482f-be2f-00600d307cb4.jpg" /></div>
-                            <div class="col-2"><img class="img-thumbnail shadow-hover" src="~/image/tempAnnouncement/5de21388-e182-4025-b563-3d87d717abef.jpg" /></div>
-                            <div class="col-2"><img class="img-thumbnail shadow-hover" src="~/image/tempAnnouncement/6f0bb20a-c48c-48f5-8af8-c507a541655d.jpg" /></div>
-                            <div class="col-2"><img class="img-thumbnail shadow-hover" src="~/image/tempAnnouncement/661ad1d1-256c-48fe-b42d-aa8e2cccdd54.jpg" /></div>
-                            <div class="col-2"><img class="img-thumbnail shadow-hover" src="~/image/tempAnnouncement/5613d047-f030-4465-8f21-44de6c9e7ba0.jpg" /></div>
+                            <div class="col-2"><img class="veh-img-thumb img-thumbnail shadow-hover"/></div>
+                            <div class="col-2"><img class="veh-img-thumb img-thumbnail shadow-hover"/></div>
+                            <div class="col-2"><img class="veh-img-thumb img-thumbnail shadow-hover"/></div>
+                            <div class="col-2"><img class="veh-img-thumb img-thumbnail shadow-hover"/></div>
+                            <div class="col-2"><img class="veh-img-thumb img-thumbnail shadow-hover"/></div>
+                            <div class="col-2"><img class="veh-img-thumb img-thumbnail shadow-hover"/></div>
                         </div>
                     </div>
                 </div>
             </section>
+            <section name="AnnouncementDateSection" class="mt-2">
+                <div class="row">
+                    <div class="col-4">
+                        <small id="announcementTime">HH:MM</small>, &&nbsp; <small id="announcementDate">DD MONTH YEAR</small>
+                    </div>
+                    <div class="col-3"></div>
+                    <div class="col-5 p-2 text-end mb-2">
+                        <small class="hover-darker">Add similar announcement</small>
+                        &nbsp;
+                        <small class="hover-darker"><i class="bi bi-flag-fill"></i> Report announcement</small>
+                    </div>
+                    <hr/>
+
+                </div>
+                </section>
+            <section name="VehicleDetails" class="mt-3">
+                <div class="row">
+                    <div class="col-12 my-3">
+                        <h3>Details</h3>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="row">
+                            <div class="col-12">Offer from:<span class="hover-darker"> detail</span></div>
+                            <div class="col-12">Vehicle Type:<span class="hover-darker"> @Model.VehicleType</span></div>
+                            <div class="col-12">Brand:<span class="hover-darker"> @Model.Brand</span></div>
+                            <div class="col-12">Model:<span class="hover-darker"> @Model.Model</span></div>
+                            <div class="col-12">Production year:<span class="hover-darker"> @Model.ProductionYear</span></div>
+                            <div class="col-12">Mileage:<span class="hover-darker"> @Model.Milage</span></div>
+                            <div class="col-12">Cubic capacity:<span class="hover-darker">@Model.CubicCapacity </span></div>
+                            <div class="col-12">Fuel:<span class="hover-darker"> @Model.Fuel</span></div>
+                            <div class="col-12">Power:<span class="hover-darker"> @Model.Power</span></div>
+                            <div class="col-12">Country of origin:<span class="hover-darker"> @Model.CountryOfOrigin</span></div>
+                            @if(Model.truck !=null)
+                            {
+                                <div class="col-12">Permissible Gross Weight:<span class="hover-darker"> @Model.truck.PermissibleGrossWeight</span></div>
+                                <div class="col-12">Allow Package:<span class="hover-darker"> @Model.truck.AllowPackage</span></div>
+                            }
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="row">
+                            <div class="col-12">Drive:<span class="hover-darker"> @Model.Drive</span></div>
+                            <div class="col-12">Body Type:<span class="hover-darker"> @Model.BodyType</span></div>
+                            @if(Model.car !=null)
+                            {
+                                 <div class="col-12">Number of door:<span class="hover-darker"> @Model.car.NumberOfDoor</span></div>
+                                 <div class="col-12">Number of seats:<span class="hover-darker"> @Model.car.NumberOfSeats</span></div>
+                            }
+                            else if(Model.truck !=null)
+                            {
+                                <div class="col-12">Number of axles:<span class="hover-darker"> @Model.truck.NumberOfAxles</span></div>
+                                <div class="col-12">Non standard vehicle:<span class="hover-darker"> @Model.truck.NonStandarVehicle</span></div>
+                                <div class="col-12">Double rear wheels:<span class="hover-darker"> @Model.truck.DoubleRearWheels</span></div>
+                            }
+                            <div class="col-12">Color:<span class="hover-darker"> @Model.Color</span></div>
+                            <div class="col-12">VAT:<span class="hover-darker"> @Model.VAT</span></div>
+                            <div class="col-12">First Register:<span class="hover-darker"> @Model.RegDay/@Model.RegMonth/@Model.RegYear</span></div>
+                            <div class="col-12">Register number:<span class="hover-darker"> @Model.VehicleRegistrationNumber</span></div>
+                            <div class="col-12">No accident:<span class="hover-darker"> @Model.NoAccident</span></div>
+                            <div class="col-12">ASO Serviced:<span class="hover-darker"> @Model.AsoServiced</span></div>
+                            <div class="col-12">Vin Number:<span class="hover-darker"> @Model.VinNumber</span></div>
+                        </div>
+                    </div>
+                </div>
+                </section>
+
+                <hr />
+
+                <section name="VehicleHistory" class="mt-5">
+                      <div class="row">
+                           <div class="col-12">
+                               <h3>Vehicle History</h3>
+
+                                <small>Before you decided buy this vehicle get to know about it's history. Download raport from our confidential partner</small>
+                            </div>
+                            <div class="col-10 p-3">
+                                <a href="https://www.autodna.pl/vin/@Model.VinNumber" target="_blank" class="btn btn-dark px-5">Get raport</a>
+                            </div>
+                            <div class="col-2 pt-3">
+                                <img class="img-fluid" src="~/image/helpfull/CVlogo.png">
+                            </div>
+                      </div>
+                </section>
+
+                <hr />
+
+                <section  name="VehicleEquipment" class="mt-5">
+                    <div class="row">
+                        <div class="col-12">
+                            <h3>Equipment</h3>
+                        </div>
+                        @foreach (var equipment in ViewBag.EquipmentList)
+                        {
+                            <div class="col-lg-4">
+                                <i class="bi bi-check-circle"></i> @equipment
+                            </div>
+                        }
+                    </div>
+                </section>
+
+                <hr />
+
+                <section name="VehicleDescription" class="mt-5">
+                    <div class="row">
+                        <div class="col-12">
+                            <h3>Description</h3>
+                            <p>
+                            @Model.Description
+                            </p>
+                        </div>
+                    </div>
+                </section>
+
+                 <hr />
+                 
+                 <section name="VehiclePriceEstimation">
+                     <div class="row">
+                         <div class="col-lg-3 p-3">
+                             <div class="row">
+                                 <div class="col-12 text-center bg-primary rounded-3 text-light p-3 border border-3">
+                                     Price of this car is <br />
+                                     <span id="AveragePriceStatus">Bellow average:</span> <br />
+                                     <span id="AveragePrice"><b>120 000 - 250 00</b></span><br />
+                                     for similar vehcile on AutoVertical
+                                </div>
+                                <div class="col-12 d-flex justify-content-center mt-3">
+                                    <img id="AveragePriceImg" class="img-fluid" src="~/image/PriceEstimateIcons/good_price.png" width="100px" />
+                                </div>
+                             </div>
+                         </div>
+                         <div class="col-lg-9 p-4">
+                             <h5>Price estimate <span class="badge bg-success">New model</span> </h5>
+                             <h6>How the price is calculated</h6>
+                             <p>We analize over 12 feauture of vehicles and compare with similar announcements publicated in Auto Vertical in the last 6 months </p>
+                             <span>To calculate we include:</span>
+                             <div class="row">
+                                 <div class="col-lg-4">
+                                     <i class="bi bi-check2  h1 text-primary"></i> Brand/model
+                                 </div>
+                                 <div class="col-lg-4">
+                                     <i class="bi bi-check2  h1 text-primary"></i> Production Year
+                                 </div>
+                                 <div class="col-lg-4">
+                                     <i class="bi bi-check2  h1 text-primary"></i> Mileage
+                                 </div>
+                                 <div class="col-lg-4">
+                                     <i class="bi bi-check2  h1 text-primary"></i> Fuel
+                                 </div>
+                                 <div class="col-lg-4">
+                                     <i class="bi bi-check2 h1 text-primary"></i> Engine size and power
+                                 </div>
+                                 <div class="col-lg-4">
+                                     <i class="bi bi-check2  h1 text-primary"></i> Gearbox 
+                                 </div>
+                             </div>
+                         </div>
+                     </div>
+                 </section>
+                 
+                 <hr />
+
+                 <section name="SellerInfo" class="mt-5">
+                     <div class="row">
+                         <div class="col-12">
+                             <h3>Seller information</h3>
+                         </div>
+                         <div class="col-12 p-3">
+                             <i class="bi bi-check2-circle text-primary"></i> Private preson
+                             <i class="bi bi-person text-primary"></i> Registered on Auto Vertiacl in
+                         </div>
+                         <div class="col-12 p-3">
+                             <h6>Contact</h6>
+                             <button id="PhoneBtn" class="btn btn-primary p-3 mt-3">
+                                 <i class="bi bi-telephone"></i> 503 201 833
+                             </button> 
+                             <button class="btn btn-outline-primary p-2 m-3 mt-4">
+                                 <i class="bi bi-chat-right-dots-fill"></i> &nbsp; Write a message
+                             </button>
+                         </div>
+                         <div class="col-12 text-primary mt-4">
+                             <h6 class="text-dark">Adress</h6>
+                             <i class="bi bi-geo-alt text-black"></i> &nbsp; City, Adress
+                         </div>
+                     </div>
+                 </section>
+
+                 <hr />
+
+                 <section name="SimillarAnnouncement" class="mt-5">
+                     <div class="row">
+                         <div class="col-12 mb-4">
+                             <h3>Similar announcements</h3>
+                         </div>
+                         <div class="col-lg-3">
+                             <div class="card">
+                                 <img style="max-height:170px" src="~/image/tempAnnouncement/5d761fa8-eff9-4173-a117-505909a72ce2.jpg" class="card-img-top">
+                                 <div class="card-body">
+                                     <h5>Announcement title</h5>
+                                     <h4 class="text-danger">9999 <sub>PLN</sub></h4>
+                                     <hr />
+                                     <small>2022</small> 
+                                     <i style="font-size:7px" class="bi bi-circle p-2"></i>
+                                     <small>45 000 km</small>
+                                 </div>
+                             </div>
+                         </div>
+                         <div class="col-lg-3">
+                             <div class="card">
+                                 <img style="max-height:170px" src="~/image/tempAnnouncement/67aecbad-bd7e-4656-9e12-a13d997928c6.jpg" class="card-img-top">
+                                 <div class="card-body">
+                                     <h5>Announcement title</h5>
+                                     <h4 class="text-danger">9999 <sub>PLN</sub></h4>
+                                     <hr />
+                                     <small>2022</small>
+                                     <i style="font-size:7px" class="bi bi-circle p-2"></i>
+                                     <small>45 000 km</small>
+                                 </div>
+                             </div>
+                         </div>
+                         <div class="col-lg-3">
+                             <div class="card">
+                                 <img style="max-height:170px" src="~/image/tempAnnouncement/a11c3d34-9863-45fb-b755-ca5cd96be571.jpg" class="card-img-top">
+                                 <div class="card-body">
+                                     <h5>Announcement title</h5>
+                                     <h4 class="text-danger">9999 <sub>PLN</sub></h4>
+                                     <hr />
+                                     <small>2022</small>
+                                     <i style="font-size:7px" class="bi bi-circle p-2"></i>
+                                     <small>45 000 km</small>
+                                 </div>
+                             </div>
+                         </div>
+                         <div class="col-lg-3">
+                             <div class="card">
+                                 <img style="max-height:170px" src="~/image/tempAnnouncement/aaa33fa7-a368-448c-878c-84465d503a2d.jpg" class="card-img-top">
+                                 <div class="card-body">
+                                     <h5>Announcement title</h5>
+                                     <h4 class="text-danger">9999 <sub>PLN</sub></h4>
+                                     <hr />
+                                     <small>2022</small>
+                                     <i style="font-size:7px" class="bi bi-circle p-2"></i>
+                                     <small>45 000 km</small>
+                                 </div>
+                             </div>
+                         </div>
+                     </div>
+                 </section>
+
+                 <section name="googleAdvertisement" class="mt-5">
+                     <div class="row border">
+                         <div class="col-12 d-flex justify-content-center">
+                             <img style="width:250px" class="img-fluid" src="https://pozeo.pl/wp-content/uploads/2019/12/google-ads.jpg" />
+                         </div>
+                     </div>
+                 </section>
+
         </section>
 
          <section name="VehicleBasic" class="col-lg-3">
-            222222222222222222222222222222222222222222
+            <div class="row p-4">
+                <section name="VehicleBasicInfo">
+                    <div class="row mb-4">
+                        <h3>@Model.Title</h3>
+                        <div class="col-lg-2"><small>@Model.ProductionYear</small></div>
+                        <div class="col-lg-5"><small>@Model.Milage</small></div>
+                        <div class="col-lg-3"><small>@Model.Fuel</small></div>
+                        <div class="col-lg-2"><small>@Model.BodyType</small></div>
+                        <div class="col-lg-12 mt-2">
+                             <h3 class="text-danger"> @Model.PriceBrutto PLN</h3>
+                        </div>
+                        <div class="col-lg-2 small">Vat</div>
+                        <div class="col-lg-4 small">Leasing</div>
+                        <div class="col-lg-6 small">To Negotiate</div>
+                    </div>
+                </section>
+
+                <hr />
+
+                <section name="FundingSection" class="mt-4">
+                    <div class="row">
+                        <div class="col-lg-4 d-flex align-items-center">
+                            <img src="~/image/helpfull/search.jpg" class="img-fluid" />
+                        </div>
+                        <div class="col-lg-8">
+                                <div class="col-12">
+                                    <h6> Auto Vertical founding</h6>
+                                </div>
+                                <div class="col-12 small">We invite you to find out more about our founding proposition. </div>
+                        </div>
+                        <a class="col-12 btn btn-outline-success mt-2">
+                            Find out more..
+                        </a>
+                    </div>
+                </section>
+
+                <section name="SellerInformation" class="mt-4">
+                    <div class="row">
+                        <div class="card">
+                            <div class="row p-3">
+                                <div class="col-lg-4">
+                                    <img src="~/image/helpfull/verificated.png" class="img-fluid" />
+                                </div>
+                                <div class="col-lg-8 d-flex align-items-center">
+                                    <h5>User name</h5>
+                                </div>
+                                <div class="col-lg-12 mt-4">
+                                    <i class="bi bi-person-fill text-primary"></i> &nbsp Private Person
+                                </div>
+                                <div class="col-lg-12">
+                                    <i class="bi bi-calendar-check-fill text-primary"></i></i> &nbsp Register  in 2022
+                                </div>
+
+                                <div class="col-lg-12">
+                                    <a class="btn bg-danger px-4 text-light mt-3">
+                                        <i class="bi bi-envelope-fill"></i> &nbsp; Conntact with seller
+                                    </a>
+                                </div>
+
+                                <div class="col-lg-12">
+                                    <a class="btn btn-outline-primary px-4 text-primary mt-3">
+                                        <i class="bi bi-telephone-fill"></i> &nbsp; Conntact with seller
+                                    </a>
+                                </div>
+
+                                <div class="col-lg-12 text-primary mt-3">
+                                    <i class="bi bi-geo-alt-fill"></i> City, Street, House Number
+                                </div>
+
+                                <div class="col-lg-12 text-primary mt-3">
+                                    <a class="btn hover-darker">
+                                        <i class="bi bi-megaphone-fill"></i> More offers this seller (16)
+                                    </a>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section name="advertisement" class="advertisement-sm mt-4">
+                    <div class="row">
+                        <div class="col-12">
+                            <img src="~/image/advertisements/medium/advertisement_1.png" class="img-fluid" />
+                        </div>
+                    </div>
+                </section>
+
+            </div>
         </section>
     </div>
 </section>
 
 
+
+@section Scripts
+{
+    <script src="~/js/ShowAnnouncement/Slider.js"></script>
+    <script src="~/js/ShowAnnouncement/ButtonsScripts.js"></script>
+    <script src="~/js/ShowAnnouncement/AveragePrice.js"></script>
+}

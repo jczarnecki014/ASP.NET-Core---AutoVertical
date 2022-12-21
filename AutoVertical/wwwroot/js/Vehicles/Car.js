@@ -71,7 +71,7 @@
                 this.numberOfDoors = ["3 - Doors", "5 - Doors"];
                 this.gearBox = ["Automatic","Manual"];
                 this.drive = ["4x4 (constant)","4x4 (automtic)","4x4(manual)","Front-wheel drive","Rear-wheel drive"]
-                this.bodyType = ["Small cars","City cars","Coupe","Cabrio","Combi","Compact","Minivan","Sedan","SUV"];
+                this.bodyType = ["Small cars","City cars","Coupe","Cabrio","Combi","Compact","Minivan","Sedan","SUV","Hatchback"];
                 this.numberOfSeats = [2,4,5,7,9];
 
     }

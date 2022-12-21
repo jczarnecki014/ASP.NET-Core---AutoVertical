@@ -71,7 +71,7 @@ namespace AutoVertical_Model.Models
 
         [Required]
         [Range(10,1500,ErrorMessage="You should type value between 10 and 1500")]
-        public string Power{ get;set;}
+        public int Power{ get;set;}
 
         [Required]
         public string CubicCapacity{ get;set;}
@@ -157,15 +157,15 @@ namespace AutoVertical_Model.Models
 
         public int? CarId { get;set;}
         [ValidateNever]
-        public Car Car{ get;set;}
+        public Car car{ get;set;}
 
         public int? TruckId { get;set;}
         [ValidateNever]
-        public Truck Truck{ get;set;}
+        public Truck truck{ get;set;}
 
         public int? MotorcycleId { get;set;}
         [ValidateNever]
-        public Motorcycle Motorcycle{ get;set;}
+        public Motorcycle motorcycle{ get;set;}
 
     }
 }

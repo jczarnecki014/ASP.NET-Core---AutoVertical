@@ -1,4 +1,5 @@
 ﻿using AutoVertical_Data.Repository.IRepository;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,6 +32,7 @@ namespace AutoVertical_Data.Repository
         public void Save() 
         {
             _db.SaveChanges();
+            _db.ChangeTracker.DetectChanges(); // sprawdzić czy można usunąć
         }
     }
 }
