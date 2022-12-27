@@ -148,8 +148,9 @@ namespace AutoVerticalData.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("NumberOfSeats")
-                        .HasColumnType("int");
+                    b.Property<string>("NumberOfSeats")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("OpeningRoof")
                         .HasColumnType("bit");
@@ -436,9 +437,8 @@ namespace AutoVerticalData.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("CubicCapacity")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("CubicCapacity")
+                        .HasColumnType("int");
 
                     b.Property<bool>("Damaged")
                         .HasColumnType("bit");
@@ -469,6 +469,9 @@ namespace AutoVerticalData.Migrations
 
                     b.Property<bool>("Leasing")
                         .HasColumnType("bit");
+
+                    b.Property<DateTime>("MentionTime")
+                        .HasColumnType("date");
 
                     b.Property<int>("Milage")
                         .HasColumnType("int");

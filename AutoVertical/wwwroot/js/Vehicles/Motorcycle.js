@@ -8,6 +8,7 @@
             "Harley Davidson",
             "Honda",
             "KTM",
+            "Kawasaki",
             "MV Agusta",
             "Suzuki",
             "Yamacha",

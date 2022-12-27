@@ -7,7 +7,8 @@
         this.drive = [];
         this.bodyType = [];
         this.numberOfSeats = [];
-        this.productionYears = this.getProductionYears(1920);
+        this.productionYearsDesc = this.getProductionYears(1920,"desc");
+        this.productionYears = this.getProductionYears(1920,"ASC");
         this.ColorTypes = ["Metalic","Mat","Pearl"];
         this.Countrys = [
             "Afghanistan",
@@ -261,12 +262,20 @@
             "Åland Islands"
         ];
     }
-    getProductionYears(from){
+    getProductionYears(userDate,sort="ASC"){
         let toDate = new Date().getFullYear();
         let years = [];
-        while(from<=toDate){
-            years.push(from);
-            from++;
+        if(sort=="ASC"){
+            while(userDate<=toDate){
+                years.push(userDate);
+                userDate++;
+            }
+        }
+        else{
+            while(toDate>=userDate){
+                years.push(toDate);
+                toDate--;
+            }
         }
         return years;
     }

@@ -1,8 +1,396 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
+﻿@using AutoVertical_Model.Models.ViewModel;
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+@model AnnouncementFiltersVM
+<section name="HomePage" class="container">
+        <section name="FiltersAndDailyDeal" class="row">
+            <section name="Filter" class="col-lg-6 rounded-2 border" style="box-shadow: 8px 8px 24px -2px rgba(66, 68, 90, 1);">
+                    <div class="row px-3 text-center">
+                        <div style="border-right:1px solid #cacaca" class="col-lg-3 vehicleSubmit" data-value="car">
+                            <i class="fa-solid fa-car-side"></i>
+                            <h6>Car</h6>
+                        </div>
+                        <div style="border-right:1px solid #cacaca" class="col-lg-3 tab vehicleSubmit" data-value="truck">
+                            <i class="fa-solid fa-truck"></i>
+                            <h6>Truck</h6>
+                        </div>
+                        <div style="border-right:1px solid #cacaca" class="col-lg-3 tab vehicleSubmit" data-value="motorcycle">
+                            <i class="fa-solid fa-motorcycle"></i>
+                            <h6>Motorcycle</h6>
+                        </div>
+                        <div class="col-lg-3 d-flex align-items-center tab">Advanced category</div>
+                    </div>
+                    <form asp-controller="Announcement" asp-action="FilterAnnouncement">
+                        <input hidden asp-for="vehicle.VehicleType" id="FilterVehicleType" class="filter"  />
+                        <div class="row p-3">
+                                <div class="col-12">
+                                <span class="lead">
+                                   <b>What are you looking for ? </b>
+                                </span>
+                                </div>
+                                <div class="col-lg-6 p-3">
+                                    <label>Body Type</label>
+                                    <select asp-for="vehicle.BodyType" id="FilterBodyType" class="filter form-control" data-type="bodyType"> </select>
+                                </div>
+                                <div class="col-lg-6 p-3">
+                                    <label>Vehicle Brand</label>
+                                    <select asp-for="vehicle.Brand" id="FilterBrand" class="filter form-control" data-type="vehicleBrand" ></select>
+                                </div>
+                                <div class="col-lg-6 p-3">
+                                    <label>Vehicle Model</label>
+                                    <input asp-for="vehicle.Model" id="FilterModel" class="filter form-control" data-type="vehicleModel"/>
+                                </div>
+                                <div class="col-lg-3 py-3 pr-1">
+                                    <label>Production Years</label>
+                                    <select asp-for="ProductionYearFrom" id="FilterYearFrom" class="filter form-control" data-type="productionYearsFrom" ></select>
+                                </div>
+                                 <div class="col-lg-3 py-3 pr-1">
+                                     <label></label>
+                                    <select asp-for="ProductionYearTo" id="FilterYearTo" class="filter form-control"  data-type="productionYearsTo"></select>
+                                </div>
+                                <div class="col-lg-6 p-3">
+                                    <label>Fuel type</label>
+                                    <select asp-for="vehicle.Fuel" id="FilterFuelType" class="filter form-control" data-type="fuelType"></select>
+                                </div>
+                                <div class="col-lg-3 py-3 pr-1">
+                                    <label>Mileage</label>
+                                    <input asp-for="MileageFrom" id="FilterMileageFrom" class="filter form-control" data-type="mileageFrom"/>
+                                </div>
+                                 <div class="col-lg-3 py-3 pr-1">
+                                     <label></label>
+                                    <input asp-for="MileageTo" id="FilterMileageTo" class="filter form-control" data-type="mileageTo"/>
+                                </div>
+                                <div class="col-lg-5 p-3 text-center">
+                                   <input hidden name="advanced_search_expanded" type="checkbox" value="true" />
+                                   <button type="submit" name="advanced_search_expanded" class="btn" value="true">
+                                       <i class="h5 bi bi-sliders"></i> <b> &nbsp; Advanced Searching</b>
+                                   </button>
+                                </div>
+                                <div class="col-lg-7 d-flex justify-content-end p-3 text-center">
+                                   <button type="submit" class="btn btn-danger p-2">
+                                       <i class="h5 bi-search"></i> <b> &nbsp; Show <span id="AnnouncementCount"></span> Announcements </b>
+                                   </button>
+                                </div>
+                        </div>
+                    </form>
+            </section>
+            <section name="OfferOfDay" class="col-lg-6">
+                <div style="box-shadow: 8px 8px 24px -2px rgba(66, 68, 90, 1);" class="rounded-2">
+                    <div class="row">
+                        <div class="col-12">
+                            <a class="card large-tiles">
+                                <img style="max-height:336px; object-fit:cover" class="card-img-top tile-img" src="~/image/tempAnnouncement/aaa33fa7-a368-448c-878c-84465d503a2d.jpg" alt="Card image cap">
+                                <div class="card-body">
+                                    <h4 class="card-title tile-title">Vehicle title</h4>
+                                    <div class="row">
+                                        <div class="col-12">
+                                             <small><b class="tile-year"></b></small> &nbsp;
+                                             <i style="font-size:7px;" class="bi bi-circle-fill"></i> &nbsp;
+                                             <small><b class="tile-mileage"></b></small> &nbsp;
+                                             <i style="font-size:7px;" class="bi bi-circle-fill"></i> &nbsp;
+                                             <small><b class="tile-fuel"></b></small> &nbsp;
+                                             <i style="font-size:7px;" class="bi bi-circle-fill"></i> &nbsp;
+                                             <small><b class="tile-capacity"></b></small>
+                                        </div>
+                                       <h4 class="text-danger pt-3 tile-price"> <sub></sub></h4>
+                                        <div class="col-4 bg-warning position-absolute bottom-50 end-0 pt-1">
+                                            <h6>Daily deal</h6>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </section>
+
+
+        <section name="SpecialsOffers">
+            <section name="4Tiles" class="row">
+                <div class="col-12 mt-5 mb-4">
+                    <h5>Special offers</h5>
+                </div>
+                <div class="col-lg-3">
+                     <a href="#" style="height:420px;" class="card medium-tiles">
+                          <img style="max-height:200px; min-height:200px; object-fit:cover" class="card-img-top tile-img" alt="Card image cap">
+                               <div class="card-body">
+                                   <h4 class="card-title tile-title"></h4>
+                                   <div class="row">
+                                        <div class="col-12">
+                                             <small><b class="tile-year"></b></small> &nbsp;
+                                             <i style="font-size:7px;" class="bi bi-circle-fill"></i> &nbsp;
+                                             <small><b class="tile-mileage"></b></small> &nbsp;
+                                             <i style="font-size:7px;" class="bi bi-circle-fill"></i> &nbsp;
+                                             <small><b class="tile-fuel"></b></small> &nbsp;
+                                             <i style="font-size:7px;" class="bi bi-circle-fill"></i> &nbsp;
+                                             <small><b class="tile-capacity"></b></small>
+                                        </div>
+                                       <h4 class="text-danger pt-3 tile-price"> <sub></sub></h4>
+                                       <div class="col-4 bg-primary text-light position-absolute bottom-50 end-0 pt-1">
+                                            <h6>Mention</h6>
+                                        </div>
+                                   </div>
+
+                               </div>
+                      </a>
+                 </div>
+                 <div class="col-lg-3">
+                     <a style="height:420px;" class="card medium-tiles">
+                          <img style="max-height:200px; min-height:200px; object-fit:cover" class="card-img-top tile-img"  alt="Card image cap">
+                               <div class="card-body">
+                                   <h4 class="card-title tile-title"></h4>
+                                   <div class="row">
+                                        <div class="col-12">
+                                             <small><b class="tile-year"></b></small> &nbsp;
+                                             <i style="font-size:7px;" class="bi bi-circle-fill"></i> &nbsp;
+                                             <small><b class="tile-mileage"></b></small> &nbsp;
+                                             <i style="font-size:7px;" class="bi bi-circle-fill"></i> &nbsp;
+                                             <small><b class="tile-fuel"></b></small> &nbsp;
+                                             <i style="font-size:7px;" class="bi bi-circle-fill"></i> &nbsp;
+                                             <small><b class="tile-capacity"></b></small>
+                                        </div>
+                                       <h4 class="text-danger pt-3 tile-price"> <sub></sub></h4>
+                                       <div class="col-4 bg-primary text-light position-absolute bottom-50 end-0 pt-1">
+                                            <h6>Mention</h6>
+                                        </div>
+                                   </div>
+
+                               </div>
+                      </a>
+                 </div>
+                 <div class="col-lg-3">
+                     <a style="height:420px;" class="card medium-tiles">
+                          <img style="max-height:200px; min-height:200px; object-fit:cover" class="card-img-top tile-img"  alt="Card image cap">
+                               <div class="card-body">
+                                   <h4 class="card-title tile-title"></h4>
+                                   <div class="row">
+                                        <div class="col-12">
+                                             <small><b class="tile-year"></b></small> &nbsp;
+                                             <i style="font-size:7px;" class="bi bi-circle-fill"></i> &nbsp;
+                                             <small><b class="tile-mileage"></b></small> &nbsp;
+                                             <i style="font-size:7px;" class="bi bi-circle-fill"></i> &nbsp;
+                                             <small><b class="tile-fuel"></b></small> &nbsp;
+                                             <i style="font-size:7px;" class="bi bi-circle-fill"></i> &nbsp;
+                                             <small><b class="tile-capacity"></b></small>
+                                        </div>
+                                       <h4 class="text-danger pt-3 tile-price"> <sub></sub></h4>
+                                       <div class="col-4 bg-primary text-light position-absolute bottom-50 end-0 pt-1">
+                                            <h6>Mention</h6>
+                                        </div>
+                                   </div>
+
+                               </div>
+                      </a>
+                 </div>
+                 <div class="col-lg-3">
+                     <a style="height:420px;" class="card medium-tiles">
+                          <img style="max-height:200px; min-height:200px; object-fit:cover" class="card-img-top tile-img" alt="Card image cap">
+                               <div class="card-body">
+                                   <h4 class="card-title tile-title"></h4>
+                                   <div class="row">
+                                        <div class="col-12">
+                                             <small><b class="tile-year"></b></small> &nbsp;
+                                             <i style="font-size:7px;" class="bi bi-circle-fill"></i> &nbsp;
+                                             <small><b class="tile-mileage"></b></small> &nbsp;
+                                             <i style="font-size:7px;" class="bi bi-circle-fill"></i> &nbsp;
+                                             <small><b class="tile-fuel"></b></small> &nbsp;
+                                             <i style="font-size:7px;" class="bi bi-circle-fill"></i> &nbsp;
+                                             <small><b class="tile-capacity"></b></small>
+                                        </div>
+                                       <h4 class="text-danger pt-3 tile-price"> <sub></sub></h4>
+                                       <div class="col-4 bg-primary text-light position-absolute bottom-50 end-0 pt-1">
+                                            <h6>Mention</h6>
+                                        </div>
+                                   </div>
+
+                               </div>
+                      </a>
+                 </div>
+            </section>
+            <section name="6Tiles" class="row mt-4 tiles-carousel">
+                 <div class="col-lg-2">
+                     <a style="height:350px" class="card small-tiles">
+                          <img height="150" object-fit:cover" class="card-img-top tile-img" alt="Card image cap">
+                               <div class="card-body">
+                                   <h6 class="card-title tile-title"></h6>
+                                   <div class="row">
+                                        <div class="col-12">
+                                             <small><b class="tile-year"></b></small> &nbsp;
+                                             <i style="font-size:7px;" class="bi bi-circle-fill"></i> &nbsp;
+                                             <small><b class="tile-mileage"></b></small> &nbsp;
+                                             <i style="font-size:7px;" class="bi bi-circle-fill"></i> &nbsp;
+                                             <small><b class="tile-fuel"></b></small> &nbsp;
+                                             <i style="font-size:7px;" class="bi bi-circle-fill"></i> &nbsp;
+                                             <small><b class="tile-capacity"></b></small>
+                                        </div>
+                                       <h4 class="text-danger pt-3 tile-price"></h4>
+                                       <div class="col-4 bg-secondary text-light position-absolute top-0 end-0 pt-1">
+                                            <h6><i class="bi bi-bookmark-heart-fill"></i></h6>
+                                       </div>
+                                   </div>
+
+                               </div>
+                      </a>
+                 </div>
+                  <div class="col-lg-2">
+                     <a style="height:350px" class="card small-tiles">
+                          <img height="150" object-fit:cover" class="card-img-top tile-img" alt="Card image cap">
+                               <div class="card-body">
+                                   <h6 class="card-title tile-title"></h6>
+                                   <div class="row">
+                                        <div class="col-12">
+                                             <small><b class="tile-year"></b></small> &nbsp;
+                                             <i style="font-size:7px;" class="bi bi-circle-fill"></i> &nbsp;
+                                             <small><b class="tile-mileage"></b></small> &nbsp;
+                                             <i style="font-size:7px;" class="bi bi-circle-fill"></i> &nbsp;
+                                             <small><b class="tile-fuel"></b></small> &nbsp;
+                                             <i style="font-size:7px;" class="bi bi-circle-fill"></i> &nbsp;
+                                             <small><b class="tile-capacity"></b></small>
+                                        </div>
+                                       <h4 class="text-danger pt-3 tile-price"> <sub></sub></h4>
+                                       <div class="col-4 bg-secondary text-light position-absolute top-0 end-0 pt-1">
+                                            <h6><i class="bi bi-bookmark-heart-fill"></i></h6>
+                                       </div>
+                                   </div>
+
+                               </div>
+                      </a>
+                 </div>
+                 <div class="col-lg-2">
+                     <a style="height:350px" class="card small-tiles">
+                          <img height="150" object-fit:cover" class="card-img-top tile-img" alt="Card image cap">
+                               <div class="card-body">
+                                   <h6 class="card-title tile-title"></h6>
+                                   <div class="row">
+                                        <div class="col-12">
+                                             <small><b class="tile-year"></b></small> &nbsp;
+                                             <i style="font-size:7px;" class="bi bi-circle-fill"></i> &nbsp;
+                                             <small><b class="tile-mileage"></b></small> &nbsp;
+                                             <i style="font-size:7px;" class="bi bi-circle-fill"></i> &nbsp;
+                                             <small><b class="tile-fuel"></b></small> &nbsp;
+                                             <i style="font-size:7px;" class="bi bi-circle-fill"></i> &nbsp;
+                                             <small><b class="tile-capacity"></b></small>
+                                        </div>
+                                       <h4 class="text-danger pt-3 tile-price"> <sub></sub></h4>
+                                       <div class="col-4 bg-secondary text-light position-absolute top-0 end-0 pt-1">
+                                            <h6><i class="bi bi-bookmark-heart-fill"></i></h6>
+                                       </div>
+                                   </div>
+
+                               </div>
+                      </a>
+                 </div>
+                 <div class="col-lg-2">
+                     <a style="height:350px" class="card small-tiles">
+                          <img height="150" object-fit:cover" class="card-img-top tile-img" alt="Card image cap">
+                               <div class="card-body">
+                                   <h6 class="card-title tile-title"></h6>
+                                   <div class="row">
+                                        <div class="col-12">
+                                             <small><b class="tile-year"></b></small> &nbsp;
+                                             <i style="font-size:7px;" class="bi bi-circle-fill"></i> &nbsp;
+                                             <small><b class="tile-mileage"></b></small> &nbsp;
+                                             <i style="font-size:7px;" class="bi bi-circle-fill"></i> &nbsp;
+                                             <small><b class="tile-fuel"></b></small> &nbsp;
+                                             <i style="font-size:7px;" class="bi bi-circle-fill"></i> &nbsp;
+                                             <small><b class="tile-capacity"></b></small>
+                                        </div>
+                                       <h4 class="text-danger pt-3 tile-price"> <sub></sub></h4>
+                                       <div class="col-4 bg-secondary text-light position-absolute top-0 end-0 pt-1">
+                                            <h6><i class="bi bi-bookmark-heart-fill"></i></h6>
+                                       </div>
+                                   </div>
+
+                               </div>
+                      </a>
+                 </div>
+                  <div class="col-lg-2">
+                     <a style="height:350px" class="card small-tiles">
+                          <img height="150" object-fit:cover" class="card-img-top tile-img" alt="Card image cap">
+                               <div class="card-body">
+                                   <h6 class="card-title tile-title"></h6>
+                                   <div class="row">
+                                        <div class="col-12">
+                                             <small><b class="tile-year"></b></small> &nbsp;
+                                             <i style="font-size:7px;" class="bi bi-circle-fill"></i> &nbsp;
+                                             <small><b class="tile-mileage"></b></small> &nbsp;
+                                             <i style="font-size:7px;" class="bi bi-circle-fill"></i> &nbsp;
+                                             <small><b class="tile-fuel"></b></small> &nbsp;
+                                             <i style="font-size:7px;" class="bi bi-circle-fill"></i> &nbsp;
+                                             <small><b class="tile-capacity"></b></small>
+                                        </div>
+                                       <h4 class="text-danger pt-3 tile-price"> <sub></sub></h4>
+                                       <div class="col-4 bg-secondary text-light position-absolute top-0 end-0 pt-1">
+                                            <h6><i class="bi bi-bookmark-heart-fill"></i></h6>
+                                       </div>
+                                   </div>
+
+                               </div>
+                      </a>
+                 </div>
+                 <div class="col-lg-2">
+                     <a style="height:350px" class="card small-tiles">
+                          <img height="150" object-fit:cover" class="card-img-top tile-img" alt="Card image cap">
+                               <div class="card-body">
+                                   <h6 class="card-title tile-title"></h6>
+                                   <div class="row">
+                                        <div class="col-12">
+                                             <small><b class="tile-year"></b></small> &nbsp;
+                                             <i style="font-size:7px;" class="bi bi-circle-fill"></i> &nbsp;
+                                             <small><b class="tile-mileage"></b></small> &nbsp;
+                                             <i style="font-size:7px;" class="bi bi-circle-fill"></i> &nbsp;
+                                             <small><b class="tile-fuel"></b></small> &nbsp;
+                                             <i style="font-size:7px;" class="bi bi-circle-fill"></i> &nbsp;
+                                             <small><b class="tile-capacity"></b></small>
+                                        </div>
+                                       <h4 class="text-danger pt-3 tile-price"> <sub></sub></h4>
+                                       <div class="col-4 bg-secondary text-light position-absolute top-0 end-0 pt-1">
+                                            <h6><i class="bi bi-bookmark-heart-fill"></i></h6>
+                                       </div>
+                                   </div>
+
+                               </div>
+                      </a>
+                 </div>
+            </section>
+        </section>
+        <section name="advertisement" class="advertisement-lg mt-5">
+            <div class="row">
+                <div class="col-12">
+                    <img style="max-height:300px;" src="~/image/advertisements/large/example_one.png" class="img-fluid w-100"/>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-4">
+                    <img style="max-height:300px;" src="~/image/advertisements/small/ADVERTISEMENT_2.png" class="img-fluid w-100"/>
+                </div>
+                <div class="col-4">
+                    <img style="max-height:300px;" src="~/image/advertisements/small/ADVERTISEMENT_3.png" class="img-fluid w-100"/>
+                </div>
+                <div class="col-4">
+                    <img style="max-height:300px;" src="~/image/advertisements/small/ADVERTISEMENT_4.png" class="img-fluid w-100"/>
+                </div>
+            </div>
+
+        </section>
+
+        <div id="Loading" class="text-center text-primary position-fixed top-50 end-50 h1">
+            <div style="width: 7rem; height: 7rem;" class="spinner-border" role="status">
+            <span class="visually-hidden">Loading...</span>
+            </div>
+        </div>
+
+
+</section>
+
+@section Scripts
+{
+    <script src="~/js/HomePage/MentionedAnnouncement.js"></script>
+    <script src="~/js/Vehicles/Vehicle.js"></script>
+    <script src="~/js/Vehicles/Car.js"></script>
+    <script src="~/js/Vehicles/Truck.js"></script>
+    <script src="~/js/Vehicles/Motorcycle.js"></script>
+    <script src="~/js/FilterBox.js"></script>
+    <script src="~/js/HomePage/Main.js"></script>
+}

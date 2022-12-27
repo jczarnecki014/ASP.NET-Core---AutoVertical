@@ -10,6 +10,8 @@
     <link rel="stylesheet" href="~/css/AnnouncementVehicleTypes.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/AutoVertical.styles.css" asp-append-version="true" />
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta2/dist/css/bootstrap-select.min.css">
+
 </head>
 <body>
     <header>
@@ -31,7 +33,7 @@
                             <a href="#" class="nav-link"><span class="badge text-bg-danger">NEW</span>&nbsp;Funding by <span style="color:#22a6b3; font-weight:bold;">AutoVertical</span></a>
                         </li>
                         <li class="nav-item mx-2">
-                            <a asp-area="customer" asp-controller="Home" asp-action="StartSellingMenu" class="nav-link">Moto News</a>
+                            <a href="#" class="nav-link">Moto News</a>
                         </li>
                         <li class="nav-item mx-2">
                             <a href="https://www.facebook.com/" class="nav-link"><i class="bi bi-dribbble"></i>Socials</a>
@@ -40,7 +42,7 @@
                             <a href="#" class="nav-link"><i class="bi bi-person"></i>Login | Register</a>
                         </li>
                         <li class="nav-item mx-2">
-                            <a asp-area="customer" asp-controller="Announcement" asp-action="ShowAnnouncement" style="width: 200px;" class="text-light btn btn-primary"><i class="bi bi-arrow-left"></i>&nbsp; Start Selling</a>
+                            <a asp-area="customer" asp-controller="Home" asp-action="StartSellingMenu" style="width: 200px;" class="text-light btn btn-primary"><i class="bi bi-arrow-left"></i>&nbsp; Start Selling</a>
                         </li>
                     </ul>
                 </div>
@@ -51,14 +53,39 @@
             @RenderBody()
         </main>
 
-    <footer class="border-top footer text-muted">
+    <footer class="border-top footer bg-dark text-light p-5 mt-4">
         <div class="container">
-            &copy; 2022 - AutoVertical - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                <div class="row">
+                    <div class="col-lg-3 text-center">
+                        <h6>Find Me:</h6>
+                        <div class="row">
+                            <a class="col-12 btn hover-darker" href="https://www.facebook.com/kuba.czarnecki.142/"><i class="bi bi-facebook"></i> facebook</a>
+                            <a  class="col-12 btn hover-darker" href="https://www.instagram.com/_czarnecky_/"><i class="bi bi-instagram"></i> Instagram</a>
+                            <a  class="col-12 btn hover-darker" href="www.Youtube.com"><i class="bi bi-envelope"></i> Czarnecki.web@outlook.com</a>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 text-center">
+                            <h4>About project</h4>
+                            <b>This website is only not commercial project witch purpose is presentation my cooding skils. Design of this application is inspired by <a class="btn hover-darker" href="https://www.otomoto.pl/">OTOMOTO</a> service </b>
+                    </div>
+                    <div class="col-lg-3 text-center d-flex align-items-center">
+                        <div class="row pl-3">
+                            <div class="col-5">
+                               <img class="img-fluid" src="~/image/helpfull/gitIcon.png" />
+                           </div>
+                           <div class="col-7 d-flex align-items-center">
+                               <h4>/jczarnecki014</h4>
+                           </div>
+                        </div>
+                    </div>
+               </div>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="https://kit.fontawesome.com/1dfc03eb2f.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta2/dist/js/bootstrap-select.min.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

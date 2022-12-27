@@ -61,11 +61,11 @@
     }
 }
 let ImgArray = []
-let tempIMGDirectory = "/image/tempAnnouncement/"
-const vehicleId = window.location.search.substring(4)
+let tempPath = "/image/tempAnnouncement/"
+const vehicleId = window.location.search.substring(12)
 $.getJSON(`/customer/Announcement/GetGallery?id=${vehicleId}`,function(values){
     values.data.forEach(element => {
-        ImgArray.push(tempIMGDirectory+element.name);
+        ImgArray.push(tempPath+element.name);
     });
     let slider = new Slider(ImgArray);
 });

@@ -48,3 +48,18 @@ h5{
 #MainPicture#MainPicture{
     opacity:0;
 }
+.tab {
+    background-color: #f8f8fd;
+}
+.tab:hover {
+        cursor: pointer;
+        background-color: #fEfEfF;
+}
+a.card{
+    text-decoration: none;
+    color:black;
+}
+a.card:hover {
+    transform: scale(1.1);
+    transition: transform 600ms;
+}

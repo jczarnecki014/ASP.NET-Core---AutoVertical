@@ -74,7 +74,7 @@ namespace AutoVertical_Model.Models
         public int Power{ get;set;}
 
         [Required]
-        public string CubicCapacity{ get;set;}
+        public int CubicCapacity{ get;set;}
 
         [Required]
         public string GearBox{ get;set;}
@@ -167,5 +167,8 @@ namespace AutoVertical_Model.Models
         [ValidateNever]
         public Motorcycle motorcycle{ get;set;}
 
+        //____________________________________________________________________________________________ Special states
+        [Column(TypeName="date")]
+        public DateTime MentionTime{ get;set;}
     }
 }

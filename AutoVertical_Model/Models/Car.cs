@@ -28,7 +28,7 @@ namespace AutoVertical_Model.Models
         //____________________________________________________________________________________________ Body
 
         [Required]
-        public int NumberOfSeats{ get;set; }
+        public string NumberOfSeats{ get;set; }
 
         //____________________________________________________________________________________________ Specify vehicle equipemnt
 

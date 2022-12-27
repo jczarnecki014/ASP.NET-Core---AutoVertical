@@ -1,4 +1,5 @@
 ﻿using AutoVertical.Models;
+using AutoVertical_Model.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -13,6 +14,8 @@ namespace AutoVertical_web.Areas.Customer.Controllers
         {
             _logger = logger;
         }
+
+        
 
         public IActionResult Index()
         {

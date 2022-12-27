@@ -7,15 +7,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Models\Viewmodels\**" />
+    <EmbeddedResource Remove="Models\Viewmodels\**" />
+    <None Remove="Models\Viewmodels\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\AutoVertical_Utility\AutoVertical_Utility.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Models\Viewmodels\" />
   </ItemGroup>
 
 </Project>

@@ -100,6 +100,10 @@ class FormHandler{
             {
                 Error = "The maxium number of images is 12 !";
             }
+            else if(e.target.files.length < 3)
+            {
+                Error = "The minimum number of images is 3 !";
+            }
             var files = [...e.target.files]
             files.forEach(file => {
                 if(!file.name.includes(".png") && !file.name.includes(".jpg") && !file.name.includes(".jpeg") )

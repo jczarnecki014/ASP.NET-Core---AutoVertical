@@ -1,0 +1,1145 @@
+﻿@using AutoVertical_Model.Models.ViewModel;
+@model AnnouncementFiltersVM
+<form method="post" action="FilterAnnouncement">
+<section style="background-color:#ebecef" name="Filters">
+        <div class="container">
+            @*<input id="VehicleTypeInput" hidden value="@ViewData["VehicleType"]" />*@
+            <div class="row pt-3">
+                <div class="col-lg-8 ">
+                    @*<select asp-for="vehicle.VehicleType" id="FilterVehicleType" class="selectpicker w-75 ">*@
+                    <select asp-for="vehicle.VehicleType" id="VehicleTypeInput" class="selectpicker w-75 ">
+                        <option data-icon="fa-solid fa-car-side" value="car">Car</option>
+                        <option data-icon="fa-solid fa-truck" value="truck">Truck</option>
+                        <option data-icon="fa-solid fa-motorcycle" value="motorcycle">Motorcycle</option>
+                    </select>
+                    <button style="opacity:0;" id="test" class="btn btn-danger mx-2">
+                        <i class="fa-solid fa-arrow-right-arrow-left"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="row pt-3">
+                <div class="col-lg-4 p-2">
+                        <div class="col-12">
+                            <input asp-for="vehicle.Model" id="FilterModel" class="filters form-control p-3" placeholder="Enter model,version or other details" />
+                        </div>
+                </div>
+                <div class="col-lg-2 p-2">
+                    <select asp-for="vehicle.BodyType" id="FilterBodyType" class="filters form-control p-3">
+                        
+                    </select>
+                </div>
+                <div class="col-lg-2 p-2">
+                    <select asp-for="vehicle.Brand" id="FilterBrand" class="filters form-control p-3">
+                        
+                    </select>
+                </div>
+                <div class="col-lg-2 p-2">
+                   <input  asp-for="PriceFrom"  id="FilterPriceFrom" class="filters form-control p-3" placeholder="Price From" />
+                </div>
+                <div  class="col-lg-2 p-2">
+                    <input asp-for="PriceTo" id="FilterPriceTo" class="filters form-control p-3" placeholder="Price To"/>
+                </div>
+                <div class="col-lg-2 p-2">
+                    <select asp-for="ProductionYearFrom" id="FilterYearFrom" class="filters form-control p-3" placeholder="Production Year From">
+                        
+                    </select>
+                </div>
+                <div class="col-lg-2 p-2">
+                    <select asp-for="ProductionYearTo" id="FilterYearTo" class="filters form-control p-3" placeholder="Production Year To">
+                        
+                    </select>
+                </div>
+                <div class="col-lg-2 p-2">
+                    <select asp-for="vehicle.Fuel" id="FilterFuelType" class="filters form-control p-3">
+                        
+                    </select>
+                </div>
+                <div class="col-lg-2 p-2">
+                    <input asp-for="MileageFrom" id="FilterMileageFrom" class="filters form-control p-3" placeholder="Mileage From">
+                        
+                </div>
+                <div class="col-lg-2 p-2">
+                    <input asp-for="MileageTo" id="FilterMileageTo" class="filters form-control p-3" placeholder="Mileage To">
+                </div>
+                <div class="col-lg-2 p-2">
+                    <select asp-for="vehicle.CountryOfOrigin" id="FilterCountryOfOrigin" class="filters form-control p-3">
+                        
+                    </select>
+                </div>
+                @if ((bool)ViewData["advanced_seearch_expanded"])
+                {
+                    <div class="col-lg-12 p-2 text-end mb-2">
+                     <button type="submit" name="advanced_search_expanded" class="btn" value="false">
+                         <h6 class="text-primary">Hide more filters</h6>
+                     </button>
+                    <button class="btn bg-success text-light px-4">
+                        <i class="bi bi-search"></i>
+                    </button>
+
+                    </div>
+                    <hr />
+                    <div hidden id="VehicleStatus" class="AdditionalFilters col-lg-6 p-2">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="row">
+                                    <div class="col-12 p-3">
+                                        <input asp-for="vehicle.Damaged" class=" form-check-input" type="checkbox" value="true" id="damaged">
+                                        <label class="form-check-labe" for="damaged">
+                                            Damaged
+                                        </label>
+                                    </div>
+                                    <div class="col-12 p-3">
+                                        <input asp-for="vehicle.NoAccident" class=" form-check-input" value="true" id="NoAccident">
+                                        <label class="form-check-labe" for="NoAccident">
+                                            No accident
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 d-flex align-items-center">
+                                <div class="row">
+                                        <div class="col-lg-12 btn-group" role="group">
+                                              <input asp-for="vehicle.Imported" type="radio" class=" btn-check" value="Imported" id="btnradio1">
+                                              <label class="btn btn-outline-primary" for="btnradio1">Domestic</label>
+
+                                              <input asp-for="vehicle.Imported" type="radio" class=" btn-check" value="Domestic" id="btnradio2">
+                                              <label class="btn btn-outline-primary" for="btnradio2">Imported</label>
+                                    </div>
+                                </div>
+                            </div>
+                         </div>
+                    </div>
+                    <div hidden id="EngineAndDriveStatus" class="AdditionalFilters col-lg-6 p-4">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <select asp-for="vehicle.GearBox" id="FilterGearBox" class=" form-control">
+                                </select>
+                            </div>
+                            <div class="col-lg-6 mt-2">
+                                <input asp-for="CubicCapacityFrom" class=" form-control" placeholder="Cubic Capacity from">
+                            </div>
+                            <div class="col-lg-6 mt-2">
+                                <input asp-for="CubicCapacityTo" class=" form-control" placeholder="Cubic Capacity to">
+                            </div>
+                            <div class="col-lg-6 mt-2">
+                                <input asp-for="PowerFrom" class=" form-control" placeholder="Power from">
+                            </div>
+                            <div class="col-lg-6 mt-2">
+                                <input asp-for="PowerTo" class=" form-control" placeholder="Power to">
+                            </div>
+                         </div>
+                    </div>
+                    <div hidden id="BodyType" class="AdditionalFilters col-lg-6 p-4">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <input asp-for="vehicle.Color" class="form-control" placeholder="Color">
+                            </div>
+                            <div class="col-lg-6">
+                                <select asp-for="vehicle.ColorType" id="FilterColorType" class=" form-control">
+                                </select>
+                            </div>
+                            @if(Model.vehicle.VehicleType =="car")
+                            {
+                               <div class="col-lg-6 mt-3">
+                                    <select asp-for="vehicle.car.NumberOfDoor" id="FilterNumberOfDoor" class=" form-control p-3">
+                                    </select>
+                                </div>
+                                <div class="col-lg-6 mt-3">
+                                    <select asp-for="vehicle.car.NumberOfSeats" id="FilterNumberOfSeats" class=" form-control p-3">
+                                    </select>
+                                </div>
+                            }
+                            else if(Model.vehicle.VehicleType =="truck")
+                            {
+                                <div class="col-lg-6 mt-3">
+                                    <input asp-for="vehicle.truck.NumberOfAxles" class="form-control p-3" placeholder="Number of Axles" />
+                                </div>
+                                <div class="col-lg-6 d-flex align-items-center mt-3">
+                                       <select asp-for=vehicle.truck.DoubleRearWheels class="form-control p-3" type="select">
+                                           <option selected disabled>Double Rear Wheels</option>
+                                           <option value="Yes">Yes</option>
+                                           <option value="Yes">No</option>
+                                       </select>
+                                </div>
+                                <div class="col-lg-6 mt-3">
+                                        <input asp-for="PermissibleGrossWeightFrom" type="text" class="form-control p-3" placeholder="Permissible Gross Weight From">
+                                </div>
+                                <div class="col-lg-6 mt-3">
+                                        <input asp-for="PermissibleGrossWeightTo" type="text" class="form-control p-3" placeholder="Permissible Gross Weight To">
+                                </div>
+                                 <div class="col-lg-6 mt-3">
+                                        <input asp-for="AllowPackageFrom" type="text" class="form-control p-3" placeholder="Allow Package From">
+                                </div>
+                                <div class="col-lg-6 mt-3">
+                                        <input asp-for="AllowPackageTo" type="text" class="form-control p-3" placeholder="Allow Package To">
+                                </div>
+
+                            }
+                         </div>
+                    </div>
+                    <div class="col-lg-6 p-2">
+                        <div class="row">
+                             <div class="col-6 px-4 p-2">
+                                <div class="row">
+                                    <div id="VehicleStatus" class="FilterButtons col-8">
+                                        <h6>Vehicle Status</h6>
+                                        <p style="font-size:12px;color:#505050">Damaged,No accident,Domestic</p>
+                                        </div>
+                                    <div class="col-4"><i class="bi bi-caret-right-fill h5"></i></div>
+                                </div>
+                            </div>
+                             <div class="col-6 px-4 p-2">
+                                <div class="row">
+                                    <div id="EngineAndDriveStatus" class="FilterButtons col-8">
+                                        <h6>Engine and drive</h6>
+                                        <p style="font-size:12px;color:#505050">Gear box, drive, cubic capacity, power</p>
+                                        </div>
+                                    <div class="col-4"><i class="bi bi-caret-right-fill h5"></i></div>
+                                </div>
+                            </div>
+                             <div class="col-6 px-4 p-2">
+                                <div class="row">
+                                    <div id="BodyType" class="FilterButtons col-8">
+                                        <h6>Body</h6>
+                                        @if(Model.vehicle.VehicleType =="car")
+                                        {
+                                            <p style="font-size:12px;color:#505050">Color, Color Type, Door nuber, Nuber of seats</p>
+                                        }
+                                        else if(Model.vehicle.VehicleType =="truck")
+                                        {
+                                            <p style="font-size:12px;color:#505050">Color, Color Type, Number of axles, Permissible gross weight,Double rear wheels</p>
+                                        }
+                                        else if(Model.vehicle.VehicleType =="motorcycle")
+                                        {
+                                            <p style="font-size:12px;color:#505050">Color, Color Type</p>
+                                        }
+                                        </div>
+                                    <div class="col-4"><i class="bi bi-caret-right-fill h5"></i></div>
+                                </div>
+                            </div>
+                             <div class="col-6 px-4 p-2">
+                                <div class="row">
+                                    <div id="AdditonalEquipment" class="FilterButtons col-8">
+                                        <h6>Additional equipment</h6>
+                                        <p style="font-size:12px;color:#505050">Air Bags, Climatization, Touch screen</p>
+                                        </div>
+                                    <div class="col-4"><i class="bi bi-caret-right-fill h5"></i></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="col-lg-12 p-2 text-end mb-2">
+                         <button type="submit" name="advanced_search_expanded" class="btn" value="true">
+                             <h6 class="text-primary">Show more filters</h6>
+                         </button>
+                        <button class="btn bg-success text-light px-4">
+                            <i class="bi bi-search"></i>
+                        </button>
+                    </div>
+                }
+            
+            </div>
+        </div>
+        </section>
+        <section name="EquipmentFilter"> 
+        <div class="container">
+            <div class="row">
+                <div hidden id="AdditonalEquipment" class="AdditionalFilters col-12 border position-fixed bottom-0 end-0 bg-white  p-5">
+                    <div class="row">
+                        <div class="col-12 text-end">
+                            <a class="btn">
+                                <i id="AdditonalEquipment" class=" h1 bi bi-x-circle text-danger FilterButtons"></i>
+                            </a>
+                        </div>
+                    </div>
+                    @if (Model.vehicle.VehicleType == "car")
+        {
+                        <div class="row">
+                            <div class="col-4 p-4">
+                                <h4>Audio & Multimedia</h4>
+                                <hr />
+                                <div class="row">
+                                    <div class="col-lg-3 form-check border border-1 p-3 mx-3 mt-2">
+                                        <input asp-for="vehicle.car.AppleCarPlaycd" class="miniPreviewEquipment form-check-input" value="true" id="AppleCarPlay">
+                                        <label class="form-check-labe" for="AppleCarPlay">
+                                            Apple CarPlay
+                                        </label>
+                                    </div>
+
+                                    <div class="col-lg-3 form-check border border-1 p-3 mx-3 mt-2">
+                                        <input asp-for="vehicle.car.AndroidAuto" class="miniPreviewEquipment form-check-input" data-value="Android Auto" id="AndroidAuto">
+                                        <label class="form-check-labe" for="AndroidAuto">
+                                            Android Auto
+                                        </label>
+                                    </div>
+                                    <div class="col-lg-3 form-check border border-1 p-3 mx-3 mt-2">
+                                        <input asp-for="vehicle.car.BluetoothInterface" class="miniPreviewEquipment form-check-input" data-value="Bluetooth Interface" id="BluetoothInterface">
+                                        <label class="form-check-labe" for="BluetoothInterface">
+                                            Bluetooth Interface
+                                        </label>
+                                    </div>
+
+                                    <div class="col-lg-3 form-check border border-1 p-3 mx-3 mt-2">
+                                        <input asp-for="vehicle.car.Radio" class="miniPreviewEquipment form-check-input" data-value="Radio" id="carRadio">
+                                        <label class="form-check-labe" for="carRadio">
+                                            Radio
+                                        </label>
+                                    </div>
+                                   <div class="col-lg-3 form-check border border-1 p-3 mx-3 mt-2">
+                                        <input asp-for="vehicle.car.LoudSpeekerSystem" class="miniPreviewEquipment form-check-input" data-value="Loudspeeker Sysetm" id="LoudspeekerSysetm">
+                                        <label class="form-check-labe" for="LoudspeekerSysetm">
+                                            Loudspeeker Sysetm
+                                        </label>
+                                    </div>
+
+                                    <div class="col-lg-3 form-check border border-1 p-3 mx-3 mt-2">
+                                        <input asp-for="vehicle.car.USBSocket" class="miniPreviewEquipment form-check-input" data-value="USB Socket" id="USBSocket">
+                                        <label class="form-check-labe" for="USBSocket">
+                                            USB Socket
+                                        </label>
+                                    </div>
+                                    <div class="col-lg-3 form-check border border-1 p-3 mx-3 mt-2">
+                                        <input asp-for="vehicle.car.WirelessChargingDevices" class="miniPreviewEquipment form-check-input" data-value="Wireless charging devices" id="Wirelesschargingdevices">
+                                        <label class="form-check-labe" for="Wirelesschargingdevices">
+                                            Wireless charging devices
+                                        </label>
+                                    </div>
+
+                                    <div class="col-lg-3 form-check border border-1 p-3 mx-3 mt-2">
+                                        <input asp-for="vehicle.car.SatelliteNavigationSystem" class="miniPreviewEquipment form-check-input" data-value="Satellite Navigation System" id="SatelliteNavigationSystem">
+                                        <label class="form-check-labe" for="SatelliteNavigationSystem">
+                                            Satellite Navigation System
+                                        </label>
+                                    </div>
+                                    <div class="col-lg-3 form-check border border-1 p-3 mx-3 mt-2">
+                                        <input asp-for="vehicle.car.SoundSystem" class="miniPreviewEquipment form-check-input" value="true" data-value="Sound System" id="SoundSystem">
+                                        <label class="form-check-labe" for="SoundSystem">
+                                            Sound System
+                                        </label>
+                                    </div>
+
+                                    <div class="col-lg-3 form-check border border-1 p-3 mx-3 mt-2">
+                                        <input asp-for="vehicle.car.HeadUpDisplay" class="miniPreviewEquipment form-check-input" data-value="Head-Up display" id="HeadUpdisplay">
+                                        <label class="form-check-labe" for="HeadUpdisplay">
+                                            Head-Up display
+                                        </label>
+                                    </div>
+                                    <div class="col-lg-3 form-check border border-1 p-3 mx-3 mt-2">
+                                        <input asp-for="vehicle.car.Touchscreen" class="miniPreviewEquipment form-check-input" data-value="Touchscreen" id="Touchscreen">
+                                        <label class="form-check-labe" for="Touchscreen">
+                                            Touchscreen
+                                        </label>
+                                    </div>
+
+                                    <div class="col-lg-3 form-check border border-1 p-3 mx-3 mt-2">
+                                        <input asp-for="vehicle.car.FunctionVoiceStering" class="miniPreviewEquipment form-check-input" data-value="Function voice stering" id="Functionvoicestering">
+                                        <label class="form-check-labe" for="Functionvoicestering">
+                                            Function voice stering 
+                                        </label>
+                                    </div>
+                                    <div class="col-lg-3 form-check border border-1 p-3 mx-3 mt-2">
+                                        <input asp-for="vehicle.car.InternetAcces" class="miniPreviewEquipment form-check-input" data-value="Internet acces" id="Internetacces">
+                                        <label class="form-check-labe" for="Internetacces">
+                                            Internet acces
+                                        </label>
+                                    </div>
+                                    <h4 class="mt-3">Driver support systems</h4>
+                                    <hr />
+                                    <div class="row justify-content-between">
+                                        <div class="col-lg-3 form-check border border-1 p-3">
+                                            <input asp-for="vehicle.car.EmergencyBrakingAssistant" class="miniPreviewEquipment form-check-input" data-value="Emergency braking assistant" id="Emergencybrakingassistant">
+                                            <label class="form-check-labe" for="Emergencybrakingassistant">
+                                                Emergency braking assistant
+                                            </label>
+                                        </div>
+
+                                        <div class="col-lg-3 form-check border border-1 p-3">
+                                            <input asp-for="vehicle.car.ProtectionFromAccidentSystem" class="miniPreviewEquipment form-check-input" data-value="Protection from accident system" id="Protectionfromaccidentsystem">
+                                            <label class="form-check-labe" for="Protectionfromaccidentsystem">
+                                                Protection from accident system
+                                            </label>
+                                        </div>
+                                        <div class="col-lg-3 form-check border border-1 p-3">
+                                            <input asp-for="vehicle.car.AirBags" class="miniPreviewEquipment form-check-input" data-value="Airbags" id="carAirbags">
+                                            <label class="form-check-labe" for="carAirbags">
+                                                Airbags
+                                            </label>
+                                        </div>
+
+                                        <div class="col-lg-3 form-check border border-1 p-3">
+                                            <input asp-for="vehicle.car.Isofix" class="miniPreviewEquipment form-check-input" data-value="Isofix" id="Isofix">
+                                            <label class="form-check-labe" for="Isofix">
+                                                Isofix
+                                            </label>
+                                        </div>
+                                    </div>
+                                    </div>
+                                    </div>
+                                    <div style="border-left: 1px solid #dfdfdf" class="col-4 p-4">
+                                <h4>Comfort</h4>
+                                <hr />
+                                <div class="row">
+                                    <div class="col-lg-3 form-check border border-1 p-3 mx-3 mt-2">
+                                        <input asp-for="vehicle.car.AirConditioning" class="miniPreviewEquipment form-check-input" data-value="Air conditioning" id="Airconditioning">
+                                        <label class="form-check-labe" for="Airconditioning">
+                                            Air conditioning
+                                        </label>
+                                    </div>
+
+                                    <div class="col-lg-3 form-check border border-1 p-3 mx-3 mt-2">
+                                        <input asp-for="vehicle.car.ElectricStearingSeats" class="miniPreviewEquipment form-check-input" data-value="Electric stearing seats" id="Electricstearingseats">
+                                        <label class="form-check-labe" for="Electricstearingseats">
+                                            Electric stearing seats
+                                        </label>
+                                    </div>
+                                    <div class="col-lg-3 form-check border border-1 p-3 mx-3 mt-2">
+                                        <input asp-for="vehicle.car.HeatingSeat" class="miniPreviewEquipment form-check-input" data-value="Heating seat" id="Heatingseat">
+                                        <label class="form-check-labe" for="Heatingseat">
+                                            Heating seat
+                                        </label>
+                                    </div>
+
+                                    <div class="col-lg-3 form-check border border-1 p-3 mx-3 mt-2">
+                                        <input asp-for="vehicle.car.VentilatedSeats" class="miniPreviewEquipment form-check-input" data-value="Ventilated seats" id="Ventilatedseats">
+                                        <label class="form-check-labe" for="Ventilatedseats">
+                                            Ventilated seats
+                                        </label>
+                                    </div>
+                                   <div class="col-lg-3 form-check border border-1 p-3 mx-3 mt-2">
+                                        <input asp-for="vehicle.car.MassageSeats" class="miniPreviewEquipment form-check-input" data-value="Massage seats" id="Massageseats">
+                                        <label class="form-check-labe" for="Massageseats">
+                                            Massage seats
+                                        </label>
+                                    </div>
+
+                                    <div class="col-lg-3 form-check border border-1 p-3 mx-3 mt-2">
+                                        <input asp-for="vehicle.car.SportSeats" class="miniPreviewEquipment form-check-input" data-value="Sport seats" id="Sportseats">
+                                        <label class="form-check-labe" for="Sportseats">
+                                            Sport seats
+                                        </label>
+                                    </div>
+                                    <div class="col-lg-3 form-check border border-1 p-3 mx-3 mt-2">
+                                        <input asp-for="vehicle.car.Armrests" class="miniPreviewEquipment form-check-input" data-value="Armrests" id="Armrests">
+                                        <label class="form-check-labe" for="Armrests">
+                                            Armrests
+                                        </label>
+                                    </div>
+
+                                    <div class="col-lg-3 form-check border border-1 p-3 mx-3 mt-2">
+                                        <input asp-for="vehicle.car.LeatherSteeringWheel" class="miniPreviewEquipment form-check-input" data-value="Leather steering wheel" id="Leathersteeringwheel">
+                                        <label class="form-check-labe" for="Leathersteeringwheel">
+                                            Leather steering wheel
+                                        </label>
+                                    </div>
+                                    <div class="col-lg-3 form-check border border-1 p-3 mx-3 mt-2">
+                                        <input asp-for="vehicle.car.SportSteeringWheel" class="miniPreviewEquipment form-check-input" data-value="Sport steering wheel" id="Sportsteeringwheel">
+                                        <label class="form-check-labe" for="Sportsteeringwheel">
+                                            Sport steering wheel
+                                        </label>
+                                    </div>
+
+                                    <div class="col-lg-3 form-check border border-1 p-3 mx-3 mt-2">
+                                        <input asp-for="vehicle.car.MultimediaSteeringWheel" class="miniPreviewEquipment form-check-input" data-value="Multimedia steering wheel" id="Multimediasteeringwheel">
+                                        <label class="form-check-labe" for="Multimediasteeringwheel">
+                                            Multimedia steering wheel
+                                        </label>
+                                    </div>
+                                    <div class="col-lg-3 form-check border border-1 p-3 mx-3 mt-2">
+                                        <input asp-for="vehicle.car.HeatingSteeringWheel" class="miniPreviewEquipment form-check-input" data-value="Heating steering wheel" id="Heatingsteeringwheel">
+                                        <label class="form-check-labe" for="Heatingsteeringwheel">
+                                            Heating steering wheel
+                                        </label>
+                                    </div>
+
+                                    <div class="col-lg-3 form-check border border-1 p-3 mx-3 mt-2">
+                                        <input asp-for="vehicle.car.GearChangingInSteeringWheel" class="miniPreviewEquipment form-check-input" data-value="Gear changing in steering wheel" id="Gearchanginginsteeringwheel">
+                                        <label class="form-check-labe" for="Gearchanginginsteeringwheel">
+                                            Gear changing in steering wheel
+                                        </label>
+                                    </div>
+                                    <div class="col-lg-3 form-check border border-1 p-3 mx-3 mt-2">
+                                        <input asp-for="vehicle.car.KeyLessEntry" class="miniPreviewEquipment form-check-input" data-value="keyless entry" id="keylessentry">
+                                        <label class="form-check-labe" for="keylessentry">
+                                            Keyless entry
+                                        </label>
+                                    </div>
+                                    <div class="col-lg-3 form-check border border-1 p-3 mx-3 mt-2">
+                                        <input asp-for="vehicle.car.KeylessGo" class="miniPreviewEquipment form-check-input" data-value="Keyless Go" id="KeylessGo">
+                                        <label class="form-check-labe" for="KeylessGo">
+                                            Keyless Go
+                                        </label>
+                                    </div>
+                                    <div class="col-lg-3 form-check border border-1 p-3 mx-3 mt-2">
+                                        <input asp-for="vehicle.car.Webasto" class="miniPreviewEquipment form-check-input" data-value="Webasto" id="Webasto">
+                                        <label class="form-check-labe" for="Webasto">
+                                            Webasto
+                                        </label>
+                                    </div>
+                                    <div class="col-lg-3 form-check border border-1 p-3 mx-3 mt-2">
+                                        <input asp-for="vehicle.car.RainDetector" class="miniPreviewEquipment form-check-input" data-value="Rain detector" id="Raindetector">
+                                        <label class="form-check-labe" for="Raindetector">
+                                            Rain detector
+                                        </label>
+                                    </div>
+                                    <div class="col-lg-3 form-check border border-1 p-3 mx-3 mt-2">
+                                        <input asp-for="vehicle.car.HeatingFrontWindow" class="miniPreviewEquipment form-check-input" data-value="Heating front window" id="Heatingfrontwindow">
+                                        <label class="form-check-labe" for="Heatingfrontwindow">
+                                            Heating front window
+                                        </label>
+                                    </div>
+                                    <div class="col-lg-3 form-check border border-1 p-3 mx-3 mt-2">
+                                        <input asp-for="vehicle.car.ElectricFrontWindows" class="miniPreviewEquipment form-check-input" data-value="Electric front windows" id="Electricfrontwindows">
+                                        <label class="form-check-labe" for="Electricfrontwindows">
+                                            Electric front windows
+                                        </label>
+                                    </div>
+                                    <div class="col-lg-3 form-check border border-1 p-3 mx-3 mt-2">
+                                        <input asp-for="vehicle.car.ElectricRearWindows" class="miniPreviewEquipment form-check-input" data-value="Electric rear windows" id="Electricrearwindows">
+                                        <label class="form-check-labe" for="Electricrearwindows">
+                                            Electric rear windows
+                                        </label>
+                                    </div>
+                                    <div class="col-lg-3 form-check border border-1 p-3 mx-3 mt-2">
+                                        <input asp-for="vehicle.car.DigitalKey" class="miniPreviewEquipment form-check-input" data-value="Digital key" id="Digitalkey">
+                                        <label class="form-check-labe" for="Digitalkey">
+                                            Digital key
+                                        </label>
+                                    </div>
+                                    <div class="col-lg-3 form-check border border-1 p-3 mx-3 mt-2">
+                                        <input asp-for="vehicle.car.OpeningRoof" class="miniPreviewEquipment form-check-input" data-value="Opening roof" id="Openingroof">
+                                        <label class="form-check-labe" for="Openingroof">
+                                            Opening roof
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="border-left: 1px solid #dfdfdf" class="col-4 p-4">
+                                <h4>Driver support systems</h4>
+                                <hr />
+                                <div class="row">
+                                    <div class="col-lg-3 form-check border border-1 p-3 mx-3">
+                                        <input asp-for="vehicle.car.Tempomat" class="miniPreviewEquipment form-check-input" data-value="Tempomat" id="Tempomat">
+                                        <label class="form-check-labe" for="Tempomat">
+                                            Tempomat
+                                        </label>
+                                    </div>
+
+                                    <div class="col-lg-3 form-check border border-1 p-3 mx-3 mt-2">
+                                        <input asp-for="vehicle.car.ParkingSensors" class="miniPreviewEquipment form-check-input" data-value="Parking sescors" id="Parkingsencors">
+                                        <label class="form-check-labe" for="Parkingsencors">
+                                            Parking sescors
+                                        </label>
+                                    </div>
+                                    <div class="col-lg-3 form-check border border-1 p-3 mx-3 mt-2">
+                                        <input asp-for="vehicle.car.ParkAssistant" class="miniPreviewEquipment form-check-input" data-value="Park Assistant" id="ParkAssistant">
+                                        <label class="form-check-labe" for="ParkAssistant">
+                                            Park Assistant
+                                        </label>
+                                    </div>
+
+                                    <div class="col-lg-3 form-check border border-1 p-3 mx-3 mt-2">
+                                        <input asp-for="vehicle.car.PanoramicCamera360" class="miniPreviewEquipment form-check-input" data-value="Panoramic camera 360" id="Panoramiccamera360">
+                                        <label class="form-check-labe" for="Panoramiccamera360">
+                                            Panoramic camera 360
+                                        </label>
+                                    </div>
+                                   <div class="col-lg-3 form-check border border-1 p-3 mx-3 mt-2">
+                                        <input asp-for="vehicle.car.ParkingCamera" class="miniPreviewEquipment form-check-input" data-value="Parkin camera" id="Parkincamera">
+                                        <label class="form-check-labe" for="Parkincamera">
+                                            Parking camera
+                                        </label>
+                                    </div>
+
+                                   <div class="col-lg-3 form-check border border-1 p-3 mx-3 mt-2">
+                                        <input asp-for="vehicle.car.ElectronicMirrors" class="miniPreviewEquipment form-check-input" data-value="Electric mirrors" id="Electricmirrors">
+                                        <label class="form-check-labe" for="Electricmirrors">
+                                            Electric mirrors
+                                        </label>
+                                    </div>
+                                    <div class="col-lg-3 form-check border border-1 p-3 mx-3 mt-2">
+                                        <input asp-for="vehicle.car.BlindSpotAssistance" class="miniPreviewEquipment form-check-input" data-value="Blind spot assistance" id="Blindspotassistance">
+                                        <label class="form-check-labe" for="Blindspotassistance">
+                                            Blind spot assistance
+                                        </label>
+                                    </div>
+
+                                    <div class="col-lg-3 form-check border border-1 p-3 mx-3 mt-2">
+                                        <input asp-for="vehicle.car.LanneAssist" class="miniPreviewEquipment form-check-input" data-value="Lane assist" id="Laneassist">
+                                        <label class="form-check-labe" for="Laneassist">
+                                            Lane assist
+                                        </label>
+                                    </div>
+                                    <div class="col-lg-3 form-check border border-1 p-3 mx-3 mt-2">
+                                        <input asp-for="vehicle.car.SpeedLimiter" class="miniPreviewEquipment form-check-input" id="Speedlimiter">
+                                        <label class="form-check-labe" for="Speedlimiter">
+                                            Speed limiter
+                                        </label>
+                                    </div>
+
+                                    <div class="col-lg-3 form-check border border-1 p-3 mx-3 mt-2">
+                                        <input asp-for="vehicle.car.BrakeAssist" class="miniPreviewEquipment form-check-input" data-value="Brake Assist" id="BrakeAssist">
+                                        <label class="form-check-labe" for="BrakeAssist">
+                                            Brake Assist
+                                        </label>
+                                    </div>
+                                    <div class="col-lg-3 form-check border border-1 p-3 mx-3 mt-2">
+                                        <input asp-for="vehicle.car.ESP" class="miniPreviewEquipment form-check-input" data-value="ESP" id="ESP">
+                                        <label class="form-check-labe" for="ESP">
+                                            ESP
+                                        </label>
+                                    </div>
+
+                                   <div class="col-lg-3 form-check border border-1 p-3 mx-3 mt-2">
+                                        <input asp-for="vehicle.car.ABS" class="miniPreviewEquipment form-check-input" data-value="ABS" id="carABS">
+                                        <label class="form-check-labe" for="carABS">
+                                            ABS
+                                        </label>
+                                    </div>
+                                   <div class="col-lg-3 form-check border border-1 p-3 mx-3 mt-2">
+                                        <input asp-for="vehicle.car.HillHolder" class="miniPreviewEquipment form-check-input" data-value="Hill Holder" id="HillHolder">
+                                        <label class="form-check-labe" for="HillHolder">
+                                            Hill Holder
+                                        </label>
+                                    </div>
+                                    <div class="col-lg-3 form-check border border-1 p-3 mx-3 mt-2">
+                                        <input asp-for="vehicle.car.ActiveRecognizedRoadSigns" class="miniPreviewEquipment form-check-input" data-value="Active recognized road signs" id="Activerecognizedroadsigns">
+                                        <label class="form-check-labe" for="Activerecognizedroadsigns">
+                                            Active recognized road signs
+                                        </label>
+                                    </div>
+                                    <div class="col-lg-3 form-check border border-1 p-3 mx-3 mt-2">
+                                        <input asp-for="vehicle.car.DuskSensor" class="miniPreviewEquipment form-check-input" data-value="Dusk sensor" id="Dusksensor">
+                                        <label class="form-check-labe" for="Dusksensor">
+                                            Dusk sensor
+                                        </label>
+                                    </div>
+                                    <div class="col-lg-3 form-check border border-1 p-3 mx-3 mt-2">
+                                        <input asp-for="vehicle.car.DailyLight" class="miniPreviewEquipment form-check-input" value="true" data-value="Daily light" id="Dalylight">
+                                        <label class="form-check-labe" for="Dalylight">
+                                            Daily light
+                                        </label>
+                                    </div>
+                                    <div class="col-lg-3 form-check border border-1 p-3 mx-3 mt-2">
+                                        <input asp-for="vehicle.car.RearLedLight" class="miniPreviewEquipment form-check-input" data-value="Rear LED light" id="RearLEDlight">
+                                        <label class="form-check-labe" for="RearLEDlight">
+                                            Rear LED light
+                                        </label>
+                                    </div>
+                                    <div class="col-lg-3 form-check border border-1 p-3 mx-3 mt-2">
+                                        <input asp-for="vehicle.car.LeavingHomeLight" class="miniPreviewEquipment form-check-input" data-value="Leaving home light" id="Leavinghomelight">
+                                        <label class="form-check-labe" for="Leavinghomelight">
+                                            Leaving home light
+                                        </label>
+                                    </div>
+                                  <div class="col-lg-3 form-check border border-1 p-3 mx-3 mt-2">
+                                        <input asp-for="vehicle.car.StartStopSystem" class="miniPreviewEquipment form-check-input" data-value="Start/Stop system" id="StartStopsystem">
+                                        <label class="form-check-labe" for="StartStopsystem">
+                                            Start/Stop system
+                                        </label>
+                                    </div>
+                                    <div class="col-lg-3 form-check border border-1 p-3 mx-3 mt-2">
+                                        <input asp-for="vehicle.car.ElectricParkingBrake" class="miniPreviewEquipment form-check-input" data-value="Electric parking brake" id="Electricparkingbrake">
+                                        <label class="form-check-labe" for="Electricparkingbrake">
+                                            Electric parking brake
+                                        </label>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+        }
+        else if (Model.vehicle.VehicleType == "truck")
+        {
+                        <div class="row">
+                            <div class="col-12 p-4">
+                                <h4>Truck equipment</h4>
+                                <hr />
+                                <div class="row">
+                                        <div class="col-lg-1 form-check border border-1 p-3 mx-3 mt-2">
+                                            <input asp-for="vehicle.truck.Drive4x4" class="miniPreviewEquipment form-check-input" data-value="4x4" value="true" id="4x4">
+                                            <label class="form-check-labe" for="4x4">
+                                                4x4
+                                            </label>
+                                        </div>
+                                        <div class="col-lg-1 form-check border border-1 p-3 mx-3 mt-2">
+                                            <input asp-for="vehicle.truck.ABS" class="miniPreviewEquipment form-check-input" data-value="ABS" id="ABS">
+                                            <label class="form-check-labe" for="ABS">
+                                                ABS
+                                            </label>
+                                        </div>
+                                        <div class="col-lg-1 form-check border border-1 p-3 mx-3 mt-2">
+                                            <input asp-for="vehicle.truck.Alarm" class="miniPreviewEquipment form-check-input" data-value="Alarm" id="truckAlarm">
+                                            <label class="form-check-labe" for="truckAlarm">
+                                                Alarm
+                                            </label>
+                                        </div>
+                                        <div class="col-lg-1 form-check border border-1 p-3 mx-3 mt-2">
+                                            <input asp-for="vehicle.truck.ASR" class="miniPreviewEquipment form-check-input" data-value="ASR" id="ASR">
+                                            <label class="form-check-labe" for="ASR">
+                                                ASR
+                                            </label>
+                                        </div>
+                                        <div class="col-lg-1 form-check border border-1 p-3 mx-3 mt-2">
+                                            <input asp-for="vehicle.truck.CbRadio" class="miniPreviewEquipment form-check-input" data-value="CB Radio" id="CBRadio">
+                                            <label class="form-check-labe" for="CBRadio">
+                                                CB Radio
+                                            </label>
+                                        </div>
+                                        <div class="col-lg-1 form-check border border-1 p-3 mx-3 mt-2">
+                                            <input asp-for="vehicle.truck.CD" class="miniPreviewEquipment form-check-input" data-value="CD" id="CD">
+                                            <label class="form-check-labe" for="CD">
+                                                CD
+                                            </label>
+                                        </div>
+                                        <div class="col-lg-1 form-check border border-1 p-3 mx-3 mt-2">
+                                            <input asp-for="vehicle.truck.CentralLock" class="miniPreviewEquipment form-check-input" data-value="Central lock" id="Centrallock">
+                                            <label class="form-check-labe" for="Centrallock">
+                                                Central lock
+                                            </label>
+                                        </div>
+                                        <div class="col-lg-1 form-check border border-1 p-3 mx-3 mt-2">
+                                            <input asp-for="vehicle.truck.ParkingSensor" class="miniPreviewEquipment form-check-input" data-value="Parking sensor" id="Parkingsencor">
+                                            <label class="form-check-labe" for="Parkingsensor">
+                                                Parking sensor
+                                            </label>
+                                        </div>
+                                        <div class="col-lg-1 form-check border border-1 p-3 mx-3 mt-2">
+                                            <input asp-for="vehicle.truck.DVD" class="miniPreviewEquipment form-check-input" data-value="DVD" id="DVD">
+                                            <label class="form-check-labe" for="DVD">
+                                                DVD
+                                            </label>
+                                        </div>
+                                        <div class="col-lg-1 form-check border border-1 p-3 mx-3 mt-2">
+                                            <input asp-for="vehicle.truck.ElectrisWindows" class="miniPreviewEquipment form-check-input" data-value="Electris Windows" id="Electrisglasses">
+                                            <label class="form-check-labe" for="Electrisglasses">
+                                                Electris Windows
+                                            </label>
+                                        </div>
+                                        <div class="col-lg-1 form-check border border-1 p-3 mx-3 mt-2">
+                                            <input asp-for="vehicle.truck.ESP" class="miniPreviewEquipment form-check-input" data-value="ESP" id="carESP">
+                                            <label class="form-check-labe" for="carESP">
+                                                ESP
+                                            </label>
+                                        </div>
+                                        <div class="col-lg-1 form-check border border-1 p-3 mx-3 mt-2">
+                                            <input asp-for="vehicle.truck.Immobilizer" class="miniPreviewEquipment form-check-input" data-value="Immobilizer" id="Immobilizer">
+                                            <label class="form-check-labe" for="Immobilizer">
+                                                Immobilizer
+                                            </label>
+                                        </div>
+                                        <div class="col-lg-1 form-check border border-1 p-3 mx-3 mt-2">
+                                            <input asp-for="vehicle.truck.Intarder" class="miniPreviewEquipment form-check-input" data-value="Intarder" id="Intarder">
+                                            <label class="form-check-labe" for="Intarder">
+                                                Intarder
+                                            </label>
+                                        </div>
+                                        <div class="col-lg-1 form-check border border-1 p-3 mx-3 mt-2">
+                                            <input asp-for="vehicle.truck.SleepingCabing" class="miniPreviewEquipment form-check-input" data-value="Sleeping cabin" id="Sleepingcabin">
+                                            <label class="form-check-labe" for="Sleepingcabin">
+                                                Sleeping cabin
+                                            </label>
+                                        </div>
+                                        <div class="col-lg-1 form-check border border-1 p-3 mx-3 mt-2">
+                                            <input asp-for="vehicle.truck.AutomaticAirCondition" class="miniPreviewEquipment form-check-input" data-value="Automatic air condition" id="Automaticaircondition">
+                                            <label class="form-check-labe" for="Automaticaircondition">
+                                                Automatic air condition
+                                            </label>
+                                        </div>
+                                        <div class="col-lg-1 form-check border border-1 p-3 mx-3 mt-2">
+                                            <input asp-for="vehicle.truck.OnBoardComputer" class="miniPreviewEquipment form-check-input" data-value="On-board computer" id="Onboardcomputer">
+                                            <label class="form-check-labe" for="Onboardcomputer">
+                                                On-board computer
+                                            </label>
+                                        </div>
+                                        <div class="col-lg-1 form-check border border-1 p-3 mx-3 mt-2">
+                                            <input asp-for="vehicle.truck.Kitchen" class="miniPreviewEquipment form-check-input" data-value="Kitchen" id="Kitchen">
+                                            <label class="form-check-labe" for="Kitchen">
+                                                Kitchen
+                                            </label>
+                                        </div>
+                                        <div class="col-lg-1 form-check border border-1 p-3 mx-3 mt-2">
+                                            <input asp-for="vehicle.truck.Fridge" class="miniPreviewEquipment form-check-input" data-value="Fridge" id="Fridge">
+                                            <label class="form-check-labe" for="Fridge">
+                                                Fridge
+                                            </label>
+                                        </div>
+                                        <div class="col-lg-1 form-check border border-1 p-3 mx-3 mt-2">
+                                            <input asp-for="vehicle.truck.MiniBar" class="miniPreviewEquipment form-check-input" data-value="Mini bar" id="Minibar">
+                                            <label class="form-check-labe" for="Minibar">
+                                                Mini bar
+                                            </label>
+                                        </div>
+                                        <div class="col-lg-1 form-check border border-1 p-3 mx-3 mt-2">
+                                            <input asp-for="vehicle.truck.GPSNAV" class="miniPreviewEquipment form-check-input" data-value="GPS NAV" id="GPSNAV">
+                                            <label class="form-check-labe" for="GPSNAV">
+                                                GPS NAV
+                                            </label>
+                                        </div>
+                                        <div class="col-lg-1 form-check border border-1 p-3 mx-3 mt-2">
+                                            <input asp-for="vehicle.truck.Webasto" class="miniPreviewEquipment form-check-input" data-value="Webassto" id="Webassto">
+                                            <label class="form-check-labe" for="Webassto">
+                                                Webassto
+                                            </label>
+                                        </div>
+                                        <div class="col-lg-1 form-check border border-1 p-3 mx-3 mt-2">
+                                            <input asp-for="vehicle.truck.AirBags" class="miniPreviewEquipment form-check-input" data-value="Air bags" id="Airbags">
+                                            <label class="form-check-labe" for="Airbags">
+                                                Air bags
+                                            </label>
+                                        </div>
+                                        <div class="col-lg-1 form-check border border-1 p-3 mx-3 mt-2">
+                                            <input asp-for="vehicle.truck.FactoryRadio" class="miniPreviewEquipment form-check-input" data-value="Factory radio" id="Factoryradio">
+                                            <label class="form-check-labe" for="Factoryradio">
+                                                Factory radio
+                                            </label>
+                                        </div>
+                                        <div class="col-lg-1 form-check border border-1 p-3 mx-3 mt-2">
+                                            <input asp-for="vehicle.truck.NotFactoryRadio" class="miniPreviewEquipment form-check-input" data-value="Not factory radio" id="Notfactoryradio">
+                                            <label class="form-check-labe" for="Notfactoryradio">
+                                                Not factory radio
+                                            </label>
+                                        </div>
+                                        <div class="col-lg-1 form-check border border-1 p-3 mx-3 mt-2">
+                                            <input asp-for="vehicle.truck.AdjustableSuspension" class="miniPreviewEquipment form-check-input" data-value="Adjustable suspension" id="Adjustablesuspension">
+                                            <label class="form-check-labe" for="Adjustablesuspension">
+                                                Adjustable suspension
+                                            </label>
+                                        </div>
+                                        <div class="col-lg-1 form-check border border-1 p-3 mx-3 mt-2">
+                                            <input asp-for="vehicle.truck.Retarder" class="miniPreviewEquipment form-check-input" data-value="Retarder" id="Retarder">
+                                            <label class="form-check-labe" for="Retarder">
+                                                Retarder
+                                            </label>
+                                        </div>
+                                        <div class="col-lg-1 form-check border border-1 p-3 mx-3 mt-2">
+                                            <input asp-for="vehicle.truck.Tachography" class="miniPreviewEquipment form-check-input" data-value="Tachograph" id="Tachograph">
+                                            <label class="form-check-labe" for="Tachograph">
+                                                Tachograph
+                                            </label>
+                                        </div>
+                                        <div class="col-lg-1 form-check border border-1 p-3 mx-3 mt-2">
+                                            <input asp-for="vehicle.truck.CruiseControl" class="miniPreviewEquipment form-check-input" data-value="Cruise control" id="Cruisecontrol">
+                                            <label class="form-check-labe" for="Cruisecontrol">
+                                                Cruise control
+                                            </label>
+                                        </div>
+                                        <div class="col-lg-1 form-check border border-1 p-3 mx-3 mt-2">
+                                            <input asp-for="vehicle.truck.Toilet" class="miniPreviewEquipment form-check-input" data-value="Toilet" id="Toilet">
+                                            <label class="form-check-labe" for="Toilet">
+                                                Toilet
+                                            </label>
+                                        </div>
+                                        <div class="col-lg-1 form-check border border-1 p-3 mx-3 mt-2">
+                                            <input asp-for="vehicle.truck.TVTuner" class="miniPreviewEquipment form-check-input" data-value="TV Tuner" id="TVTuner">
+                                            <label class="form-check-labe" for="TVTuner">
+                                                TV Tuner
+                                            </label>
+                                        </div>
+                                        <div class="col-lg-1 form-check border border-1 p-3 mx-3 mt-2">
+                                            <input asp-for="vehicle.truck.MultifunctionSteeringWheel" class="miniPreviewEquipment form-check-input" data-value="Multifunction steering  wheel" id="Multifunctionsteering">
+                                            <label class="form-check-labe" for="Multifunctionsteering">
+                                                Multifunction steering  wheel
+                                            </label>
+                                        </div>
+                                 </div>
+                             </div>
+                        </div>             
+        }
+        else if (Model.vehicle.VehicleType == "motorcycle")
+        {
+                        <div class="row">
+                            <div class="col-12 p-4">
+                                <h4>Motorcycle equipment</h4>
+                                <hr />
+                                <div class="row">
+                                         <div class="col-lg-1 form-check border border-1 p-3 mx-3 mt-2">
+                                            <input asp-for="vehicle.motorcycle.ABS" class="miniPreviewEquipment form-check-input" data-value="ABS" id="motoABS">
+                                            <label class="form-check-labe" for="motoABS">
+                                                ABS
+                                            </label>
+                                        </div>
+                                         <div class="col-lg-1 form-check border border-1 p-3 mx-3 mt-2">
+                                            <input asp-for="vehicle.motorcycle.Alarm" class="miniPreviewEquipment form-check-input" data-value="Alarm" id="Alarm">
+                                            <label class="form-check-labe" for="Alarm">
+                                                Alarm
+                                            </label>
+                                        </div>
+                                         <div class="col-lg-1 form-check border border-1 p-3 mx-3 mt-2">
+                                            <input asp-for="vehicle.motorcycle.ImmobilizerTrunk" class="miniPreviewEquipment form-check-input" data-value="Immobilizer trunk" id="Immobilizertrunk">
+                                            <label class="form-check-labe" for="Immobilizertrunk">
+                                                Immobilizer trunk
+                                            </label>
+                                        </div>
+                                        <div class="col-lg-1 form-check border border-1 p-3 mx-3 mt-2">
+                                            <input asp-for="vehicle.motorcycle.HeatedGrips" class="miniPreviewEquipment form-check-input" data-value="Heated grips" id="Heatedgrips">
+                                            <label class="form-check-labe" for="Heatedgrips">
+                                                Heated grips
+                                            </label>
+                                        </div>
+                                        <div class="col-lg-1 form-check border border-1 p-3 mx-3 mt-2">
+                                            <input asp-for="vehicle.motorcycle.Radio" class="miniPreviewEquipment form-check-input" data-value="Radio" id="Radio">
+                                            <label class="form-check-labe" for="Radio">
+                                                Radio
+                                            </label>
+                                        </div>
+                                 </div>
+                             </div>
+                        </div>             
+        }
+                </div>
+            </div>
+        </div>
+    </section>
+</form>
+
+
+<section name="advertisementOne" class="container-fluid advertisement-lg">
+    <div style="max-height:300px;" class="row">
+        <div class="p-0">
+            <img style="max-height:300px;" src="~/image/advertisements/large/example_one.png" class="img-fluid w-100"/>
+        </div>
+    </div>
+</section>
+
+<section name="FilterDetails" class="container mt-5">
+    <div class="row">
+        <div class="col-12">
+            <small>Vehicle: <a class="btn text-primary" href="#">Car</a></small>
+            <h4>vehicle - @Model.Announcements.Count() adverts</h4>
+        </div>
+    </div>
+</section>
+
+    <section name="FilterResoultsMentioned" class="container">
+        @foreach (var veh in Model.Announcements)
+        {
+            if (DateTime.Compare(veh.vehicle.MentionTime, DateTime.Now.Date) > 0)
+            {
+                <div class="row border mb-3">
+                <div class="col-lg-3 p-2">
+                    <a asp-area="customer" asp-controller="Announcement" asp-action="ShowAnnouncement" asp-route-identifier="@veh.vehicle.Id">
+                        <img style="max-height:235px; min-height:235px;"  class="img-fluid" src="~/image/tempAnnouncement/@veh.images[0].Name" />
+                    </a>
+                </div>
+                <div class="col-lg-6 p-2">
+                    <div class="row">
+                        <div class="col-12">
+                            <h4>@veh.vehicle.Title</h4>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-1">
+                            <small>@veh.vehicle.ProductionYear</small>
+                        </div>
+                        <div class="col-2">
+                            <small>@veh.vehicle.Milage km</small>
+                        </div>
+                        <div class="col-2">
+                            <small>@veh.vehicle.CubicCapacity cm<sup>3</sup></small>
+                        </div>
+                        <div class="col-1">
+                            <small>@veh.vehicle.Fuel</small>
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-6">
+                            <small>
+                                <i class="bi bi-geo-alt-fill"></i> Miejscowość . Opublikowano 6 minut temu
+                            </small>
+                        </div>
+                    </div>
+                    <div class="row company ">
+                        <div class="col-3">
+                            <img src="~/image/Companys/Temp/tempLogo.png" class="img-fluid" />
+                        </div>
+                        <div class="col-8 d-flex align-items-center">
+                            <h6>Company - company motto</h6>
+                        </div>   
+                    </div>
+                </div>
+                <div class="col-lg-3 text-lg-end p-2 ">
+                    <div class="row h-50">
+                        <div class="col-12">
+                            <h5 class="text-danger">@veh.vehicle.PriceBrutto PLN</h5>
+                         </div>
+                        <div class="col-12 text-primary">
+                            <i class="bi bi-person"></i> Kubacz00
+                        </div>
+                        <div class="col-12 text-success">
+                            <i class="bi bi-coin"></i> &nbsp Check financing
+                        </div>
+                    </div>
+
+                    <div class="row h-50 d-flex align-items-end">
+                       <div class="col-12 ">
+                            <a asp-area="customer" asp-controller="Announcement" asp-action="ShowAnnouncement" asp-route-identifier="@veh.vehicle.Id" class="btn btn-danger px-5">
+                                <i class="bi bi-eye"></i> Show
+                            </a>
+                            <a class="btn btn-primary">
+                                <i class="bi bi-heart"></i> Observe
+                            </a>
+                        </div>
+                    </div>   
+
+                 </div>
+             </div>
+            }
+        }
+        
+    </section>
+    <section name="AdvertaismentTwo" class="container mb-3">
+        <div class="row">
+            <div class="col-3">
+                    <img style="max-height:300px;" src="~/image/advertisements/small/ADVERTISEMENT_2.png" class="img-fluid w-100 shadow-hover"/>
+            </div>
+            <div class="col-3">
+                    <img style="max-height:300px;" src="~/image/advertisements/small/ADVERTISEMENT_3.png" class="img-fluid w-100 shadow-hover"/>
+            </div>
+            <div class="col-3">
+                    <img style="max-height:300px;" src="~/image/advertisements/small/ADVERTISEMENT_4.png" class="img-fluid w-100 shadow-hover"/>
+            </div>
+            <div class="col-3">
+                    <img style="max-height:300px;" src="~/image/advertisements/small/ADVERTISEMENT_5.png" class="img-fluid w-100 shadow-hover"/>
+            </div>
+        </div>
+    </section>
+    <section name="FilterResoultsTwo" class="container">
+        @foreach (var veh in Model.Announcements)
+        {
+        if (DateTime.Compare(veh.vehicle.MentionTime, DateTime.Now.Date) <= 0)
+        {
+                <div class="row border mb-3">
+                <div class="col-lg-3 p-2">
+                    <a asp-area="customer" asp-controller="Announcement" asp-action="ShowAnnouncement" asp-route-identifier="@veh.vehicle.Id">
+                        <img style="max-height:235px; min-height:235px;"  class="img-fluid" src="~/image/tempAnnouncement/@veh.images[0].Name" />
+                    </a>
+                </div>
+                <div class="col-lg-6 p-2">
+                    <div class="row">
+                        <div class="col-12">
+                            <h4>@veh.vehicle.Title</h4>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-1">
+                            <small>@veh.vehicle.ProductionYear</small>
+                        </div>
+                        <div class="col-2">
+                            <small>@veh.vehicle.Milage km</small>
+                        </div>
+                        <div class="col-2">
+                            <small>@veh.vehicle.ProductionYear cm<sup>3</sup></small>
+                        </div>
+                        <div class="col-1">
+                            <small>@veh.vehicle.Fuel</small>
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-6">
+                            <small>
+                                <i class="bi bi-geo-alt-fill"></i> Miejscowość . Opublikowano 6 minut temu
+                            </small>
+                        </div>
+                    </div>
+                    <div class="row company ">
+                        <div class="col-3">
+                            <img src="~/image/Companys/Temp/tempLogo.png" class="img-fluid" />
+                        </div>
+                        <div class="col-8 d-flex align-items-center">
+                            <h6>Company - company motto</h6>
+                        </div>   
+                    </div>
+                </div>
+                <div class="col-lg-3 text-lg-end p-2 ">
+                    <div class="row h-50">
+                        <div class="col-12">
+                            <h5 class="text-danger">@veh.vehicle.PriceBrutto PLN</h5>
+                         </div>
+                        <div class="col-12 text-primary">
+                            <i class="bi bi-person"></i> Kubacz00
+                        </div>
+                        <div class="col-12 text-success">
+                            <i class="bi bi-coin"></i> &nbsp Check financing
+                        </div>
+                    </div>
+
+                    <div class="row h-50 d-flex align-items-end">
+                       <div class="col-12 ">
+                            <a asp-area="customer" asp-controller="Announcement" asp-action="ShowAnnouncement" asp-route-identifier="@veh.vehicle.Id" class="btn btn-danger px-5">
+                                <i class="bi bi-eye"></i> Show
+                            </a>
+                            <a class="btn btn-primary">
+                                <i class="bi bi-heart"></i> Observe
+                            </a>
+                        </div>
+                    </div>   
+
+                 </div>
+             </div>
+        }
+        }
+    </section>
+    <section name="AdvertaismentThree" class="container mb-3">
+        <div class="row">
+            <div class="col-lg-6">
+                <img src="~/image/advertisements/small/ADVERTISEMENT_9.png" class="img-fluid w-100 shadow-hover"/>
+            </div>
+            <div class="col-lg-6 d-flex align-items-center">
+                <div class="row">
+                    <div class="col-6 mb-3">
+                        <img style="max-height:300px;" src="~/image/advertisements/small/ADVERTISEMENT_6.png" class="img-fluid w-100 shadow-hover"/>
+                    </div>
+                    <div class="col-6 mb-3">
+                        <img style="max-height:300px;" src="~/image/advertisements/small/ADVERTISEMENT_7.png" class="img-fluid w-100 shadow-hover"/>
+                    </div>
+                    <div class="col-6">
+                        <img style="max-height:300px;" src="~/image/advertisements/small/ADVERTISEMENT_8.png" class="img-fluid w-100 shadow-hover"/>
+                    </div>
+                    <div class="col-6">
+                        <img style="max-height:300px;" src="~/image/advertisements/small/ADVERTISEMENT_10.png" class="img-fluid w-100 shadow-hover"/>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+    <section name="googleAdvertisement" class="container">
+         <div class="row border">
+              <div class="col-12 d-flex justify-content-center">
+                   <img style="width:250px" class="img-fluid" src="https://pozeo.pl/wp-content/uploads/2019/12/google-ads.jpg" />
+              </div>
+         </div>
+    </section>
+
+
+@section Scripts
+{
+     <script src="~/js/Vehicles/Vehicle.js"></script>
+     <script src="~/js/Vehicles/Car.js"></script>
+     <script src="~/js/Vehicles/Truck.js"></script>
+     <script src="~/js/Vehicles/Motorcycle.js"></script>
+     <script src="~/js/FilterBox.js"></script>
+     <script src="~/js/FilterAnnouncement/AdditionalFilters.js"></script>
+     <script src="~/js/FilterAnnouncement/Main.js"></script>
+     @if ((bool)ViewData["advanced_seearch_expanded"])
+     {
+        <script type="text/javascript">
+            SetFiltersInputs(true);
+        </script>
+     }
+     else
+     {
+        <script type="text/javascript">
+            SetFiltersInputs(false);
+        </script>
+     }
+     <script type="text/javascript">
+         $('.selectpicker').selectpicker({
+            icosnBase: 'fa',
+            tickIcon: 'fa-check'
+        });
+     </script>
+}
