@@ -6,6 +6,9 @@
         <section name="form" class="col-lg-7">
             <form method="post" enctype="multipart/form-data">
             <h1>Create announcement</h1>
+            <div class="row">
+                <div asp-validation-summary="All" class="col-12"></div>
+            </div>
             <div class="col-12 pt-4">
                     <select asp-for="vehicle.VehicleType" id="VehicleSelector" class="miniPreviewInfo form-control">
                         <option value="car">Cars</option>
@@ -163,7 +166,7 @@
                     </div>
                      <div class="col-lg-6 p-3 form-group">
                         <label for="">Co2 Emision</label>
-                        <input type="text" class="form-control p-3" id="" placeholder="g/km">
+                        <input asp-for="vehicle.Co2Emision" class="form-control p-3" id="" placeholder="g/km">
                     </div>
                 </div>
             </div>
@@ -1043,7 +1046,7 @@
                     </div>
                 </div>
             </div>
-            <button onclick="return FormHandler.FileInputIsNotEmpty()" class="btn btn-primary w-100 mt-5" type="submit">Create</button>
+            <button onclick="return FormHandler.FileInputIsEmpty" class="btn btn-primary w-100 mt-5" type="submit">Create</button>
             </form>
         </section>
         <div class="col-lg-1" style="border-right: 1px solid #ecf0f1"></div>

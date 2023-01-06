@@ -18,7 +18,11 @@ const userNumber = showNumberButton.textContent;
 showNumberButton.textContent = `Click to show number`
 
 showNumberButton.addEventListener('click',(event)=>{
+    let vehicleId = event.target.dataset.vehid
     if(PhoneBtnState == false){
+        $.post(`/Customer/Announcement/IncreasePhoneDisplaysNumber?identifier=${vehicleId}`,function(data){
+        });
+        PhoneBtnState = true;
         event.target.textContent = userNumber
     }
 })

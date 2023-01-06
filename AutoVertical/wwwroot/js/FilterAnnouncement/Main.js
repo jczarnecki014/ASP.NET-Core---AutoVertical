@@ -1,4 +1,4 @@
-﻿
+
 const vehicle = document.querySelector("#VehicleTypeInput");
 
 const filters = document.querySelectorAll(".filters");
@@ -70,7 +70,7 @@ vehicle.addEventListener("change",e=>{
     else{
         disabled=false;
         $("#test")
-        .animate({width: "0px"})
+        .animate({width: "40px"})
         .animate({opacity: "0"})
     }
     filters.forEach(element =>{

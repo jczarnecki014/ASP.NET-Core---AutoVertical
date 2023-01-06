@@ -11,6 +11,7 @@ namespace AutoVertical_Data.Repository.IRepository
     public interface IVehicleRepository:IRepository<Vehicle>
     {
         public Vehicle GetFirstOfDefault(Expression<Func<Vehicle, bool>> filter,bool includeSpecific = false);
+        public IEnumerable<Vehicle> GetAll(Expression<Func<Vehicle, bool>>? filter = null, string? includeProperties = null,bool Expired=false);
         public void Update(Vehicle entity){}
     }
 }

@@ -1,0 +1,195 @@
+﻿@using AutoVertical_Model.Models.ViewModel;
+@model UserPanelDasboardVM;
+<div  class="container">
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="row">
+                <div class="col-12 text-center mb-4">
+                    <h4>Advert Views</h4>
+                    <small class="text-secondary">
+                        In this place you can see how change your advert views number.
+                    </small>
+                </div>
+            </div>
+            <canvas id="advertViews"></canvas>
+        </div>
+         <div class="col-lg-6">
+            <div class="row">
+                <div class="col-12 text-center mb-4">
+                    <h4>Phonenumber views</h4>
+                    <small class="text-secondary">
+                        This chart present how change number of click "show number" buttons in your adverts
+                    </small>
+                </div>
+            </div>
+            <canvas id="phoneNumberShows"></canvas>
+        </div>
+         <div class="col-12 mt-5 mb-5">
+             <h2>Your profile</h2>
+         </div>
+         <div class="col-lg-4 text-center">
+             <h1 style="color:#74B243; font-weight:bold; font-family:'Roboto', sans-serif;" class="mb-4 counter">
+                 @Model.ActiveAdvertCount
+             </h1>
+             <i class="bi bi-megaphone h5"></i>
+             <h5>Active advert</h5>
+         </div>
+         <div class="col-lg-4 text-center">
+             <h1 style="color:#B62828; font-weight:bold; font-family:'Roboto', sans-serif;" class="mb-4">
+                @(Model.User.SoldVehicles != null ? Model.User.SoldVehicles:0)
+             </h1>
+             <i class="fa-solid fa-dollar-sign"></i>
+             <h5>Sold vehicles</h5>
+         </div>
+         <div class="col-lg-4 text-center">
+             <h1 style="color:#347AC5; font-weight:bold; font-family:'Roboto', sans-serif;" class="mb-4">999</h1>
+             <i class="fa-solid fa-headphones"></i>
+             <h5>Active advert</h5>
+         </div>
+         <hr class="my-5" />
+         <div class="col-lg-4 mt-5">
+             <div class="row">
+                <div class="col-12 text-center mb-4 justify-content-center">
+                    <h4>Edit your profile</h4>
+                    <small class="text-secondary">
+                       Change your avatar, first name, seccond name, phone number, email
+                    </small>
+                    <button id="UpdateProfileButton" class="btn bg-dark text-light mt-4">
+                        Edit profile
+                    </button>
+                </div>
+            </div>
+
+         </div>
+         <div id="ProfileDetails" class="col-lg-8 px-5">
+             <div class="row border border-1 gx-0">
+                 <div class="col-lg-3">
+                     <img class="img-thumbnail"  src="@Model.User.AvatarSrc" />
+                 </div>
+                 <div class="col-lg-9 p-4">
+                     <div class="row">
+                         <div class="col-lg-12">
+                             <h4>@Model.User.Name @Model.User.Surname</h4>
+                         </div>
+                         <hr />
+                         <div class="col-lg-12">
+                             <div class="row">
+                                 <div class="col-6">
+                                     <i class="bi bi-geo-alt"></i>&nbsp;  @Model.User.City, @Model.User.Street @Model.User.StreetNumber St.
+                                 </div>
+                                 <div class="col-6">
+                                     <i class="bi bi-envelope"></i>&nbsp;  @Model.User.Email
+                                 </div>
+                                 <div class="col-6 my-3">
+                                     <i class="bi bi-telephone"></i>&nbsp;  @Model.User.PhoneNumber
+                                 </div>
+                                 <div class="col-6 my-3">
+                                     <b>Employe in: </b>&nbsp;  Liceria & Go
+                                 </div>
+                             </div>
+                         </div>
+                         <hr />
+                         <div class="col-lg-12 mt-3">
+                             <i class="bi bi-calendar-date"></i> &nbsp; Register in @Model.User.RegistrationDate.Year;
+                         </div>
+                         <div class="col-lg-12 mt-2">
+                             <i class="bi bi-shield-fill-check"></i> &nbsp; @(Model.User.Verificated == true ? "Veryficated user" : "No veryficated user")
+                         </div>
+                     </div>
+                 </div>
+             </div>
+             <div class="row border border-1 gx-0 mt-5">
+                 <div class="col-lg-9 p-4">
+                     <div class="row">
+                         <div class="col-lg-12">
+                             <h4>Liceria & Go</h4>
+                         </div>
+                         <hr />
+                         <div class="col-lg-12">
+                             <div class="row">
+                                 <div class="col-6">
+                                     <i class="bi bi-geo-alt"></i>&nbsp;  Wrocław, ul. Krzyki 19
+                                 </div>
+                                 <div class="col-6">
+                                     <i class="bi bi-envelope"></i>&nbsp;  office@liceriaandgo.com
+                                 </div>
+                                 <div class="col-6 my-3">
+                                     <i class="bi bi-telephone"></i>&nbsp;  (+48) 236 - 411 - 236
+                                 </div>
+                                 <div class="col-6 my-3">
+                                     <b>NIP:</b>&nbsp;  611 - 104 - 96 - 81
+                                 </div>
+                             </div>
+                         </div>
+                         <hr />
+                     </div>
+                 </div>
+                 <div class="col-lg-3">
+                     <img class="img-thumbnail"  src="\image\companys\temp\tempLogo.png" />
+                 </div>
+             </div>
+         </div>
+         <div class="row">
+             <div style="display:none;" id="UserUpdateContainer" class="col-9 bg-dark position-fixed top-0 'animate__animated', 'animate__slideOutUp' text-secondary p-5">
+                 <div class="row">
+                     <div class="col-lg-11">
+                         <h1>Edit your profile</h1>
+                     </div>
+                     <div class="col-lg-1 text-end">
+                         <h1 id="CloseProfileEdit"><i class="bi bi-x text-secondary"></i></h1>
+                     </div>
+                     <div class="col-lg-3 text-justify mt-4">
+                         <img style="min-width:200px; min-height:250px; max-width: 273px; max-height: 273px;" class="avatarImg img-thumbnail mb-4"  src="@Model.User.AvatarSrc" />
+                     </div>
+                     <form asp-action="UpdateUser" method="post" class="col-lg-9" enctype="multipart/form-data">
+                         <input hidden asp-for="User.Id" />
+                         <input hidden asp-for="User.AvatarSrc" />
+                         <div class="row">
+                             <div class="col-lg-6 mt-3">
+                                 <label>User Name</label>
+                                 <input asp-for="User.UserName" class="form-control text-secondary bg-dark border-secondary" placeholder="User Name" />
+                             </div>
+                             <div class="col-lg-6 mt-3">
+                                 <label>Email</label>
+                                 <input disabled asp-for="User.Email" class="form-control text-secondary bg-dark border-danger" placeholder="Email" />
+                             </div>
+                             <div class="col-lg-6 mt-3">
+                                 <label>First name</label>
+                                 <input asp-for="User.Name" class="form-control text-secondary bg-dark border-secondary" placeholder="First name" />
+                             </div>
+                             <div class="col-lg-6 mt-3">
+                                 <label>Surname</label>
+                                 <input asp-for="User.Surname" class="form-control text-secondary bg-dark border-secondary" placeholder="Surname" />
+                             </div>
+                             <div class="col-lg-6 mt-3">
+                                 <label>Phone number</label>
+                                 <input asp-for="User.PhoneNumber" class="form-control text-secondary bg-dark border-secondary" placeholder="Phone number" />
+                             </div>
+                             <div class="col-lg-6 mt-3">
+                                 <label>City</label>
+                                 <input asp-for="User.City" class="form-control text-secondary bg-dark border-secondary" placeholder="City" />
+                             </div>
+                             <div class="col-lg-6 mt-3">
+                                 <label>Street</label>
+                                 <input asp-for="User.Street" class="form-control text-secondary bg-dark border-secondary" placeholder="Street" />
+                             </div>
+                             <div class="col-lg-6 mt-3">
+                                 <label>Post code</label>
+                                 <input asp-for="User.PostCode" class="form-control text-secondary bg-dark border-secondary" placeholder="Post code" />
+                             </div>
+                             <div hidden id="AvatarFileInput" class="col-lg-6 mt-3">
+                                 <label>Avatar img</label>
+                                 <input id="filesInput" class="form-control bg-dark border-secondary text-secondary" type="file" name="file" accept=".jpg,.jpeg,.png"> 
+                             </div>
+                             <div class="col-lg-12 mt-3 d-flex justify-content-end">
+                                 <button class="btn btn-outline-secondary" type="submit">Update</button>
+                             </div>
+                         </div>
+                     </form>
+                 </div>
+             </div>
+         </div>
+    </div>
+</div>
+
+

@@ -59,6 +59,7 @@ function SetMentionedAnnouncement(vehicleType){
     const MediumAnnouncementTiles = document.querySelectorAll(".medium-tiles");
     const LargeAnnouncementTiles = document.querySelectorAll(".large-tiles");
     $.getJSON(`/customer/Announcement/GetMentionedVehicle?VehicleType=${vehicleType}`,function(values){
+        console.log(values)
         document.querySelector("#Loading").style.display="none";
         announcementCarousel = new MentionedAnnouncement(values);
         announcementCarousel.SetTiles(SmallAnnouncementTiles,random=true); // first set

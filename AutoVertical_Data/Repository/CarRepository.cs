@@ -16,7 +16,7 @@ namespace AutoVertical_Data.Repository
             _db = db;
         }
         public void Update(Car entity){
-            _db.Update(entity);
+            _db.Cars.Update(entity);
         }
     }
     

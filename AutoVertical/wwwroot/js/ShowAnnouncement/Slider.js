@@ -44,7 +44,6 @@
         }
         else if(change=="left"){
             if(this.ActiveImgIndex == 0){
-                console.log(this.ImgList.length-1)
                 this.ActiveImgIndex = (this.ImgList.length-1);
             }else{
                 this.ActiveImgIndex--;
@@ -61,11 +60,10 @@
     }
 }
 let ImgArray = []
-let tempPath = "/image/tempAnnouncement/"
 const vehicleId = window.location.search.substring(12)
 $.getJSON(`/customer/Announcement/GetGallery?id=${vehicleId}`,function(values){
     values.data.forEach(element => {
-        ImgArray.push(tempPath+element.name);
+        ImgArray.push(element.name);
     });
     let slider = new Slider(ImgArray);
 });

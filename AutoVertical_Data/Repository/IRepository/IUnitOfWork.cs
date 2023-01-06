@@ -14,5 +14,10 @@ namespace AutoVertical_Data.Repository.IRepository
            public ITruckRepository truck { get;}
            public IMotorcycleRepository motorcycle { get;}
            public IGalleryRepository gallery{ get;}
+           public IApplicationUserRepository applicationUser { get;}
+           public IMessageRepository messages { get;}
+           public IConversationRepository conversation { get;}
+           public IAdvertStatsRepository advertStats { get;}
+           public IAdvertisementRepositoryt advertisement{ get;}
     }
 }

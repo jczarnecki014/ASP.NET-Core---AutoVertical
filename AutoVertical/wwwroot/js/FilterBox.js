@@ -10,18 +10,20 @@
         event.currentTarget.classList.remove("tab")
     }
     SetSelectTagOptions(filterTag,options,placeholder=""){
-        filterTag.innerHTML="";
         ///First default option in select list
-        let option = document.createElement("option");;
-        if(placeholder !=""){
-            option.textContent = placeholder;
+        let option = document.createElement("option");
+        if(placeholder != 'noPlaceholder'){
+            filterTag.innerHTML="";
+            if(placeholder !=""){
+                option.textContent = placeholder;
+            }
+            else{
+                option.textContent = "-- Select --";
+            }
+            option.selected = true;;
+            option.disabled = true;
+            filterTag.appendChild(option);
         }
-        else{
-            option.textContent = "-- Select --";
-        }
-        option.selected = true;;
-        option.disabled = true;
-        filterTag.appendChild(option);
         options.forEach(element =>{
             option = document.createElement("option");
             option.value = element;

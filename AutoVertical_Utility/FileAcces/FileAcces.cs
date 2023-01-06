@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using System.Drawing;
 using System.Net.Http.Headers;
+using System.Security.Cryptography;
 
 namespace AutoVertical_Utility.FileAcces
 {
@@ -11,15 +12,35 @@ namespace AutoVertical_Utility.FileAcces
         public class FileAcces : IFileAcces
         {
             private IFormFile File { get; set; }
-            private string WWWRootTree{ get;set;}
-            private string SpecificFileDirectory{ get;set; }
-            private readonly string MainAnnouncementImgDirectory = """image\tempAnnouncement\""";
+            private string DirectoryPath{ get;set;}
             public Validate FileState { get;set; }
-            public FileAcces(IFormFile File,string WWWRootPath, string? SpecificFileDirectory = null)
+            private string WWWRootPath{ get;set; }
+            private string? DefaultName{ get;set; }
+            public FileAcces(IFormFile File,string wwwRootPath,string DirectoryPath,string? DefaultName = null)
             {
                 this.File = File;
-                this.WWWRootTree= WWWRootPath;
-                this.SpecificFileDirectory = SpecificFileDirectory;
+                this.DirectoryPath= DirectoryPath;
+                this.WWWRootPath= wwwRootPath;
+                this.DefaultName= DefaultName;
+
+                /*
+                 * Create validation object to store information about file validation state
+                 * Dictionary provides possible checkpoints with should be validate
+                */
+
+                this.FileState = new Validate
+                (
+                    values: new Dictionary<string, bool>()
+                    {
+                        {"FileExtensionIsValid",true},
+                        {"FileSizeIsValid",true}
+                    }
+                );
+                this.FileValidation();
+            }
+            public FileAcces(IFormFile File)
+            {
+                this.File = File;
 
                 /*
                  * Create validation object to store information about file validation state
@@ -38,17 +59,26 @@ namespace AutoVertical_Utility.FileAcces
             }
             public string Create()
             {
-                string fileName = this.GetGuidName();
-                string directoryPath = CreateDirectory();
+                string fileName;
+                if(DefaultName != null)
+                {
+                    fileName = this.DefaultName;
+                }
+                else
+                {
+                    fileName = this.GetGuidName();
+                }
+                /*string directoryPath = CreateDirectory();*/
                 string fileExtension = Path.GetExtension(this.File.FileName);
-                string fullPath = Path.Combine(directoryPath,fileName+fileExtension);
+                string filePath = this.DirectoryPath+fileName+fileExtension;
+                string fullPath = this.WWWRootPath+filePath;
                 if(File != null) 
                 {
                    using(FileStream newFile = new FileStream(fullPath,FileMode.Create))
                    {
                         File.CopyTo(newFile);
                    }
-                   return fileName+fileExtension;
+                   return filePath;
                 }
                 else
                 {
@@ -57,35 +87,12 @@ namespace AutoVertical_Utility.FileAcces
                 
             }
 
-            public void Delete()
-            {
-            throw new NotImplementedException();
-            }
-
-
             private string GetGuidName()
             {
                 return Guid.NewGuid().ToString();
             }
 
 
-            private string CreateDirectory()
-            {
-                string path;
-                if(this.SpecificFileDirectory!= null){
-                    path = Path.Combine(this.WWWRootTree,MainAnnouncementImgDirectory,this.SpecificFileDirectory);
-                }
-                else{
-                    path =  Path.Combine(this.WWWRootTree,MainAnnouncementImgDirectory);
-                }
-
-                DirectoryInfo directory = new DirectoryInfo(path);
-                if(!directory.Exists) 
-                {
-                    directory.Create();
-                }
-                return path;
-            }
 
             public void FileValidation()
             {
@@ -105,7 +112,7 @@ namespace AutoVertical_Utility.FileAcces
                  * 1.5MB == 1 572 864 bytes
                 */
 
-                if(File.Length>1572864)
+                if(File.Length>Options.File_Maximum_Weight)
                 {
                     FileState.errorCount++;
                     FileState.isValid = false;

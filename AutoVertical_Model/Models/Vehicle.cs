@@ -82,7 +82,7 @@ namespace AutoVertical_Model.Models
         [Required]
         public string? Drive { get; set; }
 
-        public bool? Co2Emision{ get;set;}
+        public int? Co2Emision{ get;set;}
 
         //____________________________________________________________________________________________ Body
 
@@ -169,6 +169,19 @@ namespace AutoVertical_Model.Models
 
         //____________________________________________________________________________________________ Special states
         [Column(TypeName="date")]
+        public DateTime CreateDate{ get;set;}
+        [Column(TypeName="date")]
         public DateTime MentionTime{ get;set;}
+        [Column(TypeName="date")]
+        public DateTime ExpireDate{ get;set;}
+
+        [ValidateNever]
+        public string VehicleDirectoryPath { get;set;}
+
+        [ValidateNever]
+        public string UserId { get;set;}
+        [ValidateNever]
+        [ForeignKey("UserId")]
+        public ApplicationUser User{ get;set;}
     }
 }

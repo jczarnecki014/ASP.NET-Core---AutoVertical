@@ -13,6 +13,14 @@ namespace AutoVertical_Utility.FileAcces
     {
         public Validate FileState{ get; }
         public string Create();
-        public void Delete();
+        public static string Delete(string imgSrc)
+        {
+            FileInfo fileInfo= new FileInfo(imgSrc);
+            if(fileInfo.Exists)
+            {
+                fileInfo.Delete();
+            }
+            return fileInfo.DirectoryName;
+        }
     }
 }

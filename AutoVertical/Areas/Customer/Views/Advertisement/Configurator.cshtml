@@ -1,0 +1,168 @@
+﻿@using AutoVertical_Model.Models;
+@model Advertisement;
+
+@section header
+{
+    <style>
+        .selected
+        {
+           -webkit-box-shadow: 8px 8px 37px 1px rgba(26, 55, 150, 1);
+-moz-box-shadow: 8px 8px 37px 1px rgba(26, 55, 150, 1);
+box-shadow: 8px 8px 37px 1px rgba(26, 55, 150, 1);
+        }
+    </style>
+}
+
+<div class="container">
+    <div class="row my-5">
+        <div class="col-12">
+            <h1>Advertisement Configurator</h1>
+        </div>
+    </div>
+    <div class="row my-5">
+        <div class="col-12">
+            <h3>Step 1 - Select size of your advertisement</h3>
+        </div>
+    </div>
+    <div class="options row my-3 px-5 border border-5 p-5 shadow-hover" data-size="large">
+        <div class="col-12 border border-3 text-center p-5">
+            <h4>LARGE</h4>
+            <h5>1920x300</h5>
+        </div>
+        <div class="col-6 p-5 mt-2">
+            <img class="img-fluid" src="/image/AdvertisementConfigurator/LargeExample.png" />
+        </div>
+        <div class="col-6 p-5 mt-2">
+            <img class="img-fluid" src="/image/AdvertisementConfigurator/LargeExample_2.png" />
+        </div>
+        <div class="col-12 mt-2">
+            <h4 class="text-danger">The Higest reach !!</h4>
+            <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam sollicitudin consectetur tortor non blandit. Quisque sit amet risus ac sem varius imperdiet nec quis quam. Ut ultrices orci sed neque scelerisque sollicitudin. Cras vel elit et magna scelerisque feugiat. Integer augue nulla, vulputate ut accumsan ut, malesuada sit amet nisl. Cras egestas, lectus nec imperdiet eleifend, ipsum mi finibus odio, et facilisis dui leo quis mi. Duis scelerisque volutpat erat vitae lacinia. Mauris luctus ullamcorper odio eu venenatis. Quisque libero quam, tristique non dapibus fringilla, rhoncus ut purus. Vestibulum elit diam, cursus eget tempor a, luctus non dui. Sed pharetra egestas arcu laoreet rhoncus. Quisque rutrum finibus eros in blandit. Phasellus volutpat tortor felis, ac luctus felis elementum a. Aliquam venenatis nisl augue, eget euismod sapien consequat sed. Cras pharetra rutrum malesuada. Duis posuere sem tempor sem hendrerit ultricies.
+            </p>
+        </div>
+        <div class="col-12 mt-3 text-danger d-flex justify-content-end">
+            <h4>30 <sub>PLN/DAY</sub></h4>
+        </div>
+    </div>
+
+    <div class="options row my-3 px-5 border border-5 p-5 shadow-hover" data-size="medium">
+        <div class="row d-flex justify-content-center">
+            <div class="col-lg-2 mx-2 border border-3 p-5 text-center">
+                <h4>MEDIUM</h4>
+                <h5>500 x 500</h5>
+            </div>
+            <div class="col-lg-2 mx-2 border border-3 p-5 text-center">
+                <h4>MEDIUM</h4>
+                <h5>500 x 500</h5>
+            </div>
+            <div class="col-lg-2 mx-2 border border-3 p-5 text-center">
+                <h4>MEDIUM</h4>
+                <h5>500 x 500</h5>
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-lg-6">
+                <img class="img-fluid" src="/image/AdvertisementConfigurator/MediumExample.png" />
+            </div>
+            <div class="col-lg-6">
+                <img class="img-fluid" src="/image/AdvertisementConfigurator/MediumExample_2.png" />
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-lg-12">
+                <h4 class="text-danger mt-4">Good reach !!</h4>
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam sollicitudin consectetur tortor non blandit. Quisque sit amet risus ac sem varius imperdiet nec quis quam. Ut ultrices orci sed neque scelerisque sollicitudin. Cras vel elit et magna scelerisque feugiat. Integer augue nulla, vulputate ut accumsan ut, malesuada sit amet nisl. Cras egestas, lectus nec imperdiet eleifend, ipsum mi finibus odio, et facilisis dui leo quis mi. Duis scelerisque volutpat erat vitae lacinia. Mauris luctus ullamcorper odio eu venenatis. Quisque libero quam, tristique non dapibus fringilla, rhoncus ut purus. Vestibulum elit diam, cursus eget tempor a, luctus non dui. Sed pharetra egestas arcu laoreet rhoncus. Quisque rutrum finibus eros in blandit. Phasellus volutpat tortor felis, ac luctus felis elementum a. Aliquam venenatis nisl augue, eget euismod sapien consequat sed. Cras pharetra rutrum malesuada. Duis posuere sem tempor sem hendrerit ultricies.
+                </p>
+            </div>
+        </div>
+        <div class="col-12 mt-3 text-danger d-flex justify-content-end">
+            <h4>20 <sub>PLN/DAY</sub></h4>
+        </div>
+    </div>
+
+    <div class="options row my-3 px-5 border border-5 p-5 shadow-hover" data-size="small">
+        <div class="col-lg-3 border border-3 py-5 d-flex justify-content-center align-items-center">
+            <div>
+                <h4>SMALL</h4>
+                <h5>300x600</h5>
+            </div>
+        </div>
+        <div class="col-lg-9">
+            <img class="img-fluid" src="/image/AdvertisementConfigurator/SmallExample.png" />
+            <h4 class="text-danger mt-4">The Least reach !!</h4>
+            <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam sollicitudin consectetur tortor non blandit. Quisque sit amet risus ac sem varius imperdiet nec quis quam. Ut ultrices orci sed neque scelerisque sollicitudin. Cras vel elit et magna scelerisque feugiat. Integer augue nulla, vulputate ut accumsan ut, malesuada sit amet nisl. Cras egestas, lectus nec imperdiet eleifend, ipsum mi finibus odio, et facilisis dui leo quis mi. Duis scelerisque volutpat erat vitae lacinia. Mauris luctus ullamcorper odio eu venenatis. Quisque libero quam, tristique non dapibus fringilla, rhoncus ut purus. Vestibulum elit diam, cursus eget tempor a, luctus non dui. Sed pharetra egestas arcu laoreet rhoncus. Quisque rutrum finibus eros in blandit. Phasellus volutpat tortor felis, ac luctus felis elementum a. Aliquam venenatis nisl augue, eget euismod sapien consequat sed. Cras pharetra rutrum malesuada. Duis posuere sem tempor sem hendrerit ultricies.
+            </p>
+        </div>
+        <div class="col-12 mt-3 text-danger d-flex justify-content-end">
+            <h4>10 <sub>PLN/DAY</sub></h4>
+        </div>
+    </div>
+
+    <div class="row my-5">
+        <div class="col-12">
+            <h3>Step 2 - Set up your advertisement</h3>
+        </div>
+        <form id="AdvertisementForm" method="post" class="row mt-3" enctype="multipart/form-data">
+            <input style="display:none" id="AdvertisementSize" asp-for="Size" />
+            <div class="col-12">
+                <h5>Period</h5>
+            </div>
+            <div class="col-lg-6">
+                <input id="ActiveFrom" asp-for="ActiveFrom" type="date" class="form-control" placeholder="From" />
+                 <span class="text-danger" asp-validation-for="ActiveFrom"></span>
+            </div>
+            <div class="col-lg-6">
+                <input id="ActiveTo" asp-for="ActiveTo" type="date" class="form-control" placeholder="To" />
+                 <span class="text-danger" asp-validation-for="ActiveTo"></span>
+            </div>
+            <div class="col-lg-12 mt-3">
+                <h5>Advertisement file</h5>
+                <input id="image" type="file" name="file" class="form-control" />
+            </div>
+            <div class="col-lg-12 mt-3">
+                <h5>Advertisement href</h5>
+                <input asp-for="Url" type="text" class="form-control" placeholder="https://company.pl/"/>
+                <span class="text-danger" asp-validation-for="Url"></span>
+            </div>
+            <span asp-asp-validation-for="Url"></span>
+             <div class="col-lg-12 mt-5">
+                <h5>Total cost</h5>
+                <table class="table">
+                  <thead class="thead-dark">
+                    <tr>
+                      <th scope="col">Version</th>
+                      <th scope="col">Price per day</th>
+                      <th scope="col">Days count</th>
+                      <th scope="col">Summary cost</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Large advertisement</td>
+                      <td>30<sub>PLN/DAY</sub></td>
+                      <td>30 days</td>
+                      <td class="fw-bold text-danger">900 PLN</td>
+                    </tr>
+                  </tbody>
+                </table>
+            </div>
+        </form>
+        <div class="col-lg-12 mt-3 d-flex justify-content-end">
+             <button onclick="ValidateForm()" class="btn btn-primary px-5">Pay</button>
+        </div>
+    </div>
+
+</div>
+
+
+@section Scripts
+{
+    {
+        <partial name="_ValidationScriptsPartial" />
+    }
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="~/js/Advertisement/Scripts.js"></script>
+}

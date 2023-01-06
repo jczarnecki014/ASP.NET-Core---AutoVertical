@@ -17,10 +17,73 @@ namespace AutoVerticalData.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.1")
+                .HasAnnotation("ProductVersion", "7.0.2")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("AutoVertical_Model.Models.AdvertStats", b =>
+                {
+                    b.Property<int?>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("id"));
+
+                    b.Property<int?>("AdvertViewsCount")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("PhoneNumberDisplays")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("VehicleId")
+                        .IsRequired()
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("date")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("id");
+
+                    b.HasIndex("VehicleId");
+
+                    b.ToTable("AdvertStats");
+                });
+
+            modelBuilder.Entity("AutoVertical_Model.Models.Advertisement", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("ActiveFrom")
+                        .HasColumnType("date");
+
+                    b.Property<DateTime>("ActiveTo")
+                        .HasColumnType("date");
+
+                    b.Property<string>("ImageSrc")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Size")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Url")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Advertisements");
+                });
 
             modelBuilder.Entity("AutoVertical_Model.Models.Car", b =>
                 {
@@ -223,6 +286,27 @@ namespace AutoVerticalData.Migrations
                     b.ToTable("Cars");
                 });
 
+            modelBuilder.Entity("AutoVertical_Model.Models.Conversation", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("UserOneId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserTwoId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Conversation");
+                });
+
             modelBuilder.Entity("AutoVertical_Model.Models.ImgGallery", b =>
                 {
                     b.Property<int>("Id")
@@ -241,6 +325,35 @@ namespace AutoVerticalData.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("ImgGallery");
+                });
+
+            modelBuilder.Entity("AutoVertical_Model.Models.Message", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Contents")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ConversationId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Messages");
                 });
 
             modelBuilder.Entity("AutoVertical_Model.Models.Motorcycle", b =>
@@ -422,8 +535,8 @@ namespace AutoVerticalData.Migrations
                     b.Property<int?>("CarId")
                         .HasColumnType("int");
 
-                    b.Property<bool?>("Co2Emision")
-                        .HasColumnType("bit");
+                    b.Property<int?>("Co2Emision")
+                        .HasColumnType("int");
 
                     b.Property<string>("Color")
                         .IsRequired()
@@ -436,6 +549,9 @@ namespace AutoVerticalData.Migrations
                     b.Property<string>("CountryOfOrigin")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreateDate")
+                        .HasColumnType("date");
 
                     b.Property<int>("CubicCapacity")
                         .HasColumnType("int");
@@ -451,6 +567,9 @@ namespace AutoVerticalData.Migrations
                     b.Property<string>("Drive")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("ExpireDate")
+                        .HasColumnType("date");
 
                     b.Property<bool>("FirstOwner")
                         .HasColumnType("bit");
@@ -521,8 +640,16 @@ namespace AutoVerticalData.Migrations
                     b.Property<bool>("Tuning")
                         .HasColumnType("bit");
 
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<bool>("VAT")
                         .HasColumnType("bit");
+
+                    b.Property<string>("VehicleDirectoryPath")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("VehicleRegistrationNumber")
                         .IsRequired()
@@ -543,6 +670,8 @@ namespace AutoVerticalData.Migrations
                     b.HasIndex("MotorcycleId");
 
                     b.HasIndex("TruckId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Vehicles");
                 });
@@ -611,6 +740,10 @@ namespace AutoVerticalData.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Email")
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
@@ -662,6 +795,10 @@ namespace AutoVerticalData.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("IdentityUser");
+
+                    b.UseTphMappingStrategy();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -745,6 +882,88 @@ namespace AutoVerticalData.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("AutoVertical_Model.Models.ApplicationUser", b =>
+                {
+                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
+
+                    b.Property<string>("AvatarSrc")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool?>("Blocked")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("City")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("Country")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("PostCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("RegistrationDate")
+                        .HasColumnType("date");
+
+                    b.Property<int?>("SoldVehicles")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Street")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("StreetNumber")
+                        .IsRequired()
+                        .HasMaxLength(7)
+                        .HasColumnType("nvarchar(7)");
+
+                    b.Property<string>("Surname")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<bool>("Verificated")
+                        .HasColumnType("bit");
+
+                    b.HasDiscriminator().HasValue("ApplicationUser");
+                });
+
+            modelBuilder.Entity("AutoVertical_Model.Models.AdvertStats", b =>
+                {
+                    b.HasOne("AutoVertical_Model.Models.Vehicle", "Vehicle")
+                        .WithMany()
+                        .HasForeignKey("VehicleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Vehicle");
+                });
+
+            modelBuilder.Entity("AutoVertical_Model.Models.Message", b =>
+                {
+                    b.HasOne("AutoVertical_Model.Models.ApplicationUser", "MessageSenderUser")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("MessageSenderUser");
+                });
+
             modelBuilder.Entity("AutoVertical_Model.Models.Vehicle", b =>
                 {
                     b.HasOne("AutoVertical_Model.Models.Car", "car")
@@ -758,6 +977,14 @@ namespace AutoVerticalData.Migrations
                     b.HasOne("AutoVertical_Model.Models.Truck", "truck")
                         .WithMany()
                         .HasForeignKey("TruckId");
+
+                    b.HasOne("AutoVertical_Model.Models.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
 
                     b.Navigation("car");
 

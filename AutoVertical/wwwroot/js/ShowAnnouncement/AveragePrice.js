@@ -22,7 +22,7 @@
 }
 
 
-const vehicleIds = window.location.search.substring(4)
+const vehicleIds = window.location.search.substring(12)
 $.getJSON(`/customer/Announcement/GetAveragePriceSimilarVehicle?id=${vehicleIds}`,function(values){
     SetAveragePrice(values.averagePrice,values.vehiclePrice);
 });

@@ -19,6 +19,7 @@
             <section name="UsedFilter">
                 <div class="row">
                     <div style="color:dodgerblue" class="col-12">
+                        <h1>@TempData["Error"]</h1>
                         <span class="hover-darker">@Model.VehicleType</span> / <span class="hover-darker">@Model.BodyType</span> / <span class="hover-darker">@Model.Brand</span> / <span class="hover-darker">@Model.Model</span>
                     </div>
                 </div>
@@ -176,7 +177,7 @@
                                      for similar vehcile on AutoVertical
                                 </div>
                                 <div class="col-12 d-flex justify-content-center mt-3">
-                                    <img id="AveragePriceImg" class="img-fluid" src="~/image/PriceEstimateIcons/good_price.png" width="100px" />
+                                    <img id="AveragePriceImg" class="img-fluid" width="100px" />
                                 </div>
                              </div>
                          </div>
@@ -222,8 +223,8 @@
                          </div>
                          <div class="col-12 p-3">
                              <h6>Contact</h6>
-                             <button id="PhoneBtn" class="btn btn-primary p-3 mt-3">
-                                 <i class="bi bi-telephone"></i> 503 201 833
+                             <button id="PhoneBtn" class="btn btn-primary p-3 mt-3" data-vehId = "@Model.Id">
+                                 <i class="bi bi-telephone"></i> @Model.User.PhoneNumber;
                              </button> 
                              <button class="btn btn-outline-primary p-2 m-3 mt-4">
                                  <i class="bi bi-chat-right-dots-fill"></i> &nbsp; Write a message
@@ -350,20 +351,25 @@
                         <div class="card">
                             <div class="row p-3">
                                 <div class="col-lg-4">
-                                    <img src="~/image/helpfull/verificated.png" class="img-fluid" />
+                                    @if(Model.User.Verificated is true){
+                                         <img src="~/image/helpfull/verificated.png" class="img-fluid" />
+                                    }
+                                    else{
+                                        <img src="~/image/helpfull/noVerificated.jpg" class="img-fluid" />
+                                    }
                                 </div>
                                 <div class="col-lg-8 d-flex align-items-center">
-                                    <h5>User name</h5>
+                                    <h5>@Model.User.Name</h5>
                                 </div>
                                 <div class="col-lg-12 mt-4">
                                     <i class="bi bi-person-fill text-primary"></i> &nbsp Private Person
                                 </div>
                                 <div class="col-lg-12">
-                                    <i class="bi bi-calendar-check-fill text-primary"></i></i> &nbsp Register  in 2022
+                                    <i class="bi bi-calendar-check-fill text-primary"></i></i> &nbsp Register  in @Model.User.RegistrationDate.Year
                                 </div>
 
                                 <div class="col-lg-12">
-                                    <a class="btn bg-danger px-4 text-light mt-3">
+                                    <a asp-controller="Messages" asp-action="CreateConversation" asp-route-AdvertUserId="@Model.UserId" asp-route-VehicleId="@Model.Id" class="btn bg-danger px-4 text-light mt-3">
                                         <i class="bi bi-envelope-fill"></i> &nbsp; Conntact with seller
                                     </a>
                                 </div>
@@ -375,12 +381,14 @@
                                 </div>
 
                                 <div class="col-lg-12 text-primary mt-3">
-                                    <i class="bi bi-geo-alt-fill"></i> City, Street, House Number
+                                    <i class="bi bi-geo-alt-fill"></i> @Model.User.City, @Model.User.Street, @Model.User.StreetNumber
                                 </div>
 
                                 <div class="col-lg-12 text-primary mt-3">
                                     <a class="btn hover-darker">
-                                        <i class="bi bi-megaphone-fill"></i> More offers this seller (16)
+                                        <a class="btn" asp-controller="Announcement" asp-action="FilterAnnouncement" asp-route-userId="@Model.UserId">
+                                            <i class="bi bi-megaphone-fill"></i> More offers this seller (@ViewBag.UserAdvertsConunt)
+                                        </a>
                                     </a>
                                 </div>
 
@@ -392,7 +400,7 @@
                 <section name="advertisement" class="advertisement-sm mt-4">
                     <div class="row">
                         <div class="col-12">
-                            <img src="~/image/advertisements/medium/advertisement_1.png" class="img-fluid" />
+                            <img src="~/image/advertisements/small/advertisement_1.png" class="img-fluid" />
                         </div>
                     </div>
                 </section>

@@ -921,7 +921,7 @@
                 <div class="row border mb-3">
                 <div class="col-lg-3 p-2">
                     <a asp-area="customer" asp-controller="Announcement" asp-action="ShowAnnouncement" asp-route-identifier="@veh.vehicle.Id">
-                        <img style="max-height:235px; min-height:235px;"  class="img-fluid" src="~/image/tempAnnouncement/@veh.images[0].Name" />
+                        <img style="max-height:235px; min-height:235px;"  class="img-fluid" src="@veh.images[0].Name" />
                     </a>
                 </div>
                 <div class="col-lg-6 p-2">
@@ -966,7 +966,7 @@
                             <h5 class="text-danger">@veh.vehicle.PriceBrutto PLN</h5>
                          </div>
                         <div class="col-12 text-primary">
-                            <i class="bi bi-person"></i> Kubacz00
+                            <i class="bi bi-person"></i> @veh.vehicle.User.UserName
                         </div>
                         <div class="col-12 text-success">
                             <i class="bi bi-coin"></i> &nbsp Check financing
@@ -993,16 +993,16 @@
     <section name="AdvertaismentTwo" class="container mb-3">
         <div class="row">
             <div class="col-3">
-                    <img style="max-height:300px;" src="~/image/advertisements/small/ADVERTISEMENT_2.png" class="img-fluid w-100 shadow-hover"/>
+                    <img style="max-height:300px;" src="~/image/advertisements/medium/ADVERTISEMENT_2.png" class="img-fluid w-100 shadow-hover"/>
             </div>
             <div class="col-3">
-                    <img style="max-height:300px;" src="~/image/advertisements/small/ADVERTISEMENT_3.png" class="img-fluid w-100 shadow-hover"/>
+                    <img style="max-height:300px;" src="~/image/advertisements/medium/ADVERTISEMENT_3.png" class="img-fluid w-100 shadow-hover"/>
             </div>
             <div class="col-3">
-                    <img style="max-height:300px;" src="~/image/advertisements/small/ADVERTISEMENT_4.png" class="img-fluid w-100 shadow-hover"/>
+                    <img style="max-height:300px;" src="~/image/advertisements/medium/ADVERTISEMENT_4.png" class="img-fluid w-100 shadow-hover"/>
             </div>
             <div class="col-3">
-                    <img style="max-height:300px;" src="~/image/advertisements/small/ADVERTISEMENT_5.png" class="img-fluid w-100 shadow-hover"/>
+                    <img style="max-height:300px;" src="~/image/advertisements/medium/ADVERTISEMENT_5.png" class="img-fluid w-100 shadow-hover"/>
             </div>
         </div>
     </section>
@@ -1014,7 +1014,7 @@
                 <div class="row border mb-3">
                 <div class="col-lg-3 p-2">
                     <a asp-area="customer" asp-controller="Announcement" asp-action="ShowAnnouncement" asp-route-identifier="@veh.vehicle.Id">
-                        <img style="max-height:235px; min-height:235px;"  class="img-fluid" src="~/image/tempAnnouncement/@veh.images[0].Name" />
+                        <img style="max-height:235px; min-height:235px;"  class="img-fluid" src="@veh.images[0].Name" />
                     </a>
                 </div>
                 <div class="col-lg-6 p-2">
@@ -1059,7 +1059,7 @@
                             <h5 class="text-danger">@veh.vehicle.PriceBrutto PLN</h5>
                          </div>
                         <div class="col-12 text-primary">
-                            <i class="bi bi-person"></i> Kubacz00
+                            <i class="bi bi-person"></i> @veh.vehicle.User.UserName
                         </div>
                         <div class="col-12 text-success">
                             <i class="bi bi-coin"></i> &nbsp Check financing
@@ -1085,21 +1085,21 @@
     <section name="AdvertaismentThree" class="container mb-3">
         <div class="row">
             <div class="col-lg-6">
-                <img src="~/image/advertisements/small/ADVERTISEMENT_9.png" class="img-fluid w-100 shadow-hover"/>
+                <img src="~/image/advertisements/medium/ADVERTISEMENT_9.png" class="img-fluid w-100 shadow-hover"/>
             </div>
             <div class="col-lg-6 d-flex align-items-center">
                 <div class="row">
                     <div class="col-6 mb-3">
-                        <img style="max-height:300px;" src="~/image/advertisements/small/ADVERTISEMENT_6.png" class="img-fluid w-100 shadow-hover"/>
+                        <img style="max-height:300px;" src="~/image/advertisements/medium/ADVERTISEMENT_6.png" class="img-fluid w-100 shadow-hover"/>
                     </div>
                     <div class="col-6 mb-3">
-                        <img style="max-height:300px;" src="~/image/advertisements/small/ADVERTISEMENT_7.png" class="img-fluid w-100 shadow-hover"/>
+                        <img style="max-height:300px;" src="~/image/advertisements/medium/ADVERTISEMENT_7.png" class="img-fluid w-100 shadow-hover"/>
                     </div>
                     <div class="col-6">
-                        <img style="max-height:300px;" src="~/image/advertisements/small/ADVERTISEMENT_8.png" class="img-fluid w-100 shadow-hover"/>
+                        <img style="max-height:300px;" src="~/image/advertisements/medium/ADVERTISEMENT_8.png" class="img-fluid w-100 shadow-hover"/>
                     </div>
                     <div class="col-6">
-                        <img style="max-height:300px;" src="~/image/advertisements/small/ADVERTISEMENT_10.png" class="img-fluid w-100 shadow-hover"/>
+                        <img style="max-height:300px;" src="~/image/advertisements/medium/ADVERTISEMENT_10.png" class="img-fluid w-100 shadow-hover"/>
                     </div>
                 </div>
             </div>

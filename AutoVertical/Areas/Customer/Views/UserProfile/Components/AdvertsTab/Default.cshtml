@@ -1,0 +1,146 @@
+﻿@using AutoVertical_Model.Models;
+@model List<Vehicle>;
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <h4 class="my-3">All adverts</h4>
+        </div>
+        <div class="col-12 my-3"> 
+            <nav class="navbar bg-body-tertiary">
+              <div class="container-fluid justify-content-start d-felx justify-content-end ">
+                 <a asp-route-tab="AdvertsTab" asp-route-optionalArg="ShowAll" class="btn btn-sm btn-outline-secondary mx-2 active mx-2" type="button">All</a>
+                <a asp-route-tab="AdvertsTab" asp-route-optionalArg="ShowActive" class="btn btn-sm btn-outline-secondary mx-2" type="button">ACTIVE</a>
+                <a asp-route-tab="AdvertsTab" asp-route-optionalArg="ShowExpired" class="btn btn-sm btn-outline-secondary mx-2" type="button">EXPIRED</a>
+                <a asp-route-tab="AdvertsTab" asp-route-optionalArg="ShowMentioned" class="btn btn-sm btn-outline-secondary mx-2" type="button">MENTIONED</a>
+              </div>
+            </nav>
+        </div>
+        <div class="col-12">
+            <table class="table ">
+              <thead class="table-secondary">
+                  <tr>
+                      <th>#ID</th>
+                      <th>NAME</th>
+                      <th>BRAND</th>
+                      <th>MODEL</th>
+                      <th>PRICE</th>
+                      <th>STATUS</th>
+                      <th>MENTION</th>
+                      <th></th>
+                  </tr>
+              </thead>
+              <tbody>
+                  @foreach(Vehicle veh in Model )
+                  {
+                    <tr>
+                          <th scope="row">@veh.Id</th>
+                          <td>@veh.VehicleType</td>
+                          <td>@veh.Brand</td>
+                          <td>@veh.Model</td>
+                          <td>@veh.PriceBrutto <sub class="text-danger">PLN</sub></td>
+                          <td>
+                              @(veh.ExpireDate.CompareTo(DateTime.Now.Date) >= 0 ? Html.Raw("""<span class="badge text-bg-success">ACTIVE</span>""") : Html.Raw("""<span class="badge text-bg-danger">EXPIRE</span>"""))
+                          </td>
+                          <td>
+                              @(veh.MentionTime.CompareTo(DateTime.Now.Date) >= 0 ?  veh.MentionTime.ToShortDateString(): "" )
+                          </td>
+                          <td>
+                              <a class="showAnnouncement btn btn-warning px-4" data-vehicleId="@veh.Id"><i class="bi bi-eye"></i>&nbsp; Show</a>
+                          </td>
+                    </tr>
+                  }
+              </tbody>
+            </table>
+        </div>
+    </div>
+  
+    <div hidden id="AnnouncementViewContainer" class="row mt-5 mb-3">
+        <div class="col-lg-12">
+            <div class="row d-flex justify-content-between">
+                <div class="col-lg-3">
+                    <h4>Advert stats</h4>
+                </div>
+                <div id="AnnouncementViewContainerClose" class="col-lg-1 text-danger">
+                   <i class="bi bi-x-circle-fill h2"></i>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-12">
+            <div class="row mt-4 mb-5 d-flex justify-content-center">
+                <div class="col-4 text-centeratio mx-4">
+                    <h5>Views</h5>
+                    <p>In this place you can see how change your advert views number.</p>
+                    <canvas id="advertViews"></canvas>
+                </div>
+                <div class="col-4 mx-4">
+                    <h5>Phone number displays</h5>
+                    <p>In this place you can see how many time people display your phone number..</p>
+                    <canvas id="phoneNumberShows"></canvas>
+                </div>
+            </div>
+        </div>
+        <h4>Edit</h4>
+        <div class="col-lg-5 d-flex align-content-center">
+                <img id="BigVehicleImage" class="img-thumbnail" />
+        </div>
+        <div class="col-lg-7">
+                <div id="VehicleImages" class="row">
+                  <!-- render img-->
+                </div>
+        </div>
+        <div class="col-lg-6 mt-3">
+            <input disabled id="VehicleTitile" class="form-control" />
+        </div>
+        <div class="col-lg-6 mt-3">
+            <input disabled id="VehiclePrice" class="form-control" />
+        </div>
+        <div class="col-lg-12 mt-3" >
+            <textarea disabled id="VehicleDescription" class="form-control" rows="10">
+
+            </textarea>
+        </div>
+            
+        <div class="col-lg-12">
+            <div class="row d-flex justify-content-center">
+                <div  class="col-lg-2 mt-3">
+                    <form name="deleteForm" asp-controller="Announcement" asp-action="DeleteAnnouncement" method="post">
+                        <input id="DeleteFormIdInput" hidden name="vehicleId" value="" />
+                    </form>
+                    <button id="deleteButton"  class="btn bg-danger py-2 px-5">
+                             <i class="bi bi-trash"></i> &nbsp; Delete
+                        </button>
+                </div>
+                <div hidden id="EditButton" class="col-lg-2 mt-3">
+                    <form asp-controller="Announcement" asp-action="EditAnnnouncement" method="get">
+                        <input id="EditFormIdInput" hidden name="vehicleId" value="" />
+                        <button type="submit" class="btn bg-warning py-2 px-5">
+                            <i class="bi bi-pencil"></i> &nbsp; Edit
+                        </button>
+                    </form>
+                </div>
+                <div hidden id="ActiveAgainButton" class="col-lg-2 mt-3">
+                        @*<form asp-controller="Announcement" asp-action="EditAnnnouncement" method="get">*@
+                            <input id="" hidden name="vehicleId" value="" />
+                            <button type="submit" class="btn bg-success py-2 px-5 text-white">
+                                <i class="bi bi-currency-dollar"></i> &nbsp; Active again
+                            </button>
+                        @*</form>*@
+                </div>
+                <div class="col-lg-2 mt-3">
+                        <form name="SoldVehicle" asp-controller="Announcement" asp-action="DeleteAnnouncement" asp-route-sold=true method="post">
+                            <input id="SoldVehicleFormIdInput" hidden name="vehicleId" value="" />
+                        </form>
+                        <button id="SoldButton" style="background-color:#6ab04c" type="submit" class="btn py-2 px-5 text-white">
+                             <i class="bi bi-trophy-fill"></i> &nbsp; SOLD &nbsp; <i class="bi bi-trophy-fill"></i>
+                        </button>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+  
+</div>
+
+
+                    

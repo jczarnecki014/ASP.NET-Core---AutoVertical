@@ -19,6 +19,11 @@ namespace AutoVertical_Data.Repository
             truck = new TruckRepository(db);
             motorcycle = new MotorcycleRepository(db);
             gallery = new GalleryRepository(db);
+            applicationUser = new ApplicationUserRepository(db);
+            messages = new MessageRepository(db);
+            conversation = new ConversationRepository(db);
+            advertStats= new AdvertStatsRepository(db);
+            advertisement = new AdvertisementRepository(db);
         }
         public IVehicleRepository vehicle { get; private set;}
 
@@ -29,10 +34,17 @@ namespace AutoVertical_Data.Repository
         public IMotorcycleRepository motorcycle { get; private set;}
         public IGalleryRepository gallery { get;private set;}
 
+        public IApplicationUserRepository applicationUser {get; private set;}
+        public IMessageRepository messages {get; private set;}
+        public IConversationRepository conversation {get; private set;}
+
+        public IAdvertStatsRepository advertStats {get; private set;}
+        public IAdvertisementRepositoryt advertisement{ get; private set;}
+
         public void Save() 
         {
             _db.SaveChanges();
-            _db.ChangeTracker.DetectChanges(); // sprawdzić czy można usunąć
+            /*_db.ChangeTracker.DetectChanges(); // sprawdzić czy można usunąć*/
         }
     }
 }

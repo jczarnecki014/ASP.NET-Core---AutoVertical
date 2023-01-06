@@ -1,11 +1,17 @@
 ﻿using AutoVertical_Data.Repository.IRepository;
 using AutoVertical_Model.Models;
 using AutoVertical_Model.Models.ViewModel;
+using AutoVertical_Utility;
 using AutoVertical_Utility.FileAcces;
+using AutoVertical_Utility.UserDirectories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration.UserSecrets;
 using Microsoft.Extensions.FileProviders;
+using System;
 using System.IO;
 using System.Reflection;
+using System.Security.Claims;
 using System.Text.RegularExpressions;
 
 namespace AutoVertical_web.Areas.Customer.Controllers
@@ -24,15 +30,88 @@ namespace AutoVertical_web.Areas.Customer.Controllers
             _WebHostEnvironment = webHostEnvironment;
         }
         [HttpGet]
-        public IActionResult CreateAnnouncement()
+        public IActionResult EditAnnnouncement(int vehicleId)
         {
-            return View();
+            if(vehicleId == null)
+            {
+                return NotFound();
+            }
+            Announcement announcement = new Announcement();
+            announcement.vehicle = _UnitOfWork.vehicle.GetFirstOfDefault(u=>u.Id == vehicleId,includeSpecific:true);
+            announcement.images = _UnitOfWork.gallery.GetAll(u=>u.VehicleId == vehicleId).ToList();
+            ViewData["Announcement_Images_Max_Count"] = Options.Announcement_Images_Max_Count;
+            return View(announcement);
         }
 
         [HttpPost]
+        public IActionResult EditAnnnouncement(IFormFile[]? files )
+        {
+            if(files.Length > 0)
+            {
+              int ExistingFilesCount =  _UnitOfWork.gallery.GetAll(u=>u.VehicleId == announcementVM.vehicle.Id).Count();
+              int FreeImagesPlaces = Options.Announcement_Images_Max_Count - ExistingFilesCount; // Control from adding more images than 12
+
+              IFileAcces fileAcces;
+              string wwwRootPath = _WebHostEnvironment.WebRootPath;
+              for(int i=0; i<FreeImagesPlaces && i<files.Length; i++)
+              {
+                    fileAcces = new FileAcces(files[i],wwwRootPath,announcementVM.vehicle.VehicleDirectoryPath);
+                    if(!fileAcces.FileState.isValid)
+                    {
+                        TempData["Error"] = "File is incorrect";
+                        break;
+                    }
+                    else
+                    {
+                        string fileName = fileAcces.Create();
+                        ImgGallery image = new ImgGallery()
+                        {
+                            Name = fileName,
+                            VehicleId = announcementVM.vehicle.Id
+                        };
+                        _UnitOfWork.gallery.Add(image);
+                        TempData["Success"] = "Photo was updated";
+                    }
+              }
+              _UnitOfWork.Save();
+              return RedirectToAction("EditAnnnouncement",new{vehicleId=announcementVM.vehicle.Id});
+            }
+
+            if(ModelState.IsValid)
+            {
+                _UnitOfWork.vehicle.Update(announcementVM.vehicle);
+                switch (announcementVM.vehicle.VehicleType)
+                {
+                    case "car":
+                        _UnitOfWork.car.Update(announcementVM.vehicle.car);
+                    break;
+                    case "truck":
+                        _UnitOfWork.truck.Update(announcementVM.vehicle.truck);
+                    break;
+                    case "motorcycle":
+                        _UnitOfWork.motorcycle.Update(announcementVM.vehicle.motorcycle);
+                    break;
+                }
+
+                _UnitOfWork.Save();
+            }
+
+            return RedirectToAction("EditAnnnouncement",new{vehicleId=announcementVM.vehicle.Id});
+        }
+
+        [HttpGet]
+        [Authorize]
+        public IActionResult CreateAnnouncement()
+        {
+                return View();
+        }
+
+        [HttpPost]
+        [Authorize]
         [ValidateAntiForgeryToken]
         public IActionResult CreateAnnouncement(IFormFile[] files)
         {
+
             //Customize ModelState for specific vehicle
             switch (announcementVM.vehicle.VehicleType)
             {
@@ -56,13 +135,13 @@ namespace AutoVertical_web.Areas.Customer.Controllers
                     break;
             }
 
-            //Check images before db connection
+            //Check images validation before db connection
             IFileAcces fileAcces;
             string wwwRootPath = _WebHostEnvironment.WebRootPath;
 
             foreach(var file in files) 
             {
-                fileAcces = new FileAcces(file,wwwRootPath);
+                fileAcces = new FileAcces(file);
 
                 if(!fileAcces.FileState.isValid)
                 {
@@ -102,13 +181,26 @@ namespace AutoVertical_web.Areas.Customer.Controllers
                     break;
                 }
                 announcementVM.vehicle.MentionTime= DateTime.Now.Date;
+                announcementVM.vehicle.CreateDate = DateTime.Now.Date;
+                announcementVM.vehicle.ExpireDate = DateTime.Now.Date.AddDays(Options.Advert_Default_Active_Day); //default value to change
+                var claimUser = (ClaimsIdentity)User.Identity;
+                var claim = claimUser.FindFirst(ClaimTypes.NameIdentifier);
+                announcementVM.vehicle.UserId = claim.Value;
+
+                string userId = claim.Value;
+                IUserDirectory userDirectory = new UserDirectory(userId,wwwRootPath);
+
+                string advertDirectoryPath = userDirectory.CreateAdvertDirectory();
+                announcementVM.vehicle.VehicleDirectoryPath= advertDirectoryPath;
                 _UnitOfWork.vehicle.Add(announcementVM.vehicle);
                 _UnitOfWork.Save();
                 
+
+
                 //Save user images in server
                 foreach(var file in files) 
                 {
-                    fileAcces = new FileAcces(file,wwwRootPath);
+                    fileAcces = new FileAcces(file,wwwRootPath,advertDirectoryPath);
                     string fileName = fileAcces.Create();
                     ImgGallery image = new ImgGallery()
                     {
@@ -119,12 +211,37 @@ namespace AutoVertical_web.Areas.Customer.Controllers
                 }
                 _UnitOfWork.Save();
                 TempData["Success"] = "New announcement was added";
-                return RedirectToAction("ShowAnnouncement",new {id = announcementVM.vehicle.Id});
+                return View();
             }
             else{
-                return View(announcementVM);
+                return View();
             }
         }
+        [HttpPost]
+        public IActionResult DeleteAnnouncementImage(int imageId)
+        {
+            ImgGallery Image = _UnitOfWork.gallery.GetFirstOfDefault(u=>u.Id == imageId);
+            IEnumerable<ImgGallery> EveryVehicleImg = _UnitOfWork.gallery.GetAll(u=>u.VehicleId == Image.VehicleId);
+            if(EveryVehicleImg.Count() <=3)
+            {
+                return Json(new {
+                    resoult = "Error !",
+                    Message = "Your advert have to consist of minimum 3 images ! Plese add more images before remove this position"
+                });
+            }
+            else
+            {
+                string wwwRoot = _WebHostEnvironment.WebRootPath;
+                IFileAcces.Delete(wwwRoot+Image.Name);
+                _UnitOfWork.gallery.Remove(Image);
+                _UnitOfWork.Save();
+                return Json(new {
+                    resoult = "Success !",
+                    Message = "This image was remove correctly"
+                });
+            }
+        }
+
 
         [HttpGet]
         public IActionResult ShowAnnouncement(int identifier)
@@ -168,19 +285,67 @@ namespace AutoVertical_web.Areas.Customer.Controllers
                 }
             }
             ViewBag.EquipmentList = EquipmentList;
+            ViewBag.UserAdvertsConunt = _UnitOfWork.vehicle.GetAll(u=>u.UserId == announcementVM.vehicle.UserId).Count();
+
+            ///
+            /// <summary>Increase advert views stats </summary>
+            ///
+
+            DateTime Date = DateTime.Now.Date;
+
+            AdvertStats vehicleStats = _UnitOfWork.advertStats.GetFirstOfDefault(u=>u.VehicleId == identifier && Date == u.date.Date);
+            if(vehicleStats == null) 
+            {
+                vehicleStats = new AdvertStats()
+                {
+                    VehicleId = identifier,
+                    date = Date,
+                    AdvertViewsCount = 0,
+                    PhoneNumberDisplays = 0
+                };
+            }
+
+            vehicleStats.AdvertViewsCount += 1;
+
+            _UnitOfWork.advertStats.Update(vehicleStats);
+            _UnitOfWork.Save();
+
+
+
+
             return View(announcementVM.vehicle);
 
         }
-
+        [HttpGet,ActionName("FilterAnnouncement")]
+        public IActionResult GetUserAnnouncements(string userId)
+        {
+            return FilterAnnouncement(advanced_search_expanded:false,userId:userId);
+        }
         [HttpPost]
-        public IActionResult FilterAnnouncement(bool advanced_search_expanded)
+        public IActionResult FilterAnnouncement(bool advanced_search_expanded,string? userId = null)
         {
             var specificVehicle = new object();
+            IEnumerable<Vehicle> vehicles;
+            if(userId != null)
+            {
+                announcementFilter = new AnnouncementFiltersVM();
+                announcementFilter.vehicle = new Vehicle();
+            }
+
             if(announcementFilter.vehicle == null)
             {
                 return NotFound();
             }
-            IEnumerable<Vehicle> vehicles = _UnitOfWork.vehicle.GetAll(u=>u.VehicleType == announcementFilter.vehicle.VehicleType,includeProperties:"car,truck,motorcycle");
+
+            if(userId !=null)
+            {
+                vehicles = _UnitOfWork.vehicle.GetAll(u=>u.UserId == userId,includeProperties:"car,truck,motorcycle,User");
+            }
+            else
+            {
+                vehicles = _UnitOfWork.vehicle.GetAll(u=>u.VehicleType == announcementFilter.vehicle.VehicleType,includeProperties:"car,truck,motorcycle,User");
+            }
+
             if(announcementFilter.vehicle.BodyType!= null) 
             {
                 vehicles = vehicles.Where(u=>u.BodyType == announcementFilter.vehicle.BodyType);  // BodyType Filter
@@ -341,7 +506,53 @@ namespace AutoVertical_web.Areas.Customer.Controllers
             return View(announcementFilter);
         }
 
+        [HttpPost]
+        public IActionResult DeleteAnnouncement(int vehicleId,bool sold = false)
+        {
+            //Remove vehicle
+            Vehicle vehToRemove = _UnitOfWork.vehicle.GetFirstOfDefault(u=>u.Id ==vehicleId,includeSpecific:true);
+            _UnitOfWork.vehicle.Remove(vehToRemove);
+
+            //Remove images
+            IEnumerable<ImgGallery> VehicleGalery = _UnitOfWork.gallery.GetAll(u=>u.VehicleId==vehicleId);
+            string wwwRoot = _WebHostEnvironment.WebRootPath;
+            string? FileDirectory = null;
+            foreach(ImgGallery img in VehicleGalery)
+            {
+                FileDirectory = IFileAcces.Delete(wwwRoot+img.Name);
+            }
+            IUserDirectory.DeleteDirectory(FileDirectory);
+            _UnitOfWork.gallery.RemoveRange(VehicleGalery);
+
+            //Remove specific vehicle
+            switch (vehToRemove.VehicleType)
+            {
+                case "car":
+                    _UnitOfWork.car.Remove(vehToRemove.car);
+                break;
+                case "truck":
+                    _UnitOfWork.truck.Remove(vehToRemove.truck);
+                break;
+                case "motorcycle":
+                    _UnitOfWork.motorcycle.Remove(vehToRemove.motorcycle);
+                break;
+            }
+
+            // If vehicle sold increment number of sold vehicles
+            if(sold == true)
+            {
+                vehToRemove.User.SoldVehicles += 1;
+                _UnitOfWork.applicationUser.Update(vehToRemove.User);
+            }
+
+            _UnitOfWork.Save();
+            return RedirectToAction("Index","UserProfile",new{
+            tab="AdvertsTab"}
+            );
+        }
+
         #region APIs
+
         [HttpGet]
         public IActionResult GetCountOfAnnouncement(string vehicleType, string? bodyType, string? vehicleBrand, string? vehicleModel, int? productionYearsFrom, 
                                                     int? productionYearsTo,string? fuelType,int? mileageFrom,int? mileageTo)
@@ -399,7 +610,7 @@ namespace AutoVertical_web.Areas.Customer.Controllers
             }
         }
         [HttpGet]
-            public IActionResult GetAveragePriceSimilarVehicle(int id)
+        public IActionResult GetAveragePriceSimilarVehicle(int id)
             {
                 if(id == 0) 
                 {
@@ -449,7 +660,7 @@ namespace AutoVertical_web.Areas.Customer.Controllers
                 }
             }
 
-            [HttpGet]
+        [HttpGet]
         public IActionResult GetMentionedVehicle(string VehicleType,string? Brand)
         {
                 IEnumerable<Vehicle>vehicles;
@@ -495,6 +706,150 @@ namespace AutoVertical_web.Areas.Customer.Controllers
                     }
                
                 return Json(VehiclesAndImages);
+        }
+
+        [HttpGet]
+        public IActionResult GetAnnouncement(int VehicleId)
+        {
+            if(VehicleId<0) 
+            {
+                return NotFound();
+            }
+            Vehicle vehicle = _UnitOfWork.vehicle.GetFirstOfDefault(u=>u.Id == VehicleId/*,includeSpecific:true*/);
+            List<ImgGallery> vehicleGallery = _UnitOfWork.gallery.GetAll(u=>u.VehicleId == vehicle.Id).ToList();
+
+            Announcement announcement = new Announcement
+            {
+                vehicle = vehicle,
+                images = vehicleGallery
+            };
+            string state = (DateTime.Compare(DateTime.Now.Date,vehicle.ExpireDate)<=0) ? "active":"expired";
+            return Json(new {
+                announcement = announcement,
+                state = state
+            });
+        }
+        [HttpGet]
+        [Authorize]
+        public IActionResult GetAdvertStats(bool? UserAdverts, int? VehicleId, string period)
+        {
+            var claimUser = (ClaimsIdentity)User.Identity;
+            var claim = claimUser.FindFirst(ClaimTypes.NameIdentifier);
+
+            string userId = claim.Value;
+
+            List<AdvertStats> advertStats = new List<AdvertStats>();
+            if(VehicleId != null)
+            {
+                 Vehicle vehicle = _UnitOfWork.vehicle.GetFirstOfDefault(u=>u.Id == VehicleId );
+                 if(vehicle.UserId == userId)
+                 {
+                     advertStats = _UnitOfWork.advertStats.GetAll(u=>u.VehicleId == VehicleId).ToList();
+                 }
+                 else
+                 {
+                    return NotFound();
+                 }
+            }
+            else if(UserAdverts == true)
+            {
+                List<Vehicle>UserVehilcles = _UnitOfWork.vehicle.GetAll(u=>u.UserId == userId).ToList();
+                foreach(Vehicle veh in UserVehilcles)
+                {
+                    IEnumerable<AdvertStats>UserVehiclesAdvertsStats = _UnitOfWork.advertStats.GetAll(u=>u.VehicleId == veh.Id);
+                    advertStats.AddRange(UserVehiclesAdvertsStats);
+                }
+
+            }
+            switch (period)
+            {
+                case "week":
+                    //Get current week date
+                    DateTime baseDate = DateTime.Now.Date;
+                    var thisWeekStart = baseDate.AddDays(-(int)baseDate.DayOfWeek+1);
+                    var thisWeekEnd = thisWeekStart.AddDays(7);
+                    advertStats = advertStats.Where(u=>u.date >= thisWeekStart && u.date <= thisWeekEnd).ToList();
+                    /*advertStats = _UnitOfWork.advertStats.GetAll(u=>u.VehicleId == VehicleId && u.date >= thisWeekStart && u.date <= thisWeekEnd);*/
+
+                break;
+                case "month":
+                    int thisMonth = DateTime.Now.Month;
+                    advertStats = advertStats.Where(u=>thisMonth == u.date.Month).ToList();
+                    /*advertStats = _UnitOfWork.advertStats.GetAll(u=>u.VehicleId == VehicleId && thisMonth == u.date.Month);*/
+                break;
+                case "year":
+                    int thisYear = DateTime.Now.Year;
+                    advertStats = advertStats.Where(u=>thisYear == u.date.Year).ToList();
+                    /*advertStats = _UnitOfWork.advertStats.GetAll(u=>u.VehicleId == VehicleId && thisYear == u.date.Year);*/
+                    advertStats = advertStats.OrderBy(u=>u.date.Month).ToList();
+                    List<AdvertStats>CountedValueFromEveryMonth = new List<AdvertStats>();
+                    int activeMonth = 0;
+                    int? monthlyViewCount = 0;
+                    int? monthlyPhoneNumberDisplays = 0;
+                    foreach(var advert in advertStats)
+                    {
+                        if(activeMonth == 0)
+                        {
+                            activeMonth = advert.date.Month;
+                        }
+                        else if(activeMonth != advert.date.Month)
+                        {
+                            CountedValueFromEveryMonth.Add(new AdvertStats
+                            { 
+                                VehicleId = VehicleId,
+                                date = DateTime.Parse($"""{activeMonth}/{thisYear}"""),
+                                AdvertViewsCount = monthlyViewCount
+                            });
+                            monthlyViewCount = 0;
+                            monthlyPhoneNumberDisplays = 0;
+                            activeMonth = advert.date.Month;
+                        }
+                        monthlyViewCount += advert.AdvertViewsCount;  
+                        monthlyPhoneNumberDisplays += advert.PhoneNumberDisplays;
+                    }
+                    if(activeMonth != 0)
+                    {
+                        CountedValueFromEveryMonth.Add(new AdvertStats
+                        { 
+                            VehicleId = VehicleId,
+                            date = DateTime.Parse($"""{activeMonth}/{thisYear}"""),
+                            AdvertViewsCount = monthlyViewCount,
+                            PhoneNumberDisplays = monthlyPhoneNumberDisplays
+                        });
+                    }
+                    advertStats = CountedValueFromEveryMonth;
+                break;
+            }
+
+
+            return Json(advertStats);
+
+        }
+
+        [HttpPost]
+        public IActionResult IncreasePhoneDisplaysNumber(int identifier)
+        {
+            DateTime Date = DateTime.Now.Date;
+
+            AdvertStats vehicleStats = _UnitOfWork.advertStats.GetFirstOfDefault(u=>u.VehicleId == identifier && Date == u.date.Date);
+
+            if(vehicleStats == null) 
+            {
+                vehicleStats = new AdvertStats()
+                {
+                    VehicleId = identifier,
+                    date = Date,
+                    AdvertViewsCount = 0,
+                    PhoneNumberDisplays = 0
+                };
+            }
+
+            vehicleStats.PhoneNumberDisplays += 1;
+
+            _UnitOfWork.advertStats.Update(vehicleStats);
+            _UnitOfWork.Save();
+
+            return Json("SUCCES");
         }
         #endregion
     }

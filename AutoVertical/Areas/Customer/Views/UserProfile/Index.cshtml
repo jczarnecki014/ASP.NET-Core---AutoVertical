@@ -1,0 +1,295 @@
+﻿@using AutoVertical_Model.Models.ViewModel;
+@model UserPanelVM;
+
+@section Header
+{
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="~/css/ConversationList.css" /> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <style>
+        body{
+            background-image: url("\\image\\helpfull\\userPanelBg.jpg");
+            background-size:cover;
+            font-family: 'Ubuntu', sans-serif;
+        }
+    </style>
+}
+
+
+<div class="container-fluid p-5">
+    <section name="header" class="row text-light d-flex align-items-center">
+        <!-- BLOCK LOGO-->
+        <a asp-controller="home" asp-action="Index" class="col-lg-3">
+            <img class="img-fluid w-50" src="/image/main/Logo_trans_white2.png" />
+        </a>
+        <!-- END LOGO-->
+        <div class="col-lg-7">
+
+        </div>
+        <div class="col-lg-2">
+            <div class="row">
+                 <!-- BLOCK NOTYFICATION-->
+                <div class="col-lg-2 d-flex align-items-center dropdown ">
+                    <i style="color:#1dd1a1;" class="fa-regular fa-bell h5" data-bs-toggle="dropdown" href="#" role="button"></i>
+                    <div style="width:350px;" class="dropdown-menu">
+                        <div class="row d-flex justify-content-center px-3">
+                            <div class="col-12">
+                                <h6 class="fw-bolder">Notifications</h6>
+                                <small>You have 5 unread notifications</small>
+                            </div>
+                        </div>
+                        <hr class="dropdown-divider">
+                        <div class="row pt-3 mb-2">
+                            <div class="col-3">
+                                <img class="rounded-circle p-2 img-fluid position-relative" src="\image\helpfull\sylwia.jpg" />
+                                <i class="bi bi-chat-dots position-absolute text-primary"></i>
+                            </div>
+
+                            <div class="col-9 px-3">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <span class="fw-bolder">Sylwia Woźniak</span>
+                                    </div>
+                                    <div class="col-12">
+                                        <small class="text-secondary">
+                                            Hi, I send message to your messagebox !
+                                        </small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr class="dropdown-divider">
+                         <div class="row pt-3">
+                            <div class="col-3">
+                                <img class="rounded-circle p-2 img-fluid position-relative" src="\image\helpfull\test.jpg" />
+                                <i class="bi bi-chat-heart position-absolute text-danger"></i>
+                            </div>
+
+                            <div class="col-9 px-3">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <span class="fw-bolder">Jakub Czarnecki</span>
+                                    </div>
+                                    <div class="col-12">
+                                        <small class="text-secondary">
+                                            I start follow your advert !
+                                        </small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr class="dropdown-divider">
+                         <div class="row pt-3">
+                            <div class="col-3">
+                                <img class="rounded-circle p-2 img-fluid position-relative" src="\image\helpfull\avatar.png" />
+                                <i class="bi bi-chat-heart position-absolute text-danger"></i>
+                            </div>
+
+                            <div class="col-9 px-3">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <span class="fw-bolder">Jan Kowalski</span>
+                                    </div>
+                                    <div class="col-12">
+                                        <small class="text-secondary">
+                                            I start follow your advert !
+                                        </small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 d-flex justify-content-center">
+                                <a class="btn btn-success px-5">
+                                    Show more
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                 <!-- END NOTYFICATION-->
+
+                 <!-- BLOCK PROFILE -->
+                <div style="border-left: solid 1px #929292;" class="col-lg-7 d-flex align-items-center ">
+                    <span style="font-family:'Roboto', sans-serif" class="px-1">@Model.User.Name @Model.User.Surname</span>
+                </div>
+                <div class="col-lg-3 dropdown">
+                    <div class="rounded-circle p-3 bg-white text-success " data-bs-toggle="dropdown" href="#" role="button">
+                        JC
+                    </div>
+                    <div class="dropdown-menu">
+                        <div class="row d-flex justify-content-center">
+                            <div class="col-8">
+                                <img class="rounded-circle p-3 img-fluid" src="@Model.User.AvatarSrc" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 text-center">
+                                <h6 class="fw-bold">@Model.User.Name @Model.User.Surname</h6>
+                            </div>
+                            <div class="col-12 text-center">
+                                <h6 class="small text-secondary"> 
+                                    @(Model.User.Verificated == true ? "Auto Vertical Partner": "Unveryficated user")
+                                </h6>
+                            </div>
+                        </div>
+                      <li><hr class="dropdown-divider"></li>
+                      <li style="border-bottom: 1px dotted #cfcfcf"><a class="dropdown-item py-1" href="/Customer/UserProfile?tab=DashboardTab#ProfileDetails"><i class="fa-regular fa-user"></i>&nbsp; My Profile</a></li>
+                      <li style="border-bottom: 1px dotted #cfcfcf"><a class="dropdown-item py-1" href="/Customer/UserProfile?tab=DashboardTab#advertViews"><i class="bi bi-graph-up"></i>&nbsp; Activity Logs</a></li>
+                      <li style="border-bottom: 1px dotted #cfcfcf"><a class="dropdown-item py-1" href="/Customer/UserProfile?tab=CompanyTab"><i class="bi bi-briefcase"></i>&nbsp; Company Details</a></li>
+                      <form id="logoutForm" class="form-inline dropdown-item py-1" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                        <button id="logout" type="submit" class="nav-link btn btn-link text-dark border-0"><i class="bi bi-box-arrow-left"></i>&nbsp; Sign Out</button>
+                      </form>
+                    </div>
+                </div>
+                <!-- END PROFILE -->
+            </div>
+        </div>
+       
+    </section>
+
+
+    <!-- BLOCK  USER PANEL MENU-->
+    <section name="menu" class="row d-flex justify-content-center text-light mt-5">
+        <div class="col-lg-5">
+            <div class="row">
+                @if (Model.Tab == "DashboardTab")
+                {
+                    <a asp-action="Index" asp-route-tab="DashboardTab" style="color:#08a9ab" class="col-2 text-center">
+                        <i class="fa-solid fa-laptop h3"></i>
+                        <h6>Dashboard</h6>
+                        <hr style="height:5px;background-color:#08a9ab;" />
+                    </a>
+                }
+                else
+                {
+                    <a asp-action="Index" asp-route-tab="DashboardTab" style="color:#8aa5b4" class="col-2 text-center">
+                        <i class="fa-solid fa-laptop h3"></i>
+                        <h6>Dashboard</h6>
+                    </a>
+                }
+                @if(Model.Tab == "AdvertsTab")
+                {
+                    <a asp-action="Index" asp-route-tab="AdvertsTab" style="color:#08a9ab" class="col-2 text-center">
+                        <i class="bi bi-megaphone h3"></i>
+                        <h6>Adverts</h6>
+                        <hr style="height:5px;background-color:#08a9ab;" />
+                    </a>
+                }
+                else
+                {
+                    <a asp-action="Index" asp-route-tab="AdvertsTab" style="color:#8aa5b4" class="col-2 text-center">
+                        <i class="bi bi-megaphone h3"></i>
+                        <h6>Adverts</h6>
+                    </a>
+                }
+                @if(Model.Tab == "MessagesTab")
+                {
+                    <a asp-action="Index" asp-route-tab="MessagesTab" style="color:#08a9ab" class="col-2 text-center">
+                        <i class="bi bi-envelope h3"></i>
+                        <h6>Messagebox</h6>
+                        <hr style="height:5px;background-color:#08a9ab;" />
+                    </a>
+                }
+                else
+                {
+                    <a asp-action="Index" asp-route-tab="MessagesTab" style="color:#8aa5b4" class="col-2 text-center">
+                        <i class="bi bi-envelope h3"></i>
+                        <h6>Messagebox</h6>
+                    </a>
+                }
+                @if (Model.Tab == "ObserverdTab")
+                {
+                    <a asp-action="Index" asp-route-tab="ObserverdTab" style="color:#08a9ab" class="col-2 text-center">
+                        <i class="bi bi-heart h3"></i>
+                        <h6>Followed</h6>
+                        <hr style="height:5px;background-color:#08a9ab;" />
+                    </a>
+                }
+                else
+                {
+                    <a asp-action="Index" asp-route-tab="ObserverdTab" style="color:#8aa5b4" class="col-2 text-center">
+                        <i class="bi bi-heart h3"></i>
+                        <h6>Followed</h6>
+                    </a>
+                }
+                @if (Model.Tab == "CompanyTab")
+                {
+                    <a asp-action="Index" asp-route-tab="CompanyTab"  style="color:#08a9ab" class="col-2 text-center">
+                        <i class="bi bi-buildings-fill h3"></i>
+                        <h6>Company</h6>
+                        <hr style="height:5px;background-color:#08a9ab;" />
+                    </a>
+                }
+                else
+                {
+                    <a asp-action="Index" asp-route-tab="CompanyTab"  style="color:#8aa5b4" class="col-2 text-center">
+                        <i class="bi bi-buildings-fill h3"></i>
+                        <h6>Company</h6>
+                    </a>
+                }
+                @if (Model.Tab == "AdvertisementTab")
+                {
+                    <a asp-action="Index" asp-route-tab="AdvertisementTab" style="color:#08a9ab" class="col-2 text-center">
+                        <i class="bi bi-headset h3"></i>
+                        <h6>advertisements</h6>
+                        <hr style="height:5px;background-color:#08a9ab;" />
+                    </a>
+                }
+                else
+                {
+                    <a asp-action="Index" asp-route-tab="AdvertisementTab" style="color:#8aa5b4" class="col-2 text-center">
+                        <i class="bi bi-headset h3"></i>
+                        <h6>advertisements</h6>
+                    </a>
+                }
+            </div>
+        </div>
+    </section>
+    <<!-- END USER PANEL MENU -->
+
+    <section name="searchBar" class="row row d-flex justify-content-center mt-5">
+        <div class="col-lg-5">
+                <input type="text" class="form-control text-center" placeholder="Search here.." />
+        </div>
+    </section>
+
+    <!-- BLOCK CONTENT CONTAINER-->
+    <section name="content-conatiner" class="row mt-5 d-flex justify-content-center ">
+        <div class="col-lg-10 bg-white rounded-3">
+            <div style="background-color:#f4f5fb;" class="row rounded-3 p-3">
+                <div class="col-lg-9">
+                    Welcome back, Jakub
+                </div>
+                <div class="col-lg-3">
+                    <select id="PeriodSelect" class="selectpicker w-75 ">
+                        <option data-icon="fa-solid fa-calendar-week"  value="week">Week</option>
+                        <option selected data-icon="fa-solid fa-calendar-week" value="month">Month</option>
+                        <option data-icon="fa-solid fa-calendar-week" value="year">Year</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row p-5">
+                @await Component.InvokeAsync(Model.Tab,Model)
+            </div>
+        </div>
+    </section>
+    <!-- END CONTAINER-->
+</div>
+@section Scripts
+{
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="~/js/UserPanel/Charts/LinearChart.js"></script>
+    <script src="~/js/UserPanel/Charts/PolarAreaChart.js"></script>
+    <script src="~/js/UserPanel/Counters.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+    <script src="~/js/UserPanel/ChartTools.js"></script>
+    <script src="~/js/UserPanel/BackgroundChangeHover.js"></script>
+    <script src="~/js/UserPanel/@Model.Tab/Scripts.js"></script>
+}
+           
+
+

@@ -53,7 +53,7 @@
             VehicleDetails = ListOfAnnouncements[imgIndex].vehicle
             VehicleImages = ListOfAnnouncements[imgIndex].images[2]
             //Set IMG
-            TileImg.src = this.tempPath + VehicleImages.name
+            TileImg.src = VehicleImages.name
             //Set Title
             TileTitle.textContent = VehicleDetails.title
             //Set Details

@@ -7,12 +7,12 @@ class FormHandler{
         })
         this.activeInputsOfVehicle = document.querySelectorAll(".car");
     }
-    static FileInputIsNotEmpty(){
+    static FileInputIsEmpty(){
         if(document.querySelector("#filesInput").value == ""){
             Swal.fire({
                 icon: 'error',
                 title: 'Files ERROR',
-                text: `The minimum number of images is 1 !`,
+                text: `The minimum number of images is 3 !`,
                 footer: '<a href="">Why do I have this issue?</a>'
               })
               return false;
@@ -44,6 +44,9 @@ class FormHandler{
         }
         textLengthSpan.textContent = e.target.value.length;
     }
+    SetImgPiority(e){
+        e.target.style.opacity = 0.5;
+    }
 
     ShowUserIMG(e){
 
@@ -54,6 +57,7 @@ class FormHandler{
                 const files = e.target.files;
                 const output = document.querySelector("#output");
                 const imgSRC = [];
+                const imgDiv = [];
                 output.innerHTML = "";
                 
                 for(let i=0; i < files.length; i++){
@@ -65,6 +69,8 @@ class FormHandler{
                         const div = document.createElement("div");
                         div.classList.add("col-lg-4");
                         div.classList.add("mb-3");
+                        div.classList.add('user-img-div');
+                        // imgDiv.push(div);
                         const img = document.createElement("img");
                         img.classList.add("img-thumbnail");
                         img.src = imgFile.result;
@@ -73,6 +79,7 @@ class FormHandler{
                         output.appendChild(div);
                         if(i == files.length-1){
                             new MiniPreview().setGallery('userVehicle',imgSRC)
+                            // new ImgSequence(imgDiv).SetEventListener();
                         }
                     })
                     imgReader.readAsDataURL(files[i]);
@@ -187,6 +194,25 @@ class FormHandler{
     }
 }
 
+// class ImgSequence{
+//     constructor(imgDivs){
+//         this.imgDivs = imgDivs;
+//     }
+//     SetEventListener(){
+//         this.imgDivs.forEach(element=>
+//             element.addEventListener('mousedown',e=>this.OnDivMouseDown(e))
+//             )
+//         this.imgDivs.forEach(element=>
+//             element.addEventListener('mouseup',e=>this.OnDivMouseUp(e))
+//             )
+//     }
+//     OnDivMouseDown(e){
+//         e.target.style.opacity = 0.5;
+//     }
+//     OnDivMouseUp(e){
+//         e.target.style.opacity = 1;
+//     }
+// }
 
 
 //Main
