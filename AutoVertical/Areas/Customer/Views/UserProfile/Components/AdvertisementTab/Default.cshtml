@@ -1,16 +1,170 @@
-﻿<div style="color:#d3d3d3" class="container p-5 fw-bold">
-    <div class="row">
-        <div class="col-12 text-center">
-            <h1>You haven't any existing advertising campaign</h1>
-            <h3>Milions users visit AutoVertical every months. Dont you think that is a great opportunity to advertise your company ? </h3>
-            <h4>Start earn more money with Auto Vertical advertising campaign</h4>
-        </div>
-        <div class="row d-flex justify-content-center mt-4">
-            <div class="col-lg-4">
-                <a class="btn btn-secondary px-5">
-                    Check the advertising campaign offers
-                </a>
+﻿@using AutoVertical_Model.Models.ViewModel;
+@model UserPanelAdvertisementVM
+<div style="color:#d3d3d3" class="container p-5 fw-bold">
+    @if (Model.AdvertisementToShow.Count() == 0)
+    {
+        <div class="row">
+            <div class="col-12 text-center">
+                <h1>You haven't any existing advertising campaign</h1>
+                <h3>Milions users visit AutoVertical every months. Dont you think that is a great opportunity to advertise your company ? </h3>
+                <h4>Start earn more money with Auto Vertical advertising campaign</h4>
+            </div>
+            <div class="row d-flex justify-content-center mt-4">
+                <div class="col-lg-4">
+                    <a href="/Customer/Advertisement/Configurator" class="btn btn-secondary px-5">
+                        Check the advertising campaign offers
+                    </a>
+                </div>
             </div>
         </div>
-    </div>
+    }
+    else
+    {
+        <div class="row">
+            @foreach (var element in Model.AdvertisementToShow)
+            {
+                if(element.Size == "large")
+                {
+                    <div class="col-lg-3 mb-3">
+                        <div class="card">
+                          <img src="@element.ImageSrc" class="card-img-top" alt="...">
+                          <div class="card-body">
+                            <h5 class="card-title">@element.Size.ToUpper() ADVERTISEMENT</h5>
+                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                          </div>
+                          <ul class="list-group list-group-flush">
+                            <li class="list-group-item">ACTIVE FROM: <span class="text-danger">@element.ActiveFrom.ToString("dd/MM/yyyy")</span></li>
+                            <li class="list-group-item">ACTIVE UNTIL: <span class="text-success">@element.ActiveTo.ToString("dd/MM/yyyy")</span> </li>
+                            <li class="list-group-item text-secondary">@element.Url</li>
+                          </ul>
+                          <div class="card-body d-flex">
+                             <a class="ShowContainerButton btn text-primary" data-Id="@element.Id">Edit</a>
+                            <form asp-controller="Advertisement" asp-action="AdvertisementDelete" method="post">
+                                <input hidden asp-for="AdvertisementToUpdate.Id" value="@element.Id" />
+                                <button type="submit" class=" btn text-danger">Delete</button>
+                            </form>
+                            <a href="#" class="btn text-success">Extend</a>
+                          </div>
+                          @if(@DateTime.Compare(DateTime.Now.Date,element.ActiveTo) >0)
+                          {
+                              <div style="top:40px;" class="position-absolute bg-danger text-light px-3">
+                                  EXPIRED
+                              </div>
+                          }
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+        <div class="row mt-5">
+            @foreach (var element in Model.AdvertisementToShow)
+            {
+                if(element.Size == "medium")
+                {
+                    <div class="col-lg-3 mb-3">
+                        <div class="card position-relative ">
+                          <img src="@element.ImageSrc" class="card-img-top" alt="...">
+                          <div class="card-body">
+                            <h5 class="card-title">@element.Size.ToUpper() ADVERTISEMENT</h5>
+                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                          </div>
+                          <ul class="list-group list-group-flush">
+                            <li class="list-group-item">ACTIVE FROM: <span class="text-danger">@element.ActiveFrom.ToString("dd/MM/yyyy")</span></li>
+                            <li class="list-group-item">ACTIVE UNTIL: <span class="text-success">@element.ActiveTo.ToString("dd/MM/yyyy")</span> </li>
+                            <li class="list-group-item text-secondary">@element.Url</li>
+                          </ul>
+                          <div class="card-body d-flex">
+                             <a class="ShowContainerButton btn text-primary" data-Id="@element.Id">Edit</a>
+                            <form asp-controller="Advertisement" asp-action="AdvertisementDelete" method="post">
+                                <input hidden asp-for="AdvertisementToUpdate.Id" value="@element.Id" />
+                                <button type="submit" class=" btn text-danger">Delete</button>
+                            </form>
+                            <a href="#" class="btn text-success">Extend</a>
+                          </div>
+                           @if(@DateTime.Compare(DateTime.Now.Date,element.ActiveTo) >0)
+                          {
+                              <div style="top:40px;" class="position-absolute bg-danger text-light px-3">
+                                  EXPIRED
+                              </div>
+                          }
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+        <div class="row mt-5">
+            @foreach (var element in Model.AdvertisementToShow)
+            {
+                if(element.Size == "small")
+                {
+                    <div class="col-lg-3 mb-3">
+                        <div class="card">
+                          <img style="height: 300px;" src="@element.ImageSrc" class="card-img-top" alt="...">
+                          <div class="card-body">
+                            <h5 class="card-title">@element.Size.ToUpper() ADVERTISEMENT</h5>
+                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                          </div>
+                          <ul class="list-group list-group-flush">
+                            <li class="list-group-item">ACTIVE FROM: <span class="text-danger">@element.ActiveFrom.ToString("dd/MM/yyyy")</span></li>
+                            <li class="list-group-item">ACTIVE UNTIL: <span class="text-success">@element.ActiveTo.ToString("dd/MM/yyyy")</span> </li>
+                            <li class="list-group-item text-secondary">@element.Url</li>
+                          </ul>
+                          <div class="card-body d-flex">
+                            <a class="ShowContainerButton btn text-primary" data-Id="@element.Id">Edit</a>
+                            <form asp-controller="Advertisement" asp-action="AdvertisementDelete" method="post">
+                                <input hidden asp-for="AdvertisementToUpdate.Id" value="@element.Id" />
+                                <button type="submit" class=" btn text-danger">Delete</button>
+                            </form>
+                            <a href="#" class="btn text-success">Extend</a>
+                          </div>
+                          @if(@DateTime.Compare(DateTime.Now.Date,element.ActiveTo) >=0)
+                          {
+                              <h5>EXPIRED</h5>
+                          }
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+
+        <div class="row">
+             <div style="display:none;" id="Container" class="col-9 bg-dark position-fixed top-0 'animate__animated', 'animate__slideOutUp' text-secondary p-5">
+                 <div class="row">
+                     <div class="col-lg-11">
+                         <h1>Edit your advertisement</h1>
+                     </div>
+                     <div class="col-lg-1 text-end">
+                         <h1 id="CloseContainerButton"><i class="bi bi-x text-secondary"></i></h1>
+                     </div>
+                     <div class="col-lg-3 text-justify mt-4">
+                         <img id="AdvertImg" class="img-thumbnail mb-4"  src="" />
+                     </div>
+                     <form asp-controller="Advertisement" asp-action="AdvertisementUpdate" method="post" class="col-lg-9 d-flex align-items-center" enctype="multipart/form-data">
+                         <input id="AdvertisementId" asp-for="AdvertisementToUpdate.Id" hidden  />
+                         <div class="row d-flex align-items-center">
+                             <div class="col-lg-12 mt-3">
+                                 <label>Advertisement URL</label>
+                                 <input id="AdvertUrl" asp-for="AdvertisementToUpdate.Url"  class="form-control text-secondary bg-dark border-secondary" placeholder="User Name" />
+                             </div>
+                             <div class="col-lg-6 mt-3">
+                                 <label>Email</label>
+                                 <input id="AdvertActiveFrom" disabled class="form-control text-secondary bg-dark border-danger" placeholder="Active from" />
+                             </div>
+                             <div class="col-lg-6 mt-3">
+                                 <label>First name</label>
+                                 <input id="AdvertActiveTo" disabled asp-for="AdvertisementToUpdate.ActiveTo" class="form-control text-secondary bg-dark border-secondary" placeholder="Active to" />
+                             </div>
+                             <div id="AvatarFileInput" class="col-lg-6 mt-3">
+                                 <label>Avatar img</label>
+                                 <input id="filesInput" class="form-control bg-dark border-secondary text-secondary" type="file" name="file" accept=".jpg,.jpeg,.png"> 
+                             </div>
+                             <div class="col-lg-12 mt-3 d-flex justify-content-end">
+                                 <button class="btn btn-outline-secondary" type="submit">Update</button>
+                             </div>
+                         </div>
+                     </form>
+                 </div>
+             </div>
+         </div>
+    }
 </div>

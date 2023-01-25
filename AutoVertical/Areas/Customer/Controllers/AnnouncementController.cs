@@ -22,7 +22,7 @@ namespace AutoVertical_web.Areas.Customer.Controllers
     {
         private readonly IUnitOfWork _UnitOfWork;
         private readonly IWebHostEnvironment _WebHostEnvironment;
-        public AnnouncementFiltersVM announcementFilter { get; set; }
+        public AnnouncementFiltersAdvertisementsVM announcementFilter { get; set; }
         public Announcement announcementVM { get; set; }
         public AnnouncementController(IUnitOfWork unitOfWork,IWebHostEnvironment webHostEnvironment) 
         {
@@ -328,7 +328,7 @@ namespace AutoVertical_web.Areas.Customer.Controllers
             IEnumerable<Vehicle> vehicles;
             if(userId != null)
             {
-                announcementFilter = new AnnouncementFiltersVM();
+                announcementFilter = new AnnouncementFiltersAdvertisementsVM();
                 announcementFilter.vehicle = new Vehicle();
             }
 

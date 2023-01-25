@@ -24,7 +24,7 @@ box-shadow: 8px 8px 37px 1px rgba(26, 55, 150, 1);
             <h3>Step 1 - Select size of your advertisement</h3>
         </div>
     </div>
-    <div class="options row my-3 px-5 border border-5 p-5 shadow-hover" data-size="large">
+    <div class="options row my-3 px-5 border border-5 p-5 shadow-hover inputs" data-size="large" data-price="@ViewBag.LargeAdvertPrice">
         <div class="col-12 border border-3 text-center p-5">
             <h4>LARGE</h4>
             <h5>1920x300</h5>
@@ -42,11 +42,11 @@ box-shadow: 8px 8px 37px 1px rgba(26, 55, 150, 1);
             </p>
         </div>
         <div class="col-12 mt-3 text-danger d-flex justify-content-end">
-            <h4>30 <sub>PLN/DAY</sub></h4>
+            <h4>@ViewBag.LargeAdvertPrice <sub>PLN/DAY</sub></h4>
         </div>
     </div>
 
-    <div class="options row my-3 px-5 border border-5 p-5 shadow-hover" data-size="medium">
+    <div class="options row my-3 px-5 border border-5 p-5 shadow-hover inputs" data-size="medium" data-price="@ViewBag.MediumAdvertPrice">
         <div class="row d-flex justify-content-center">
             <div class="col-lg-2 mx-2 border border-3 p-5 text-center">
                 <h4>MEDIUM</h4>
@@ -78,11 +78,11 @@ box-shadow: 8px 8px 37px 1px rgba(26, 55, 150, 1);
             </div>
         </div>
         <div class="col-12 mt-3 text-danger d-flex justify-content-end">
-            <h4>20 <sub>PLN/DAY</sub></h4>
+            <h4>@ViewBag.MediumAdvertPrice <sub>PLN/DAY</sub></h4>
         </div>
     </div>
 
-    <div class="options row my-3 px-5 border border-5 p-5 shadow-hover" data-size="small">
+    <div class="options row my-3 px-5 border border-5 p-5 shadow-hover inputs" data-size="small" data-price="@ViewBag.SamllAdvertPrice">
         <div class="col-lg-3 border border-3 py-5 d-flex justify-content-center align-items-center">
             <div>
                 <h4>SMALL</h4>
@@ -97,7 +97,7 @@ box-shadow: 8px 8px 37px 1px rgba(26, 55, 150, 1);
             </p>
         </div>
         <div class="col-12 mt-3 text-danger d-flex justify-content-end">
-            <h4>10 <sub>PLN/DAY</sub></h4>
+            <h4>@ViewBag.SamllAdvertPrice <sub>PLN/DAY</sub></h4>
         </div>
     </div>
 
@@ -111,11 +111,11 @@ box-shadow: 8px 8px 37px 1px rgba(26, 55, 150, 1);
                 <h5>Period</h5>
             </div>
             <div class="col-lg-6">
-                <input id="ActiveFrom" asp-for="ActiveFrom" type="date" class="form-control" placeholder="From" />
+                <input id="ActiveFrom" asp-for="ActiveFrom" type="date" class="form-control dateInputs" placeholder="From" />
                  <span class="text-danger" asp-validation-for="ActiveFrom"></span>
             </div>
             <div class="col-lg-6">
-                <input id="ActiveTo" asp-for="ActiveTo" type="date" class="form-control" placeholder="To" />
+                <input id="ActiveTo" asp-for="ActiveTo" type="date" class="form-control dateInputs" placeholder="To" />
                  <span class="text-danger" asp-validation-for="ActiveTo"></span>
             </div>
             <div class="col-lg-12 mt-3">
@@ -141,10 +141,10 @@ box-shadow: 8px 8px 37px 1px rgba(26, 55, 150, 1);
                   </thead>
                   <tbody>
                     <tr>
-                      <td>Large advertisement</td>
-                      <td>30<sub>PLN/DAY</sub></td>
-                      <td>30 days</td>
-                      <td class="fw-bold text-danger">900 PLN</td>
+                      <td id="OptionName">NO SELECTED</td>
+                      <td id="PricePerDay">NO SELECTED</td>
+                      <td id="NumberOfDays" >NO SELECTED</td>
+                      <td id="TotalCost" class="fw-bold text-danger">NO SELECTED</td>
                     </tr>
                   </tbody>
                 </table>

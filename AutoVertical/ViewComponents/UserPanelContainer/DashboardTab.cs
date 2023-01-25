@@ -19,6 +19,7 @@ namespace AutoVertical_web.ViewComponents
             {
                 User = userPanel.User,
                 ActiveAdvertCount = _db.vehicle.GetAll(u=>u.UserId == userPanel.User.Id).Count(),
+                ActiveAdvertisementCount = _db.advertisement.GetAll(u=>u.UserId == userPanel.User.Id).Count(),
             };
             return View(viewModel);
         }

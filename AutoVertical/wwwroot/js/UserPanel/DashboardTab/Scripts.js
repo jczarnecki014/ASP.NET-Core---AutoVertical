@@ -14,10 +14,8 @@ let period = PeriodSelect.value
 //Set event on periodSelectChanges
 
 PeriodSelect.addEventListener('change',function(e){
-  console.log("test")
   period = e.target.value;
   RenderCharts();
-
 })
 
 //Load chart
@@ -82,7 +80,7 @@ containerCloseButton.addEventListener("click",function(){
   container.classList.add('animate__animated', 'animate__slideOutUp');
 })
 
-// Change user avatar
+// Change user avatar algin
 const avatarImg = document.querySelectorAll(".avatarImg");
 const VerticallySrc = "/image/helpfull/Avatar_hover_215x273.png"
 const SquareSrc = "/image/helpfull/Avatar_hover_273x273.png"

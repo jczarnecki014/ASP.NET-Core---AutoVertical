@@ -10,5 +10,6 @@ namespace AutoVertical_Model.Models.ViewModel
     {
         public ApplicationUser User { get;set; }
         public int ActiveAdvertCount { get;set; }
+        public int ActiveAdvertisementCount { get;set; }
     }
 }

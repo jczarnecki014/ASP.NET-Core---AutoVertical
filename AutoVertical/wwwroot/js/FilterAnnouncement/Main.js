@@ -13,6 +13,7 @@ function SetFiltersInputs(advanced_seearch_expanded){
     const FuelTypeFilter = document.querySelector("#FilterFuelType");
     const CountryOfOrigin = document.querySelector("#FilterCountryOfOrigin");
     const ColorTypeFilter = document.querySelector("#FilterColorType");
+    console.log(ColorTypeFilter)
     const NumberOfDoorFilter = document.querySelector("#FilterNumberOfDoor");
     const NumberOfSeatsFilter = document.querySelector("#FilterNumberOfSeats");
     const GearBoxFilter = document.querySelector("#FilterGearBox");
@@ -76,4 +77,21 @@ vehicle.addEventListener("change",e=>{
     filters.forEach(element =>{
         element.disabled = disabled;
     })
+})
+
+//Load advertisement
+const LargeAdverts = document.querySelectorAll(".largeAdvertisement")
+const MediumAdvert = document.querySelectorAll(".mediumAdvertisement")
+
+const SetAdvertaisments = new RandAdvertisement(LargeAdverts,MediumAdvert)
+
+const GetLargeAdvertsUrl = "/Customer/Advertisement/GetAdvertisements?size=large"
+const GetMediumAdvertsUrl = "/Customer/Advertisement/GetAdvertisements?size=medium"
+
+$.getJSON(GetLargeAdvertsUrl,function(value){ 
+    SetAdvertaisments.setAdverts(value,'large')
+})
+
+$.getJSON(GetMediumAdvertsUrl,function(value){ 
+    SetAdvertaisments.setAdverts(value,'medium')
 })

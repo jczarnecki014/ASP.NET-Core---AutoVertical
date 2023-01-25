@@ -15,5 +15,12 @@ namespace AutoVertical_Utility
         public static string DefaultRootPass = "Lukasz85!";
         public static string DefaultRootEmail = "kuba-projekt@wp.pl";
 
+        /// <summary>
+        /// Acctual advertisement prices
+        ///</summary>
+        
+        public static int LargeAdvertisementPricePerDay = 45;
+        public static int MediumAdvertisementPricePerDay = 20;
+        public static int SmallAdvertisementPricePerDay = 10;
     }
 }

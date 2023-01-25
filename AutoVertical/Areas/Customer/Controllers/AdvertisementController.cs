@@ -1,6 +1,7 @@
 ﻿using AutoVertical_Data.Repository.IRepository;
 using AutoVertical_Model.Models;
 using AutoVertical_Model.Models.ViewModel;
+using AutoVertical_Utility;
 using AutoVertical_Utility.FileAcces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -10,7 +11,6 @@ using System.Security.Claims;
 namespace AutoVertical_web.Areas.Customer.Controllers
 {
     [Area("Customer")]
-    [Authorize]
     public class AdvertisementController : Controller
     {
         private readonly IWebHostEnvironment _WebhostEnviroment;
@@ -21,12 +21,17 @@ namespace AutoVertical_web.Areas.Customer.Controllers
             _unitOfWork = unitOfWork;
         }
         [HttpGet]
+        [Authorize]
         public IActionResult Configurator()
         {
+        ViewBag.LargeAdvertPrice = Options.LargeAdvertisementPricePerDay;
+        ViewBag.MediumAdvertPrice = Options.MediumAdvertisementPricePerDay;
+        ViewBag.SamllAdvertPrice = Options.SmallAdvertisementPricePerDay;
         return View();
         }
         
         [HttpPost]
+        [Authorize]
         public IActionResult Configurator(Advertisement userAdvertisement, IFormFile file)
         {
             if(userAdvertisement != null && file != null)
@@ -67,5 +72,85 @@ namespace AutoVertical_web.Areas.Customer.Controllers
                 return View(userAdvertisement);
             }
         }
+
+        [HttpPost]
+        [Authorize]
+        public IActionResult AdvertisementUpdate(UserPanelAdvertisementVM AdvertisementVM, IFormFile? file)
+        {
+            var claimUser = (ClaimsIdentity)User.Identity;
+            var claim = claimUser.FindFirst(ClaimTypes.NameIdentifier);
+            string LoggedUserId = claim.Value;
+
+            Advertisement userAdvertisement = _unitOfWork.advertisement.GetFirstOfDefault(u=>u.Id == AdvertisementVM.AdvertisementToUpdate.Id);
+            if(userAdvertisement.UserId != LoggedUserId)
+            {
+                return NotFound();
+            }
+
+            if(file!=null)
+            {
+                string wwwRoot = _WebhostEnviroment.WebRootPath;
+                IFileAcces fileAcces = new FileAcces(file,wwwRoot,$"""\Users\{LoggedUserId}\Advertisement\""");
+                if(fileAcces.FileState.isValid)
+                {
+                    IFileAcces.Delete(wwwRoot + userAdvertisement.ImageSrc);
+                    string newFileName = fileAcces.Create();
+                    AdvertisementVM.AdvertisementToUpdate.ImageSrc= newFileName;
+                }
+            }
+
+            _unitOfWork.advertisement.Update(AdvertisementVM.AdvertisementToUpdate);
+            _unitOfWork.Save();
+            return RedirectToAction("Index","UserProfile", new {tab="AdvertisementTab"});
+
+        }
+        [ValidateAntiForgeryToken]
+        [HttpPost]
+        public IActionResult AdvertisementDelete(UserPanelAdvertisementVM AdvertisementVM)
+        {
+            
+            Advertisement advertisement = _unitOfWork.advertisement.GetFirstOfDefault(u=>u.Id==AdvertisementVM.AdvertisementToUpdate.Id);
+            var claimUser = (ClaimsIdentity)User.Identity;
+            var claim = claimUser.FindFirst(ClaimTypes.NameIdentifier);
+            string LoggedUserId = claim.Value;
+
+            if(advertisement.UserId == LoggedUserId)
+            {
+                string wwwRoot = _WebhostEnviroment.WebRootPath;
+                IFileAcces.Delete(wwwRoot+advertisement.ImageSrc);
+                _unitOfWork.advertisement.Remove(advertisement);
+                _unitOfWork.Save();
+            }
+
+            return RedirectToAction("Index","UserProfile", new {tab="AdvertisementTab"});
+        }
+
+        #region Api
+
+        public IActionResult GetAdvertisements(string size)
+        {
+            List<Advertisement>advertisements = _unitOfWork.advertisement.GetAll(u=>u.Size == size).ToList();
+            return Json(advertisements);
+        }
+        [Authorize]
+        public IActionResult GetUserAdvertisement(int id)
+        {
+            var claimUser = (ClaimsIdentity)User.Identity;
+            var claim = claimUser.FindFirst(ClaimTypes.NameIdentifier);
+            string LoggedUserId = claim.Value;
+            
+            Advertisement userAdvertisement = _unitOfWork.advertisement.GetFirstOfDefault(u=>u.Id == id);
+
+            if(userAdvertisement.UserId != LoggedUserId)
+            {
+                return NotFound();
+            }
+            else
+            {
+                return Json(userAdvertisement);
+            }
+        }
+
+        #endregion
     }
 }

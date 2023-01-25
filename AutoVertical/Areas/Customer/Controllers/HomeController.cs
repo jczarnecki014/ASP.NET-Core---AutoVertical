@@ -1,4 +1,5 @@
 ﻿using AutoVertical.Models;
+using AutoVertical_Data.Repository.IRepository;
 using AutoVertical_Model.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
@@ -9,9 +10,10 @@ namespace AutoVertical_web.Areas.Customer.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+        private readonly IUnitOfWork _unitOfWork;
+        public HomeController(ILogger<HomeController> logger,IUnitOfWork unitOfWork)
         {
+            _unitOfWork = unitOfWork;
             _logger = logger;
         }
 

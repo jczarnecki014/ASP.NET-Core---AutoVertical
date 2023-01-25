@@ -59,7 +59,6 @@ function SetMentionedAnnouncement(vehicleType){
     const MediumAnnouncementTiles = document.querySelectorAll(".medium-tiles");
     const LargeAnnouncementTiles = document.querySelectorAll(".large-tiles");
     $.getJSON(`/customer/Announcement/GetMentionedVehicle?VehicleType=${vehicleType}`,function(values){
-        console.log(values)
         document.querySelector("#Loading").style.display="none";
         announcementCarousel = new MentionedAnnouncement(values);
         announcementCarousel.SetTiles(SmallAnnouncementTiles,random=true); // first set
@@ -106,11 +105,25 @@ const AnnouncementCount = document.querySelector("#AnnouncementCount");
 const FiltersList = document.querySelectorAll(".filter");
 FiltersList.forEach(filter =>{
     filter.addEventListener("change", e=>SetNumberOfAnnouncement(e.target.dataset.type,e.target.value))
-    // filter.addEventListener("change",e=>{
-    //     // $.getJSON(`/customer/Announcement/GetCountOfAnnouncement?VehicleType=car`,function(value){
-    //     //     AnnouncementCount.textContent = value;
-    //     // })
-    // })
+})
+
+
+
+//Load advertisement
+const LargeAdverts = document.querySelectorAll(".largeAdvertisement")
+const MediumAdvert = document.querySelectorAll(".mediumAdvertisement")
+
+const SetAdvertaisments = new RandAdvertisement(LargeAdverts,MediumAdvert)
+
+const GetLargeAdvertsUrl = "/Customer/Advertisement/GetAdvertisements?size=large"
+const GetMediumAdvertsUrl = "/Customer/Advertisement/GetAdvertisements?size=medium"
+
+$.getJSON(GetLargeAdvertsUrl,function(value){ 
+    SetAdvertaisments.setAdverts(value,'large')
+})
+
+$.getJSON(GetMediumAdvertsUrl,function(value){ 
+    SetAdvertaisments.setAdverts(value,'medium')
 })
 
 //Initial

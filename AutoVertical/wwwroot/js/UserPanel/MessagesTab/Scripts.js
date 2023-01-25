@@ -115,7 +115,7 @@ function showUserCoversation(messages){
 
 
 
-  //SendMessage after button "send" clickl
+  //SendMessage after button "send" click
   const ConversationId = 3;
   const messageButton = document.querySelector("#messageButton");
 
@@ -123,12 +123,14 @@ function showUserCoversation(messages){
   messageButton.addEventListener("click", function(e){
         if(activeConversation != "noSelected"){
                 const message = tinymce.get("messageTextArea").getContent();
-                tinyMCE.activeEditor.setContent('');
-                $.post( `/Customer/Messages/CreateMessage?ConversationId=${activeConversation}&content=${message}`, function( messages ) {
-                    let soundEffect = new Audio(`/sounds/SendMessage.mp3`);
-                    soundEffect.play()
-                    showUserCoversation(messages)
+                if(message != ""){
+                    tinyMCE.activeEditor.setContent('');
+                    $.post( `/Customer/Messages/CreateMessage?ConversationId=${activeConversation}&content=${message}`, function( messages ) {
+                        let soundEffect = new Audio(`/sounds/SendMessage.mp3`);
+                        soundEffect.play()
+                        showUserCoversation(messages)
                 });
+                }
         }
         else{
             Swal.fire({

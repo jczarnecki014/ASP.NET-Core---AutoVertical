@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace AutoVertical_Model.Models.ViewModel
 {
-    public class AnnouncementFiltersVM
+    public class AnnouncementFiltersAdvertisementsVM
     {
         public Vehicle vehicle { get;set; }
         public List<Announcement>? Announcements { get;set; }
