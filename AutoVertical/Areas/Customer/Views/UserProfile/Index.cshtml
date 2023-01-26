@@ -32,7 +32,7 @@
             <div class="row">
                  <!-- BLOCK NOTYFICATION-->
                 <div class="col-lg-2 d-flex align-items-center dropdown ">
-                    <i style="color:#1dd1a1;" class="fa-regular fa-bell h5" data-bs-toggle="dropdown" href="#" role="button"></i>
+                    <i id="notyficationBellIcon" class="fa-regular fa-bell h5" data-bs-toggle="dropdown" href="#" role="button"></i>
                     <div style="width:350px;" class="dropdown-menu">
                         <div class="row d-flex justify-content-center px-3">
                             <div class="col-12">
@@ -41,65 +41,10 @@
                             </div>
                         </div>
                         <hr class="dropdown-divider">
-                        <div class="row pt-3 mb-2">
-                            <div class="col-3">
-                                <img class="rounded-circle p-2 img-fluid position-relative" src="\image\helpfull\sylwia.jpg" />
-                                <i class="bi bi-chat-dots position-absolute text-primary"></i>
-                            </div>
-
-                            <div class="col-9 px-3">
-                                <div class="row">
-                                    <div class="col-12">
-                                        <span class="fw-bolder">Sylwia Woźniak</span>
-                                    </div>
-                                    <div class="col-12">
-                                        <small class="text-secondary">
-                                            Hi, I send message to your messagebox !
-                                        </small>
-                                    </div>
-                                </div>
-                            </div>
+                        <div id="notyficationContainer">
                         </div>
+                        
                         <hr class="dropdown-divider">
-                         <div class="row pt-3">
-                            <div class="col-3">
-                                <img class="rounded-circle p-2 img-fluid position-relative" src="\image\helpfull\test.jpg" />
-                                <i class="bi bi-chat-heart position-absolute text-danger"></i>
-                            </div>
-
-                            <div class="col-9 px-3">
-                                <div class="row">
-                                    <div class="col-12">
-                                        <span class="fw-bolder">Jakub Czarnecki</span>
-                                    </div>
-                                    <div class="col-12">
-                                        <small class="text-secondary">
-                                            I start follow your advert !
-                                        </small>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <hr class="dropdown-divider">
-                         <div class="row pt-3">
-                            <div class="col-3">
-                                <img class="rounded-circle p-2 img-fluid position-relative" src="\image\helpfull\avatar.png" />
-                                <i class="bi bi-chat-heart position-absolute text-danger"></i>
-                            </div>
-
-                            <div class="col-9 px-3">
-                                <div class="row">
-                                    <div class="col-12">
-                                        <span class="fw-bolder">Jan Kowalski</span>
-                                    </div>
-                                    <div class="col-12">
-                                        <small class="text-secondary">
-                                            I start follow your advert !
-                                        </small>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                         <div class="row">
                             <div class="col-12 d-flex justify-content-center">
                                 <a class="btn btn-success px-5">
@@ -200,9 +145,9 @@
                         <h6>Messagebox</h6>
                     </a>
                 }
-                @if (Model.Tab == "ObserverdTab")
+                @if (Model.Tab == "ObservedTab")
                 {
-                    <a asp-action="Index" asp-route-tab="ObserverdTab" style="color:#08a9ab" class="col-2 text-center">
+                    <a asp-action="Index" asp-route-tab="ObservedTab" style="color:#08a9ab" class="col-2 text-center">
                         <i class="bi bi-heart h3"></i>
                         <h6>Followed</h6>
                         <hr style="height:5px;background-color:#08a9ab;" />
@@ -210,7 +155,7 @@
                 }
                 else
                 {
-                    <a asp-action="Index" asp-route-tab="ObserverdTab" style="color:#8aa5b4" class="col-2 text-center">
+                    <a asp-action="Index" asp-route-tab="ObservedTab" style="color:#8aa5b4" class="col-2 text-center">
                         <i class="bi bi-heart h3"></i>
                         <h6>Followed</h6>
                     </a>
@@ -274,6 +219,26 @@
             <div class="row p-5">
                 @await Component.InvokeAsync(Model.Tab,Model)
             </div>
+
+            <!-- ASSISTANT -->
+            <div class="row">
+                <div id="AssistentDiv" style="top:150px; -webkit-box-shadow: 8px 8px 24px 0px rgba(66, 68, 90, 1);
+-moz-box-shadow: 8px 8px 24px 0px rgba(66, 68, 90, 1);
+box-shadow: 8px 8px 24px 0px rgba(66, 68, 90, 1);" class="col-3 position-fixed end-0 text-secondary animate__animated animate__slideInRight animate__slower">
+                    <div class="row bg-light">
+                        <div class="col-3 d-flex align-items-center">
+                            <img class="img-thumbnail" src="/image/helpfull/assistant.png" />
+                        </div>
+                        <div class="col-9 py-3 d-flex align-items-center">
+                            <p>
+                                Do you want hear short tutorial about this page in Polish language ? 
+                                <a  id="assistantYesOption" class="btn text-success shadow-hover" href="#">Yes</a> /  <a id="assistantNoOption" class="btn text-danger shadow-hover">No</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+             <!-- END ASSISTANT -->
         </div>
     </section>
     <!-- END CONTAINER-->
@@ -288,7 +253,9 @@
     <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
     <script src="~/js/UserPanel/ChartTools.js"></script>
     <script src="~/js/UserPanel/BackgroundChangeHover.js"></script>
+    <script src="~/js/UserPanel/Notyfications.js"></script>
     <script src="~/js/UserPanel/@Model.Tab/Scripts.js"></script>
+    <script src="~/js/UserPanel/Assistant.js"></script>
 }
            
 

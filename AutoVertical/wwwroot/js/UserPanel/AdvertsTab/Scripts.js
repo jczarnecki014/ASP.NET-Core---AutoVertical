@@ -31,7 +31,20 @@ PeriodSelect.addEventListener('change',function(e){
 
 })
 
-
+//function get information to assistant if every displayed announcement have a active status
+function EveryAnnouncementActive(){
+  const statuses =  document.querySelectorAll(".AnnouncementStatus");
+  let condition = true;
+  if(statuses.length == 0 ){
+    return condition
+  }
+  statuses.forEach(status =>{
+      if(status.dataset.expired == "true"){
+        condition = false;
+      }
+  })
+  return condition
+}
 //SHOW ANNOUNCEMENET - GET VEHICLE BY ID
 function ShowAnnouncement(id){
     VehicleImages.innerHTML = "";

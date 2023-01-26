@@ -9,11 +9,16 @@
 </section>
 
 <section name="Announcement" class="container mt-5">
-    <div class="row">
-           <div class="col-12 text-end">
-                   <a id="observerBtn" class="btn hover-darker"><i class="bi bi-heart h5"></i> Observe</a>
-            </div>
-    </div>
+    @if (ViewBag.CurrentUser != Model.UserId)
+    {
+        <div class="row">
+               <form asp-controller="UserProfile" asp-action="FollowVehicle" class="col-12 text-end">
+                        <input hidden  asp-for="Id" />
+                        <input hidden  asp-for="UserId" />
+                        <button id="observerBtn" type="submit" class="btn hover-darker"><i class="bi bi-heart h5"></i> Observe</button>
+                </form>
+        </div>
+    }
     <div class="row">
         <section name="AnnouncementDetails" class="col-lg-9">
             <section name="UsedFilter">

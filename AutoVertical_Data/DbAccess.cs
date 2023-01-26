@@ -19,6 +19,9 @@ namespace AutoVertical_Data
         public  DbSet<Conversation> Conversation{ get; set; }
         public DbSet<AdvertStats> AdvertStats{ get; set; }
         public DbSet<Advertisement> Advertisements{ get; set; }
+        public DbSet<Notyfications> Notyfications{ get; set; }
+        public DbSet<UserFolowedVehicles> UserFollowedVehicles { get;set; }
+        public DbSet<Company> company { get;set;}
 
     }
 }

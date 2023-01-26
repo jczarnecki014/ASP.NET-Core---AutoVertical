@@ -1,5 +1,6 @@
 ﻿@using AutoVertical_Model.Models;
 @model List<Vehicle>;
+
 <div class="container">
     <div class="row">
         <div class="col-12">
@@ -39,7 +40,7 @@
                           <td>@veh.Model</td>
                           <td>@veh.PriceBrutto <sub class="text-danger">PLN</sub></td>
                           <td>
-                              @(veh.ExpireDate.CompareTo(DateTime.Now.Date) >= 0 ? Html.Raw("""<span class="badge text-bg-success">ACTIVE</span>""") : Html.Raw("""<span class="badge text-bg-danger">EXPIRE</span>"""))
+                              @(veh.ExpireDate.CompareTo(DateTime.Now.Date) >= 0 ? Html.Raw("""<span class="AnnouncementStatus badge text-bg-success" data-expired="false">ACTIVE</span>""") : Html.Raw("""<span class="AnnouncementStatus badge text-bg-danger" data-expired="true">EXPIRE</span>"""))
                           </td>
                           <td>
                               @(veh.MentionTime.CompareTo(DateTime.Now.Date) >= 0 ?  veh.MentionTime.ToShortDateString(): "" )

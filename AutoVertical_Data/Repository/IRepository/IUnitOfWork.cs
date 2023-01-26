@@ -19,5 +19,7 @@ namespace AutoVertical_Data.Repository.IRepository
            public IConversationRepository conversation { get;}
            public IAdvertStatsRepository advertStats { get;}
            public IAdvertisementRepositoryt advertisement{ get;}
+           public INotyficationRepository notyfications{ get;}
+           public IUserFollowedVehicleRepository userFollowedVehicle { get;}
     }
 }

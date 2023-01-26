@@ -3,6 +3,7 @@ using AutoVertical_Model.Models;
 using AutoVertical_Model.Models.ViewModel;
 using AutoVertical_Utility.FileAcces;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
@@ -33,8 +34,8 @@ namespace AutoVertical_web.Areas.Customer.Controllers
             //get user ID
                 var claimUser = (ClaimsIdentity)User.Identity;
                 var claim = claimUser.FindFirst(ClaimTypes.NameIdentifier);
-                string UserId = claim.Value;
-                userPanel.User = _db.applicationUser.GetFirstOfDefault(u=>u.Id==UserId);
+                string LoggedUser = claim.Value;
+                userPanel.User = _db.applicationUser.GetFirstOfDefault(u=>u.Id==LoggedUser);
              return View(userPanel);
  
         }
@@ -52,17 +53,41 @@ namespace AutoVertical_web.Areas.Customer.Controllers
             return RedirectToAction("Index",new {tab = "DashboardTab"});
         }
 
-        [NonAction]
-        public string GetUserAvatarPath(string userId)
+        [HttpPost]
+        [Authorize]
+        public IActionResult FollowVehicle(Vehicle vehicle)
         {
             var claimUser = (ClaimsIdentity)User.Identity;
             var claim = claimUser.FindFirst(ClaimTypes.NameIdentifier);
-            string UserId = claim.Value;
+            string LoggedUser = claim.Value;
 
-            ApplicationUser user = _db.applicationUser.GetFirstOfDefault(u=>u.Id == UserId);
+            ///<summary
+            /// Check if youser follow this vehicle already
+            /// If true - show every followed vehicle
+            /// If false - Add new vehicle to db before redirect
+            ///</sumary>
+            UserFolowedVehicles checkFollowed = _db.userFollowedVehicle.GetFirstOfDefault(u=>u.UserId == LoggedUser && u.VehicleId == vehicle.Id);
+            if(checkFollowed != null)
+            {
+                return RedirectToAction("Index",new {tab = "ObservedTab"});
+            }
 
-            return user.AvatarSrc;
-            
+            UserFolowedVehicles userFolowedVehicles = new UserFolowedVehicles
+            {
+                UserId = LoggedUser,
+                VehicleId = vehicle.Id,
+            };
+            Notyfications notyfications = new Notyfications 
+            {
+                UserId = vehicle.UserId,
+                Event = "NewFollow",
+                UserOfEventId = LoggedUser
+            };
+            _db.userFollowedVehicle.Add(userFolowedVehicles);
+            _db.notyfications.Add(notyfications);
+
+            _db.Save();
+            return RedirectToAction("Index",new {tab = "ObservedTab"});
         }
     }
 }

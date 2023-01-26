@@ -4,6 +4,7 @@ using AutoVertical_Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AutoVerticalData.Migrations
 {
     [DbContext(typeof(DbAccess))]
-    partial class DbAccessModelSnapshot : ModelSnapshot
+    [Migration("20230126113343_AddNotyficationsToDb")]
+    partial class AddNotyficationsToDb
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -540,28 +543,6 @@ namespace AutoVerticalData.Migrations
                     b.ToTable("Trucks");
                 });
 
-            modelBuilder.Entity("AutoVertical_Model.Models.UserFolowedVehicles", b =>
-                {
-                    b.Property<int>("id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
-
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("VehicleId")
-                        .HasColumnType("int");
-
-                    b.HasKey("id");
-
-                    b.HasIndex("VehicleId");
-
-                    b.ToTable("UserFollowedVehicles");
-                });
-
             modelBuilder.Entity("AutoVertical_Model.Models.Vehicle", b =>
                 {
                     b.Property<int>("Id")
@@ -1022,17 +1003,6 @@ namespace AutoVerticalData.Migrations
                         .IsRequired();
 
                     b.Navigation("UserOfEvent");
-                });
-
-            modelBuilder.Entity("AutoVertical_Model.Models.UserFolowedVehicles", b =>
-                {
-                    b.HasOne("AutoVertical_Model.Models.Vehicle", "Vehicle")
-                        .WithMany()
-                        .HasForeignKey("VehicleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Vehicle");
                 });
 
             modelBuilder.Entity("AutoVertical_Model.Models.Vehicle", b =>

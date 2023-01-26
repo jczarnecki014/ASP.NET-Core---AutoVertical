@@ -1,0 +1,33 @@
+﻿@using AutoVertical_Model.Models.ViewModel;
+@model List<Announcement>;
+
+<div class="container">
+    <div class="row">
+        <div class="col-12 my-3">
+            <h4>Observer adverts</h4>
+        </div>
+        @foreach(var element in Model)
+        {
+            <div class="col-lg-3">
+                <a style="height:420px;" class="card medium-tiles">
+                   <img style="max-height:200px; min-height:200px; object-fit:cover" src="@element.images[2].Name" class="card-img-top tile-img" alt="Card image cap">
+                        <div class="card-body">
+                             <h4 class="card-title tile-title">@element.vehicle.Title</h4>
+                             <div class="row">
+                                <div class="col-12">
+                                    <small><b class="tile-year">@element.vehicle.RegYear</b></small> &nbsp;
+                                       <i style="font-size:7px;" class="bi bi-circle-fill"></i> &nbsp;
+                                    <small><b class="tile-mileage">@element.vehicle.Milage km</b></small> &nbsp;
+                                       <i style="font-size:7px;" class="bi bi-circle-fill"></i> &nbsp;
+                                     <small><b class="tile-fuel">@element.vehicle.Fuel</b></small> &nbsp;
+                                        <i style="font-size:7px;" class="bi bi-circle-fill"></i> &nbsp;
+                                     <small><b class="tile-capacity">@element.vehicle.CubicCapacity cm</b></small>
+                                </div>
+                                <h4 class="text-danger pt-3 tile-price">@element.vehicle.PriceBrutto <sub>PLN</sub></h4>
+                              </div>
+                         </div>
+                </a>
+             </div>
+        }
+    </div>
+</div>

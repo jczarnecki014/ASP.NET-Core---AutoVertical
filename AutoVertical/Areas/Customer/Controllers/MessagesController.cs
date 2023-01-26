@@ -55,7 +55,13 @@ namespace AutoVertical_web.Areas.Customer.Controllers
                         UserOneId = CurrentlyLoggedUser,
                         UserTwoId = AdvertUserId
                     };
-
+                    Notyfications notyfication = new Notyfications()
+                    {
+                        UserId = AdvertUserId,
+                        Event = "NewMessage",
+                        UserOfEventId = CurrentlyLoggedUser
+                    };
+                    _db.notyfications.Add(notyfication);
                     _db.conversation.Add(conversation);
                     _db.Save();
                 }

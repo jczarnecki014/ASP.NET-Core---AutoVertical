@@ -309,9 +309,16 @@ namespace AutoVertical_web.Areas.Customer.Controllers
 
             _UnitOfWork.advertStats.Update(vehicleStats);
             _UnitOfWork.Save();
+            
+            ///<summary>
+            /// If user appear own announcement, don't show (announcement follow option)
+            /// </summary>
 
+            var claimUser = (ClaimsIdentity)User.Identity;
+            var claim = claimUser.FindFirst(ClaimTypes.NameIdentifier);
+            string LoggedUser = claim.Value;
 
-
+            ViewBag.CurrentUser = LoggedUser;
 
             return View(announcementVM.vehicle);
 

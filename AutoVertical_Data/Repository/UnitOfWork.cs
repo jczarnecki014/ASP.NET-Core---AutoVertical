@@ -1,4 +1,5 @@
 ﻿using AutoVertical_Data.Repository.IRepository;
+using AutoVertical_Model.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -24,6 +25,9 @@ namespace AutoVertical_Data.Repository
             conversation = new ConversationRepository(db);
             advertStats= new AdvertStatsRepository(db);
             advertisement = new AdvertisementRepository(db);
+            notyfications = new NotyficationRepository(db);
+            userFollowedVehicle = new UserFollowedVehicleRepository(db);
+            
         }
         public IVehicleRepository vehicle { get; private set;}
 
@@ -40,6 +44,9 @@ namespace AutoVertical_Data.Repository
 
         public IAdvertStatsRepository advertStats {get; private set;}
         public IAdvertisementRepositoryt advertisement{ get; private set;}
+        public INotyficationRepository notyfications{ get; private set;}
+
+        public IUserFollowedVehicleRepository userFollowedVehicle { get;private set;}
 
         public void Save() 
         {

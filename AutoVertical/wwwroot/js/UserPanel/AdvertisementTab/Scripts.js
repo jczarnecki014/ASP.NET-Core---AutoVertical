@@ -20,6 +20,23 @@ function UpdateContainerFill(AdvertUrlValue,AdvertActiveFromValue,AdvertActiveTo
   AdvertImg.src = AdvertImgSrc;
 }
 
+//function get information to assistant if every displayed advertisement have a active status
+function EveryAdvertisementActive(){
+  const statuses =  document.querySelectorAll(".AdvertisementStatus");
+  let condition = true;
+  if(statuses.length == 0 ){
+    return condition
+  }
+  statuses.forEach(status =>{
+    console.log(status)
+      if(status.dataset.expired == "true"){
+        condition = false;
+      }
+  })
+  return condition
+}
+
+
 // Show UserUpdateContainer function
 
 ShowContainerButtons.forEach(element => {
