@@ -8,6 +8,17 @@
     </div>
 </section>
 
+@if(DateTime.Compare(Model.ExpireDate,DateTime.Now.Date) < 0)
+{
+    <section name="ExpiredAllert" class="container my-4">
+        <div class="row">
+            <div class="col-12 bg-danger text-white p-5 text-center">
+                <h1>Archival Announcement</h1>
+            </div>
+        </div>
+    </section>
+}
+
 <section name="Announcement" class="container mt-5">
     @if (ViewBag.CurrentUser != Model.UserId)
     {

@@ -16,6 +16,9 @@ namespace AutoVertical_Model.Models
         public int Id { get; set; }
         [ValidateNever]
         public string UserId { get;set;}   
+        [ForeignKey("UserId")]
+        [ValidateNever]
+        public ApplicationUser User { get; set; }
         [Url]
         [Required]
         public string Url { get; set; }

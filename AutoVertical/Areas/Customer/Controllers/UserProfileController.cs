@@ -21,7 +21,7 @@ namespace AutoVertical_web.Areas.Customer.Controllers
             _WebHostEnvironment = webHostEnvironment;
         }
 
-        public IActionResult Index(string tab,object? optionalArg)
+        public IActionResult Index(string tab,string? optionalArg)
         {
             TempData["HideHeaderAndFooter"] = true;
             UserPanelVM userPanel = new UserPanelVM();

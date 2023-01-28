@@ -8,11 +8,13 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration.UserSecrets;
 using Microsoft.Extensions.FileProviders;
+using Stripe.Checkout;
 using System;
 using System.IO;
 using System.Reflection;
 using System.Security.Claims;
 using System.Text.RegularExpressions;
+using static System.Net.WebRequestMethods;
 
 namespace AutoVertical_web.Areas.Customer.Controllers
 {
@@ -196,7 +198,6 @@ namespace AutoVertical_web.Areas.Customer.Controllers
                 _UnitOfWork.Save();
                 
 
-
                 //Save user images in server
                 foreach(var file in files) 
                 {
@@ -210,15 +211,20 @@ namespace AutoVertical_web.Areas.Customer.Controllers
                     _UnitOfWork.gallery.Add(image);
                 }
                 _UnitOfWork.Save();
-                TempData["Success"] = "New announcement was added";
-                return View();
+                return RedirectToAction("ShowAnnouncement",new {identifier = announcementVM.vehicle.Id});
             }
             else{
                 return View();
             }
         }
+
+       //public IActionResult OrderConfirmation(Announcement announcement)
+        //{
+
+        //}
+
         [HttpPost]
-        public IActionResult DeleteAnnouncementImage(int imageId)
+        public IActionResult announcementImage(int imageId)
         {
             ImgGallery Image = _UnitOfWork.gallery.GetFirstOfDefault(u=>u.Id == imageId);
             IEnumerable<ImgGallery> EveryVehicleImg = _UnitOfWork.gallery.GetAll(u=>u.VehicleId == Image.VehicleId);
@@ -248,7 +254,7 @@ namespace AutoVertical_web.Areas.Customer.Controllers
         {
             /*Supplies in vehicle record*/
             announcementVM = new Announcement();
-            announcementVM.vehicle = _UnitOfWork.vehicle.GetFirstOfDefault(u=>u.Id == identifier,includeSpecific:true);
+            announcementVM.vehicle = _UnitOfWork.vehicle.GetFirstOfDefault(u=>u.Id == identifier,includeSpecific:true,Expired:true);
 
             if(announcementVM.vehicle is null)
             {
@@ -504,6 +510,7 @@ namespace AutoVertical_web.Areas.Customer.Controllers
                 List<ImgGallery> gallery = _UnitOfWork.gallery.GetAll(u=>u.VehicleId==veh.Id).ToList();
                 Announcement resoult = new Announcement(){ 
                     vehicle = veh,
+                    company = _UnitOfWork.company.GetFirstOfDefault(u=>u.id == veh.User.CompanyId),
                     images= gallery
                 };
                 announcementFilter.Announcements.Add(resoult);
@@ -517,7 +524,7 @@ namespace AutoVertical_web.Areas.Customer.Controllers
         public IActionResult DeleteAnnouncement(int vehicleId,bool sold = false)
         {
             //Remove vehicle
-            Vehicle vehToRemove = _UnitOfWork.vehicle.GetFirstOfDefault(u=>u.Id ==vehicleId,includeSpecific:true);
+            Vehicle vehToRemove = _UnitOfWork.vehicle.GetFirstOfDefault(u=>u.Id ==vehicleId,includeSpecific:true,Expired:true);
             _UnitOfWork.vehicle.Remove(vehToRemove);
 
             //Remove images
@@ -625,8 +632,8 @@ namespace AutoVertical_web.Areas.Customer.Controllers
                 }
                 else
                 {
-                    Vehicle announcementVehicle = _UnitOfWork.vehicle.GetFirstOfDefault(u=>u.Id == id);
-                    IEnumerable<AutoVertical_Model.Models.Vehicle> vehicleToCompare = _UnitOfWork.vehicle.GetAll(u=>u.Brand == announcementVehicle.Brand);
+                    Vehicle announcementVehicle = _UnitOfWork.vehicle.GetFirstOfDefault(u=>u.Id == id,Expired:true);
+                    IEnumerable<AutoVertical_Model.Models.Vehicle> vehicleToCompare = _UnitOfWork.vehicle.GetAll(u=>u.Brand == announcementVehicle.Brand,Expired:true);;
                     IEnumerable<AutoVertical_Model.Models.Vehicle> temp;
                     if(vehicleToCompare.Count() > 3)
                     {
@@ -722,7 +729,7 @@ namespace AutoVertical_web.Areas.Customer.Controllers
             {
                 return NotFound();
             }
-            Vehicle vehicle = _UnitOfWork.vehicle.GetFirstOfDefault(u=>u.Id == VehicleId/*,includeSpecific:true*/);
+            Vehicle vehicle = _UnitOfWork.vehicle.GetFirstOfDefault(u=>u.Id == VehicleId,Expired:true/*,includeSpecific:true*/);
             List<ImgGallery> vehicleGallery = _UnitOfWork.gallery.GetAll(u=>u.VehicleId == vehicle.Id).ToList();
 
             Announcement announcement = new Announcement
@@ -748,7 +755,7 @@ namespace AutoVertical_web.Areas.Customer.Controllers
             List<AdvertStats> advertStats = new List<AdvertStats>();
             if(VehicleId != null)
             {
-                 Vehicle vehicle = _UnitOfWork.vehicle.GetFirstOfDefault(u=>u.Id == VehicleId );
+                 Vehicle vehicle = _UnitOfWork.vehicle.GetFirstOfDefault(u=>u.Id == VehicleId,Expired:true );
                  if(vehicle.UserId == userId)
                  {
                      advertStats = _UnitOfWork.advertStats.GetAll(u=>u.VehicleId == VehicleId).ToList();

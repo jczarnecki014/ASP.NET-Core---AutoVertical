@@ -9,7 +9,7 @@ namespace AutoVertical_Model.Models.ViewModel
     public class UserPanelVM
     {
         public string Tab{ get; set; } 
-        public object? OptionalArg{ get;set;}
+        public string? OptionalArg{ get;set;}
         public ApplicationUser User {get;set;}
     }
 }

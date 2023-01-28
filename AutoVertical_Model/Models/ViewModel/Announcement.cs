@@ -12,6 +12,7 @@ namespace AutoVertical_Model.Models.ViewModel
     public class Announcement
     {
         public Vehicle vehicle{ get; set; }
+        public Company? company { get; set; }
         [ValidateNever]
         public List<ImgGallery>? images { get;set;}
     }

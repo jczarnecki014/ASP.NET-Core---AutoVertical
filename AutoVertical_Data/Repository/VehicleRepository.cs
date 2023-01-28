@@ -57,11 +57,18 @@ namespace AutoVertical_Data.Repository
                 vehicleFromDb.Co2Emision = entity.Co2Emision;
             }
         }
-        public Vehicle GetFirstOfDefault(Expression<Func<Vehicle, bool>> filter,bool includeSpecific = false)
+        public Vehicle GetFirstOfDefault(Expression<Func<Vehicle, bool>> filter,bool includeSpecific = false,bool Expired=false)
         {
             IQueryable<Vehicle> query =_db.Vehicles;
             
             query = query.Where(filter);
+
+            if(Expired == false)
+            {
+                query = query.Where(u=>DateTime.Compare(DateTime.Now.Date,u.ExpireDate) <=0);
+            }
+
+
             if(includeSpecific)
             {
                 var vehicleType = query.Select(u=>u.VehicleType).SingleOrDefault();

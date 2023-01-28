@@ -21,5 +21,7 @@ namespace AutoVertical_Data.Repository.IRepository
            public IAdvertisementRepositoryt advertisement{ get;}
            public INotyficationRepository notyfications{ get;}
            public IUserFollowedVehicleRepository userFollowedVehicle { get;}
+           public ICompanyRepostiory company{ get;}
+           public ICompanyRolesRepostiory companyRoles { get;}
     }
 }

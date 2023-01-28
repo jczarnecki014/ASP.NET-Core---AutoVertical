@@ -22,5 +22,6 @@ namespace AutoVertical_Utility
         public static int LargeAdvertisementPricePerDay = 45;
         public static int MediumAdvertisementPricePerDay = 20;
         public static int SmallAdvertisementPricePerDay = 10;
+
     }
 }

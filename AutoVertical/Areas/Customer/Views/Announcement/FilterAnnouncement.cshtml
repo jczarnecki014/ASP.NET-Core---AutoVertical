@@ -912,34 +912,34 @@
 </section>
 
     <section name="FilterResoultsMentioned" class="container">
-        @foreach (var veh in Model.Announcements)
+        @foreach (var ann in Model.Announcements)
         {
-            if (DateTime.Compare(veh.vehicle.MentionTime, DateTime.Now.Date) > 0)
+            if (DateTime.Compare(ann.vehicle.MentionTime, DateTime.Now.Date) >= 0)
             {
                 <div class="row border mb-3">
                 <div class="col-lg-3 p-2">
-                    <a asp-area="customer" asp-controller="Announcement" asp-action="ShowAnnouncement" asp-route-identifier="@veh.vehicle.Id">
-                        <img style="max-height:235px; min-height:235px;"  class="img-fluid" src="@veh.images[0].Name" />
+                    <a asp-area="customer" asp-controller="Announcement" asp-action="ShowAnnouncement" asp-route-identifier="@ann.vehicle.Id">
+                        <img style="max-height:235px; min-height:235px;"  class="img-fluid" src="@ann.images[0].Name" />
                     </a>
                 </div>
                 <div class="col-lg-6 p-2">
                     <div class="row">
                         <div class="col-12">
-                            <h4>@veh.vehicle.Title</h4>
+                            <h4>@ann.vehicle.Title</h4>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-1">
-                            <small>@veh.vehicle.ProductionYear</small>
+                            <small>@ann.vehicle.ProductionYear</small>
                         </div>
                         <div class="col-2">
-                            <small>@veh.vehicle.Milage km</small>
+                            <small>@ann.vehicle.Milage km</small>
                         </div>
                         <div class="col-2">
-                            <small>@veh.vehicle.CubicCapacity cm<sup>3</sup></small>
+                            <small>@ann.vehicle.CubicCapacity cm<sup>3</sup></small>
                         </div>
                         <div class="col-1">
-                            <small>@veh.vehicle.Fuel</small>
+                            <small>@ann.vehicle.Fuel</small>
                         </div>
                     </div>
                     <div class="row mb-2">
@@ -951,20 +951,20 @@
                     </div>
                     <div class="row company ">
                         <div class="col-3">
-                            <img src="~/image/Companys/Temp/tempLogo.png" class="img-fluid" />
+                            <img src="@ann.company.LogoSrc" class="img-fluid" />
                         </div>
                         <div class="col-8 d-flex align-items-center">
-                            <h6>Company - company motto</h6>
+                            <h6>@ann.company.name</h6>
                         </div>   
                     </div>
                 </div>
                 <div class="col-lg-3 text-lg-end p-2 ">
                     <div class="row h-50">
                         <div class="col-12">
-                            <h5 class="text-danger">@veh.vehicle.PriceBrutto PLN</h5>
+                            <h5 class="text-danger">@ann.vehicle.PriceBrutto PLN</h5>
                          </div>
                         <div class="col-12 text-primary">
-                            <i class="bi bi-person"></i> @veh.vehicle.User.UserName
+                            <i class="bi bi-person"></i> @ann.vehicle.User.UserName
                         </div>
                         <div class="col-12 text-success">
                             <i class="bi bi-coin"></i> &nbsp Check financing
@@ -973,7 +973,7 @@
 
                     <div class="row h-50 d-flex align-items-end">
                        <div class="col-12 ">
-                            <a asp-area="customer" asp-controller="Announcement" asp-action="ShowAnnouncement" asp-route-identifier="@veh.vehicle.Id" class="btn btn-danger px-5">
+                            <a asp-area="customer" asp-controller="Announcement" asp-action="ShowAnnouncement" asp-route-identifier="@ann.vehicle.Id" class="btn btn-danger px-5">
                                 <i class="bi bi-eye"></i> Show
                             </a>
                             <a class="btn btn-primary">
@@ -1005,34 +1005,34 @@
         </div>
     </section>
     <section name="FilterResoultsTwo" class="container">
-        @foreach (var veh in Model.Announcements)
+        @foreach (var ann in Model.Announcements)
         {
-        if (DateTime.Compare(veh.vehicle.MentionTime, DateTime.Now.Date) <= 0)
+        if (DateTime.Compare(ann.vehicle.MentionTime, DateTime.Now.Date) < 0)
         {
                 <div class="row border mb-3">
                 <div class="col-lg-3 p-2">
-                    <a asp-area="customer" asp-controller="Announcement" asp-action="ShowAnnouncement" asp-route-identifier="@veh.vehicle.Id">
-                        <img style="max-height:235px; min-height:235px;"  class="img-fluid" src="@veh.images[0].Name" />
+                    <a asp-area="customer" asp-controller="Announcement" asp-action="ShowAnnouncement" asp-route-identifier="@ann.vehicle.Id">
+                        <img style="max-height:235px; min-height:235px;"  class="img-fluid" src="@ann.images[0].Name" />
                     </a>
                 </div>
                 <div class="col-lg-6 p-2">
                     <div class="row">
                         <div class="col-12">
-                            <h4>@veh.vehicle.Title</h4>
+                            <h4>@ann.vehicle.Title</h4>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-1">
-                            <small>@veh.vehicle.ProductionYear</small>
+                            <small>@ann.vehicle.ProductionYear</small>
                         </div>
                         <div class="col-2">
-                            <small>@veh.vehicle.Milage km</small>
+                            <small>@ann.vehicle.Milage km</small>
                         </div>
                         <div class="col-2">
-                            <small>@veh.vehicle.ProductionYear cm<sup>3</sup></small>
+                            <small>@ann.vehicle.ProductionYear cm<sup>3</sup></small>
                         </div>
                         <div class="col-1">
-                            <small>@veh.vehicle.Fuel</small>
+                            <small>@ann.vehicle.Fuel</small>
                         </div>
                     </div>
                     <div class="row mb-2">
@@ -1042,22 +1042,25 @@
                             </small>
                         </div>
                     </div>
-                    <div class="row company ">
-                        <div class="col-3">
-                            <img src="~/image/Companys/Temp/tempLogo.png" class="img-fluid" />
+                    @if(ann.company != null)
+                    {
+                        <div class="row company ">
+                            <div class="col-3">
+                                <img src="@ann.company.LogoSrc" class="img-fluid" />
+                            </div>
+                            <div class="col-8 d-flex align-items-center">
+                                <h6>@ann.company.name</h6>
+                            </div>   
                         </div>
-                        <div class="col-8 d-flex align-items-center">
-                            <h6>Company - company motto</h6>
-                        </div>   
-                    </div>
+                    }
                 </div>
                 <div class="col-lg-3 text-lg-end p-2 ">
                     <div class="row h-50">
                         <div class="col-12">
-                            <h5 class="text-danger">@veh.vehicle.PriceBrutto PLN</h5>
+                            <h5 class="text-danger">@ann.vehicle.PriceBrutto PLN</h5>
                          </div>
                         <div class="col-12 text-primary">
-                            <i class="bi bi-person"></i> @veh.vehicle.User.UserName
+                            <i class="bi bi-person"></i> @ann.vehicle.User.UserName
                         </div>
                         <div class="col-12 text-success">
                             <i class="bi bi-coin"></i> &nbsp Check financing
@@ -1066,7 +1069,7 @@
 
                     <div class="row h-50 d-flex align-items-end">
                        <div class="col-12 ">
-                            <a asp-area="customer" asp-controller="Announcement" asp-action="ShowAnnouncement" asp-route-identifier="@veh.vehicle.Id" class="btn btn-danger px-5">
+                            <a asp-area="customer" asp-controller="Announcement" asp-action="ShowAnnouncement" asp-route-identifier="@ann.vehicle.Id" class="btn btn-danger px-5">
                                 <i class="bi bi-eye"></i> Show
                             </a>
                             <a class="btn btn-primary">

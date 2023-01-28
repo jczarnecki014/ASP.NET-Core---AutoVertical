@@ -29,6 +29,12 @@ namespace AutoVertical_Data.Repository
                 user.AvatarSrc= entity.AvatarSrc;
             }
         }
+
+        public void RemoveUserFromCompany(string userId)
+        {
+            ApplicationUser user = dbSet.FirstOrDefault(u=>u.Id == userId);
+            user.CompanyId = null;
+        }
     }
     
 }

@@ -7,10 +7,10 @@ namespace AutoVertical_web.ViewComponents
 {
     public class DashboardTab : ViewComponent
     {
-        private readonly IUnitOfWork _db;
-        public DashboardTab(IUnitOfWork db)
+        private readonly IUnitOfWork _unitOfWork;
+        public DashboardTab(IUnitOfWork unitOfWork)
         {
-            _db = db;
+            _unitOfWork = unitOfWork;
         }
 
         public async Task<IViewComponentResult> InvokeAsync(UserPanelVM userPanel)
@@ -18,8 +18,9 @@ namespace AutoVertical_web.ViewComponents
             UserPanelDasboardVM viewModel = new UserPanelDasboardVM
             {
                 User = userPanel.User,
-                ActiveAdvertCount = _db.vehicle.GetAll(u=>u.UserId == userPanel.User.Id).Count(),
-                ActiveAdvertisementCount = _db.advertisement.GetAll(u=>u.UserId == userPanel.User.Id).Count(),
+                ActiveAdvertCount = _unitOfWork.vehicle.GetAll(u=>u.UserId == userPanel.User.Id).Count(),
+                ActiveAdvertisementCount = _unitOfWork.advertisement.GetAll(u=>u.UserId == userPanel.User.Id).Count(),
+                userCompany = _unitOfWork.company.GetFirstOfDefault(u=>u.id == userPanel.User.CompanyId),
             };
             return View(viewModel);
         }

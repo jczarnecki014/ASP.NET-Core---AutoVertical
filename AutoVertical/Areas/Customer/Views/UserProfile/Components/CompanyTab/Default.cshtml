@@ -1,24 +1,210 @@
-﻿<div style="color:#d3d3d3" class="container p-5 fw-bold">
-    <div class="row">
-        <div class="col-12 text-center">
-            <h1>You don't belong to any company</h1>
-            <h3>Companys in auto vertical enable to publish adverts as member of accredicated company, There usualy translates to more interest and trust of your adverts  </h3>
-            <h4>Ask for invitation from existing companies or establish your own business on the Auto Vertical </h4>
-        </div>
-        <div class="row d-flex justify-content-center mt-4">
-            <form class="col-lg-4">
-                  <div class="input-group">
-                       <input type="text" class="form-control" placeholder="Search company" aria-label="Username" aria-describedby="basic-addon1">
-                       <span class="input-group-text" id="basic-addon1">
-                             <i class="bi bi-search"></i>
-                       </span>
-                  </div>
-            </form>
-            <div class="col-lg-4">
-                <a class="btn btn-secondary px-5">
-                    Estabilish own bussines
-                </a>
-            </div>
+﻿@using AutoVertical_Model.Models.ViewModel
+@using AutoVertical_Utility.Roles;
+@model CompanyVM;
+<div class="container px-5 fw-bold">
+    @if (Model.company != null)
+    {
+    <div class="row mb-5">
+        <div class="col-lg-12 d-flex justify-content-end">
+            @if (Model.LoggedUserRole.CompanyRole == Roles.Role_Company_Owner)
+            {
+                <a class="btn btn-danger mx-3">Delete company</a>
+                <a class="btn btn-warning">Edit company</a>
+            }
+            else if (Model.LoggedUserRole.CompanyRole == Roles.Role_Company_Employer)
+            {
+                <form method="POST">
+                    <button type="submit" class="btn btn-danger mx-3">Leave company</button>
+                </form>
+            }
         </div>
     </div>
+    <div class="row bg-light border border-1 p-3">
+            <div class="col-lg-4">
+                <img class="img-thumbnail" src="@Model.company.LogoSrc" />
+            </div>
+            <div class="col-lg-8">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h3>@Model.company.name</h3>
+                    </div>
+                    <div class="col-lg-12 mb-5">
+                        <span class="small">
+                            @Model.company.WebsiteUrl
+                        </span>
+                    </div>
+                    <div class="col-lg-3">
+                        <h6>City: <b>@Model.company.City</b></h6>
+                    </div>
+                    <div class="col-lg-3">
+                        <h6>Country: <b>@Model.company.Country</b></h6>
+                    </div>
+                    <div class="col-lg-3">
+                        <h6>Postal code: <b>@Model.company.PostalCode</b></h6>
+                    </div>
+                     <div class="col-lg-3">
+                        <h6>Street name: <b>@Model.company.StreetName</b></h6>
+                    </div>
+                     <div class="col-lg-5 mt-3">
+                        <h6>Email: <b>@Model.company.Email</b></h6>
+                    </div>
+                    <div class="col-lg-4 mt-3">
+                        <h6>Phone number: <b>@Model.company.PhoneNumber</b></h6>
+                    </div>
+                    <div class="col-lg-3 mt-2">
+                        <h6>Fax: <b>@Model.company.Fax</b></h6>
+                    </div>
+                    <div class="col-lg-12 mt-3">
+                        <p>@Model.company.description</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+            <div class="row mt-5">
+            <div class="col-lg-4 text-center">
+                <h1 class="text-primary fw-bold">@(
+                Model.companyAdverts.Count() > 0 ? Model.companyAdverts.Count() : "0"
+                )</h1>
+                <p>adverts</p>
+            </div>
+            <div class="col-lg-4 text-center">
+                <h1 class="text-warning fw-bold">@(
+                Model.companyAdvertisements.Count() > 0 ? Model.companyAdvertisements.Count() : "0"
+                )</h1>
+                <p>advertisements</p>
+            </div>
+            <div class="col-lg-4 text-center">
+                <h1 class="text-success fw-bold">@(
+                Model.SoldVehicles != null ? Model.SoldVehicles : "0"
+                )</h1>
+                <p>Sold vehicles</p>
+            </div>
+        </div>
+
+            <div class="row">
+            <div class="col-lg-12 mt-5">
+                <h4>Members</h4>
+            </div>
+            @foreach(var member in Model.members)
+            {
+                <div class="col-lg-3 my-4">
+                    <div class="row d-flex justify-content-center">
+                        <div class="col-6 mb-3">
+                            <img style="max-height: 118px; min-height:118px;" class="img-thumbnail" src="@member.AvatarSrc" />
+                        </div>
+                        <div class="col-12 text-center">
+                            <h5>@member.Name @member.Surname</h5>
+                            <h6 class="fw-bold text-success">Employer</h6>
+                        </div>
+                        <div class="col-12 text-center">
+                            <button class="btn btn-danger">Manage</button>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+
+            <div class="row mt-5">
+            <div class="col-lg-12 px-4">
+                <h3 class="my-5">Active announcements</h3>
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">Id</th>
+                            <th scope="col">User</th>
+                            <th scope="col">Vehicle</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Expire</th>
+                            <th scope="col">Mention</th>
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach(var advert in Model.companyAdverts)
+                        {
+                            <tr>
+                                <th>@advert.Id</th>
+                                <td class="text-primary">@advert.User.UserName</td>
+                                <td>@advert.VehicleType</td>
+                                <td>@advert.Title</td>
+                                <td>@advert.ExpireDate.ToShortDateString() @(DateTime.Compare(advert.ExpireDate, DateTime.Now.Date) < 0 ? Html.Raw("""<span class="badge text-bg-danger">Expired</span>""") : "")</td>
+                                <td>@(DateTime.Compare(advert.MentionTime, DateTime.Now.Date) >= 0 ? advert.MentionTime.ToShortDateString() : "") </td>
+                                <td>
+                                    <a asp-controller="Announcement" asp-action="ShowAnnouncement" asp-route-identifier="@advert.Id" class="btn btn-warning">Show</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="col-lg-12 px-4">
+                <h3 class="my-5">Active advertisements</h3>
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">Id</th>
+                            <th scope="col">User</th>
+                            <th scope="col">Size</th>
+                            <th scope="col">Active From</th>
+                            <th scope="col">Active To</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var advertisement in Model.companyAdvertisements)
+                        {
+                            <tr>
+                                <th>@advertisement.Id</th>
+                                <td>@advertisement.User.UserName</td>
+                                <td>@advertisement.Size</td>
+                                <td class="text-success">@advertisement.ActiveFrom.ToShortDateString()</td>
+                                <td class="text-danger">@advertisement.ActiveTo.Date.ToShortDateString() @(DateTime.Compare(advertisement.ActiveTo, DateTime.Now.Date) < 0 ? Html.Raw("""<span class="badge text-bg-danger">Expired</span>""") : "")</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+           </div>
+        </div>
+    }
+    else
+    {
+        <div style="color:#ABABABAB" class="row">
+            @if(ViewBag.search == true)
+            {
+                <div class="input-group my-5">
+                     <input type="text" id="companySearch" class="form-control" placeholder="Search company" aria-label="Username" aria-describedby="basic-addon1">
+                     <span class="input-group-text" id="basic-addon1">
+                           <i class="bi bi-search"></i>
+                     </span>
+                </div>
+                <div id="companysContainer" class="row">
+
+                </div>
+            }
+            else
+            {
+                <div class="col-12 text-center">
+                    <h1>You don't belong to any company</h1>
+                    <h3>Companys in auto vertical enable to publish adverts as member of accredicated company, There usualy translates to more interest and trust of your adverts  </h3>
+                    <h4>Ask for invitation from existing companies or establish your own business on the Auto Vertical </h4>
+                </div>
+                <div class="row d-flex justify-content-center mt-4">
+                    <form class="col-lg-4">
+                          <div class="input-group">
+                               <input onclick="SetOptionalArg()" type="text" class="form-control" placeholder="Search company" aria-label="Username" aria-describedby="basic-addon1">
+                               <span class="input-group-text" id="basic-addon1">
+                                     <i class="bi bi-search"></i>
+                               </span>
+                          </div>
+                    </form>
+                    <div class="col-lg-4">
+                        <a asp-controller="Company" asp-action="CreateCompany" class="btn btn-secondary px-5">
+                            Estabilish own bussines
+                        </a>
+                    </div>
+                </div>
+            }
+        </div>
+    }
 </div>

@@ -22,6 +22,7 @@ namespace AutoVertical_Data
         public DbSet<Notyfications> Notyfications{ get; set; }
         public DbSet<UserFolowedVehicles> UserFollowedVehicles { get;set; }
         public DbSet<Company> company { get;set;}
+        public DbSet<CompanyRoles> companyRoles { get; set; }   
 
     }
 }

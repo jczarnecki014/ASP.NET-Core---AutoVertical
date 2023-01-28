@@ -58,7 +58,7 @@
             TileTitle.textContent = VehicleDetails.title
             //Set Details
             TileYear.textContent = VehicleDetails.productionYear;
-            TileMileage.textContent = VehicleDetails.milage;
+            // TileMileage.textContent = addDots(VehicleDetails.milage);
             TileFuel.textContent = VehicleDetails.fuel;
             TileCubicCapacity.textContent = VehicleDetails.cubicCapacity + " cm";
             //Set Price

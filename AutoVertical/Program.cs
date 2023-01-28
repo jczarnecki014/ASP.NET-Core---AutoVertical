@@ -8,6 +8,8 @@ using AutoVertical_Utility.EmailSender;
 using System.Security.Principal;
 using AutoVertical_Data.DbInitializer;
 using AutoVertical_Utility.FileAcces;
+using AutoVertical_Utility.Stripe;
+using Stripe;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,7 +21,7 @@ builder.Services.AddDbContext<DbAccess>(option=>{
         builder.Configuration.GetConnectionString("DefaultConnection")
     );
 });
-
+builder.Services.Configure<StripeSettings>(builder.Configuration.GetSection("Stripe"));
 builder.Services.AddIdentity<IdentityUser,IdentityRole>().AddDefaultTokenProviders().AddEntityFrameworkStores<DbAccess>();
 builder.Services.ConfigureApplicationCookie(option=>{
     option.AccessDeniedPath = "/Identity/Account/AccessDenied";
@@ -39,6 +41,8 @@ app.UseExceptionHandler("/Home/Error");
 app.UseStaticFiles();
 
 app.UseRouting();
+
+StripeConfiguration.ApiKey = builder.Configuration.GetSection("Stripe:SecretKey").Get<string>();
 
 SeedDatabase();
 

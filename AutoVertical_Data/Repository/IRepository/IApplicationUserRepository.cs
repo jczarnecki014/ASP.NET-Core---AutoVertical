@@ -10,5 +10,6 @@ namespace AutoVertical_Data.Repository.IRepository
     public interface IApplicationUserRepository:IRepository<ApplicationUser>
     {
         public void Update(ApplicationUser entity){}
+        public void RemoveUserFromCompany(string userId);
     }
 }
