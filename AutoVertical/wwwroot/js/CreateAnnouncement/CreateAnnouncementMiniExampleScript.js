@@ -135,8 +135,11 @@
                 else if(event.target.id=="Price"){
                     element.textContent = event.target.value + " PLN";
                 }
+                else if(event.target.id == "CubbicCapacity"){
+                    element.textContent = addSpace(event.target.value) + " CM";
+                }
                 else if(event.target.id == "Milage"){
-                    element.textContent = event.target.value + " KM";
+                    element.textContent = addSpace(event.target.value) + " KM";
                 }
                 else if(event.target.id == "Power"){
                     element.textContent = event.target.value + " KM";

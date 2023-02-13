@@ -24,16 +24,22 @@ namespace AutoVertical_Data.Repository
             user.City = entity.City;
             user.Street = entity.Street;
             user.PostCode = entity.PostCode;
-            if(user.AvatarSrc!= null)
+            if(entity.AvatarSrc!= null)
             {
                 user.AvatarSrc= entity.AvatarSrc;
             }
         }
 
-        public void RemoveUserFromCompany(string userId)
+        public void RemoveUserFromCompany(ApplicationUser entity)
         {
-            ApplicationUser user = dbSet.FirstOrDefault(u=>u.Id == userId);
-            user.CompanyId = null;
+            entity.CompanyId = null;
+            entity.CompanyRole = null;
+        }
+
+        public void AddUserToCompany(ApplicationUser entity,int companyId, string companyRole)
+        {
+            entity.CompanyId = companyId;
+            entity.CompanyRole = companyRole;
         }
     }
     

@@ -165,7 +165,6 @@ document.querySelector("#SoldButton").addEventListener('click', function(){
 function GetCharts(period,vehicleId)
 {
     $.getJSON( `/Customer/Announcement/GetAdvertStats?VehicleId=${vehicleId}&period=${period}`, function( data ) {
-
         let ViewStatsData = {
             labels: generateLabels(period),
             datasets: [{

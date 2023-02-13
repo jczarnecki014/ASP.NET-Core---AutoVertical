@@ -356,18 +356,26 @@ namespace AutoVerticalData.Migrations
                     b.ToTable("company");
                 });
 
-            modelBuilder.Entity("AutoVertical_Model.Models.CompanyRoles", b =>
+            modelBuilder.Entity("AutoVertical_Model.Models.CompanysInvitations", b =>
                 {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("CompanyId")
+                        .HasColumnType("int");
+
                     b.Property<string>("UserId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("CompanyRole")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.HasKey("Id");
 
-                    b.HasKey("UserId");
+                    b.HasIndex("UserId");
 
-                    b.ToTable("companyRoles");
+                    b.ToTable("CompanysInvitations");
                 });
 
             modelBuilder.Entity("AutoVertical_Model.Models.Conversation", b =>
@@ -1033,6 +1041,9 @@ namespace AutoVerticalData.Migrations
                     b.Property<int?>("CompanyId")
                         .HasColumnType("int");
 
+                    b.Property<string>("CompanyRole")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Country")
                         .IsRequired()
                         .HasMaxLength(50)
@@ -1075,6 +1086,8 @@ namespace AutoVerticalData.Migrations
                     b.Property<bool>("Verificated")
                         .HasColumnType("bit");
 
+                    b.HasIndex("CompanyId");
+
                     b.HasDiscriminator().HasValue("ApplicationUser");
                 });
 
@@ -1090,6 +1103,17 @@ namespace AutoVerticalData.Migrations
                 });
 
             modelBuilder.Entity("AutoVertical_Model.Models.Advertisement", b =>
+                {
+                    b.HasOne("AutoVertical_Model.Models.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("AutoVertical_Model.Models.CompanysInvitations", b =>
                 {
                     b.HasOne("AutoVertical_Model.Models.ApplicationUser", "User")
                         .WithMany()
@@ -1211,6 +1235,15 @@ namespace AutoVerticalData.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("AutoVertical_Model.Models.ApplicationUser", b =>
+                {
+                    b.HasOne("AutoVertical_Model.Models.Company", "Company")
+                        .WithMany()
+                        .HasForeignKey("CompanyId");
+
+                    b.Navigation("Company");
                 });
 #pragma warning restore 612, 618
         }

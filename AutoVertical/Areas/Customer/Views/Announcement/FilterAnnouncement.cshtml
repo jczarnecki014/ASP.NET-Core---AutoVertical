@@ -5,7 +5,7 @@
         <div class="container">
             <div class="row pt-3">
                 <div class="col-lg-8 ">
-                    <select asp-for="vehicle.VehicleType" id="VehicleTypeInput" class="selectpicker w-75 ">
+                    <select asp-for="vehicle.VehicleType" id="VehicleTypeInput" class="selectpicker w-75">
                         <option data-icon="fa-solid fa-car-side" value="car">Car</option>
                         <option data-icon="fa-solid fa-truck" value="truck">Truck</option>
                         <option data-icon="fa-solid fa-motorcycle" value="motorcycle">Motorcycle</option>
@@ -15,6 +15,7 @@
                     </button>
                 </div>
             </div>
+            <!--------------------------------------------->
             <div class="row pt-3">
                 <div class="col-lg-4 p-2">
                         <div class="col-12">
@@ -67,13 +68,12 @@
                 @if ((bool)ViewData["advanced_seearch_expanded"])
                 {
                     <div class="col-lg-12 p-2 text-end mb-2">
-                     <button type="submit" name="advanced_search_expanded" class="btn" value="false">
-                         <h6 class="text-primary">Hide more filters</h6>
-                     </button>
-                    <button class="btn bg-success text-light px-4">
-                        <i class="bi bi-search"></i>
-                    </button>
-
+                         <button type="submit" name="advanced_search_expanded" class="btn" value="false">
+                             <h6 class="text-primary">Hide more filters</h6>
+                         </button>
+                        <button class="btn bg-success text-light px-4">
+                            <i class="bi bi-search"></i>
+                        </button>
                     </div>
                     <hr />
                     <div hidden id="VehicleStatus" class="AdditionalFilters col-lg-6 p-2">
@@ -107,7 +107,7 @@
                             </div>
                          </div>
                     </div>
-                    <div hidden id="EngineAndDriveStatus" class="AdditionalFilters col-lg-6 p-4">
+                   <div hidden id="EngineAndDriveStatus" class="AdditionalFilters col-lg-6 p-4">
                         <div class="row">
                             <div class="col-lg-12">
                                 <select asp-for="vehicle.GearBox" id="FilterGearBox" class=" form-control">
@@ -129,7 +129,7 @@
                     </div>
                     <div hidden id="BodyType" class="AdditionalFilters col-lg-6 p-4">
                         <div class="row">
-                            <div class="col-lg-6">
+                            <div class="col-lg-6 mb-3">
                                 <input asp-for="vehicle.Color" class="form-control" placeholder="Color">
                             </div>
                             <div class="col-lg-6">
@@ -175,7 +175,9 @@
                             }
                          </div>
                     </div>
-                    <div class="col-lg-6 p-2">
+
+
+                    <div class="col-lg-6 p-lg-2">
                         <div class="row">
                              <div class="col-6 px-4 p-2">
                                 <div class="row">
@@ -226,6 +228,8 @@
                             </div>
                         </div>
                     </div>
+
+
                 }
                 else
                 {
@@ -240,12 +244,15 @@
                 }
             
             </div>
+
+
+
         </div>
         </section>
         <section name="EquipmentFilter"> 
         <div class="container">
             <div class="row">
-                <div hidden id="AdditonalEquipment" class="AdditionalFilters col-12 border position-fixed bottom-0 end-0 bg-white  p-5">
+                <div hidden id="AdditonalEquipment" class="AdditionalFilters col-12 border position-lg-fixed  bottom-0 end-0 bg-white  p-5">
                     <div class="row">
                         <div class="col-12 text-end">
                             <a class="btn">
@@ -376,7 +383,7 @@
                                     </div>
                                     </div>
                                     </div>
-                                    <div style="border-left: 1px solid #dfdfdf" class="col-4 p-4">
+                                   <div class="col-4 p-4">
                                 <h4>Comfort</h4>
                                 <hr />
                                 <div class="row">
@@ -514,7 +521,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div style="border-left: 1px solid #dfdfdf" class="col-4 p-4">
+                            <div class="col-4 p-4">
                                 <h4>Driver support systems</h4>
                                 <hr />
                                 <div class="row">
@@ -648,9 +655,9 @@
                                 </div>
                             </div>
                         </div>
-        }
-        else if (Model.vehicle.VehicleType == "truck")
-        {
+                            }
+                            else if (Model.vehicle.VehicleType == "truck")
+                            {
                         <div class="row">
                             <div class="col-12 p-4">
                                 <h4>Truck equipment</h4>
@@ -845,9 +852,9 @@
                                  </div>
                              </div>
                         </div>             
-        }
-        else if (Model.vehicle.VehicleType == "motorcycle")
-        {
+                            }
+                            else if (Model.vehicle.VehicleType == "motorcycle")
+                            {
                         <div class="row">
                             <div class="col-12 p-4">
                                 <h4>Motorcycle equipment</h4>
@@ -933,103 +940,10 @@
                             <small>@ann.vehicle.ProductionYear</small>
                         </div>
                         <div class="col-2">
-                            <small>@ann.vehicle.Milage km</small>
+                            <small>@ann.vehicle.Milage.ToString("N0") km</small>
                         </div>
                         <div class="col-2">
-                            <small>@ann.vehicle.CubicCapacity cm<sup>3</sup></small>
-                        </div>
-                        <div class="col-1">
-                            <small>@ann.vehicle.Fuel</small>
-                        </div>
-                    </div>
-                    <div class="row mb-2">
-                        <div class="col-6">
-                            <small>
-                                <i class="bi bi-geo-alt-fill"></i> Miejscowość . Opublikowano 6 minut temu
-                            </small>
-                        </div>
-                    </div>
-                    <div class="row company ">
-                        <div class="col-3">
-                            <img src="@ann.company.LogoSrc" class="img-fluid" />
-                        </div>
-                        <div class="col-8 d-flex align-items-center">
-                            <h6>@ann.company.name</h6>
-                        </div>   
-                    </div>
-                </div>
-                <div class="col-lg-3 text-lg-end p-2 ">
-                    <div class="row h-50">
-                        <div class="col-12">
-                            <h5 class="text-danger">@ann.vehicle.PriceBrutto PLN</h5>
-                         </div>
-                        <div class="col-12 text-primary">
-                            <i class="bi bi-person"></i> @ann.vehicle.User.UserName
-                        </div>
-                        <div class="col-12 text-success">
-                            <i class="bi bi-coin"></i> &nbsp Check financing
-                        </div>
-                    </div>
-
-                    <div class="row h-50 d-flex align-items-end">
-                       <div class="col-12 ">
-                            <a asp-area="customer" asp-controller="Announcement" asp-action="ShowAnnouncement" asp-route-identifier="@ann.vehicle.Id" class="btn btn-danger px-5">
-                                <i class="bi bi-eye"></i> Show
-                            </a>
-                            <a class="btn btn-primary">
-                                <i class="bi bi-heart"></i> Observe
-                            </a>
-                        </div>
-                    </div>   
-
-                 </div>
-             </div>
-            }
-        }
-        
-    </section>
-    <section name="AdvertaismentTwo" class="container mb-3">
-        <div class="row">
-            <a class="col-3">
-                    <img style="max-height:300px;" src="" class="mediumAdvertisement img-fluid w-100 shadow-hover"/>
-            </a>
-            <a class="col-3">
-                    <img style="max-height:300px;" src="" class="mediumAdvertisement img-fluid w-100 shadow-hover"/>
-            </a>
-            <a class="col-3">
-                    <img style="max-height:300px;" src="" class="mediumAdvertisement img-fluid w-100 shadow-hover"/>
-            </a>
-            <a class="col-3">
-                    <img style="max-height:300px;" src="" class="mediumAdvertisement img-fluid w-100 shadow-hover"/>
-            </a>
-        </div>
-    </section>
-    <section name="FilterResoultsTwo" class="container">
-        @foreach (var ann in Model.Announcements)
-        {
-        if (DateTime.Compare(ann.vehicle.MentionTime, DateTime.Now.Date) < 0)
-        {
-                <div class="row border mb-3">
-                <div class="col-lg-3 p-2">
-                    <a asp-area="customer" asp-controller="Announcement" asp-action="ShowAnnouncement" asp-route-identifier="@ann.vehicle.Id">
-                        <img style="max-height:235px; min-height:235px;"  class="img-fluid" src="@ann.images[0].Name" />
-                    </a>
-                </div>
-                <div class="col-lg-6 p-2">
-                    <div class="row">
-                        <div class="col-12">
-                            <h4>@ann.vehicle.Title</h4>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-1">
-                            <small>@ann.vehicle.ProductionYear</small>
-                        </div>
-                        <div class="col-2">
-                            <small>@ann.vehicle.Milage km</small>
-                        </div>
-                        <div class="col-2">
-                            <small>@ann.vehicle.ProductionYear cm<sup>3</sup></small>
+                            <small>@ann.vehicle.CubicCapacity.ToString("N0") cm<sup>3</sup></small>
                         </div>
                         <div class="col-1">
                             <small>@ann.vehicle.Fuel</small>
@@ -1080,12 +994,108 @@
 
                  </div>
              </div>
+            }
+        }
+        
+    </section>
+    <section name="AdvertaismentTwo" class="container mb-3">
+        <div class="row p-5 p-lg-0">
+            <a class="col-lg-3 mb-3 mb-lg-0">
+                    <img style="max-height:300px;" src="" class="mediumAdvertisement img-fluid w-100 shadow-hover"/>
+            </a>
+            <a class="col-lg-3 mb-3 mb-lg-0">
+                    <img style="max-height:300px;" src="" class="mediumAdvertisement img-fluid w-100 shadow-hover"/>
+            </a>
+            <a class="col-lg-3 mb-3 mb-lg-0">
+                    <img style="max-height:300px;" src="" class="mediumAdvertisement img-fluid w-100 shadow-hover"/>
+            </a>
+            <a class="col-lg-3 mb-3 mb-lg-0">
+                    <img style="max-height:300px;" src="" class="mediumAdvertisement img-fluid w-100 shadow-hover"/>
+            </a>
+        </div>
+    </section>
+    <section name="FilterResoultsTwo" class="container p-5">
+        @foreach (var ann in Model.Announcements)
+        {
+        if (DateTime.Compare(ann.vehicle.MentionTime, DateTime.Now.Date) < 0)
+        {
+                <div class="row border mb-3">
+                    <div class="col-lg-3 p-2">
+                        <a asp-area="customer" asp-controller="Announcement" asp-action="ShowAnnouncement" asp-route-identifier="@ann.vehicle.Id">
+                            <img style="max-height:235px; min-height:235px;"  class="img-fluid" src="@ann.images[0].Name" />
+                        </a>
+                    </div>
+                    <div class="col-lg-6 p-2">
+                        <div class="row">
+                            <div class="col-12">
+                                <h4>@ann.vehicle.Title</h4>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-1">
+                                <small>@ann.vehicle.ProductionYear</small>
+                            </div>
+                            <div class="col-2">
+                                <small>@ann.vehicle.Milage.ToString("N0") km</small>
+                            </div>
+                            <div class="col-2">
+                                <small>@ann.vehicle.CubicCapacity.ToString("N0") cm<sup>3</sup></small>
+                            </div>
+                            <div class="col-1">
+                                <small>@ann.vehicle.Fuel</small>
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col-6">
+                                <small>
+                                    <i class="bi bi-geo-alt-fill"></i> Miejscowość . Opublikowano 6 minut temu
+                                </small>
+                            </div>
+                        </div>
+                        @if(ann.company != null)
+                        {
+                            <div class="row company ">
+                                <div class="col-3">
+                                    <img src="@ann.company.LogoSrc" class="img-fluid" />
+                                </div>
+                                <div class="col-8 d-flex align-items-center">
+                                    <h6>@ann.company.name</h6>
+                                </div>   
+                            </div>
+                        }
+                    </div>
+                    <div class="col-lg-3 text-lg-end p-2 ">
+                        <div class="row h-50">
+                            <div class="col-12">
+                                <h5 class="text-danger">@ann.vehicle.PriceBrutto PLN</h5>
+                             </div>
+                            <div class="col-12 text-primary">
+                                <i class="bi bi-person"></i> @ann.vehicle.User.UserName
+                            </div>
+                            <div class="col-12 text-success">
+                                <i class="bi bi-coin"></i> &nbsp Check financing
+                            </div>
+                        </div>
+
+                        <div class="row h-50 d-flex align-items-end">
+                           <div class="col-12 ">
+                                <a asp-area="customer" asp-controller="Announcement" asp-action="ShowAnnouncement" asp-route-identifier="@ann.vehicle.Id" class="btn btn-danger px-5">
+                                    <i class="bi bi-eye"></i> Show
+                                </a>
+                                <a class="btn btn-primary">
+                                    <i class="bi bi-heart"></i> Observe
+                                </a>
+                            </div>
+                        </div>   
+
+                     </div>
+             </div>
         }
         }
     </section>
     <section name="AdvertaismentThree" class="container mb-3">
         <div class="row">
-            <a class="col-lg-6">
+            <a class="col-lg-6 mb-4">
                 <img src="" class="mediumAdvertisement img-fluid w-100 shadow-hover"/>
             </a>
             <div class="col-lg-6 d-flex align-items-center">

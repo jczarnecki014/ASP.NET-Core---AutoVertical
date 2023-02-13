@@ -21,7 +21,6 @@ class RandAdvertisement{
             case 'small':
                 DivsArrayLength = this.smallAdvert.length
                 sizeAdverts = this.smallAdvert;
-                console.log(sizeAdverts)
             break;
         }
         const advertisementsCount = advertaisments.length

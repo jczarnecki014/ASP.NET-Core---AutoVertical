@@ -46,7 +46,8 @@ namespace AutoVertical_Model.Models
         [DefaultValue(1)]
         public int? SoldVehicles { get;set; }
         public int? CompanyId { get;set;}
+        public string? CompanyRole { get;set;}
         [ForeignKey("CompanyId")]
-        Company? Company { get;set;}
+        public Company? Company { get;set;}
     }
 }

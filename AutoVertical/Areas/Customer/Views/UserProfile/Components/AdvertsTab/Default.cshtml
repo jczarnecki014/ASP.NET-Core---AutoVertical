@@ -6,9 +6,9 @@
         <div class="col-12">
             <h4 class="my-3">All adverts</h4>
         </div>
-        <div class="col-12 my-3"> 
+        <div class="col-12 my-3 d-none d-md-block"> 
             <nav class="navbar bg-body-tertiary">
-              <div class="container-fluid justify-content-start d-felx justify-content-end ">
+              <div class="container-fluid justify-content-start d-felx justify-content-lg-end ">
                  <a asp-route-tab="AdvertsTab" asp-route-optionalArg="ShowAll" class="btn btn-sm btn-outline-secondary mx-2 active mx-2" type="button">All</a>
                 <a asp-route-tab="AdvertsTab" asp-route-optionalArg="ShowActive" class="btn btn-sm btn-outline-secondary mx-2" type="button">ACTIVE</a>
                 <a asp-route-tab="AdvertsTab" asp-route-optionalArg="ShowExpired" class="btn btn-sm btn-outline-secondary mx-2" type="button">EXPIRED</a>
@@ -16,8 +16,13 @@
               </div>
             </nav>
         </div>
-        <div class="col-12">
-            <table class="table ">
+
+        <div class="col-12 d-md-none">
+            <img class="img-fluid" src="~/image/helpfull/rotate_phone.webp" />
+        </div>
+
+        <div class="col-12 d-none d-md-block">
+            <table class="table">
               <thead class="table-secondary">
                   <tr>
                       <th>#ID</th>
@@ -53,6 +58,9 @@
               </tbody>
             </table>
         </div>
+
+      
+
     </div>
   
     <div hidden id="AnnouncementViewContainer" class="row mt-5 mb-3">

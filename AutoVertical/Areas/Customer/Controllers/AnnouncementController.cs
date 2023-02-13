@@ -253,27 +253,27 @@ namespace AutoVertical_web.Areas.Customer.Controllers
         public IActionResult ShowAnnouncement(int identifier)
         {
             /*Supplies in vehicle record*/
-            announcementVM = new Announcement();
-            announcementVM.vehicle = _UnitOfWork.vehicle.GetFirstOfDefault(u=>u.Id == identifier,includeSpecific:true,Expired:true);
+            AnnouncementFiltersAdvertisementsVM announcement = new AnnouncementFiltersAdvertisementsVM();
+            announcement.vehicle = _UnitOfWork.vehicle.GetFirstOfDefault(u=>u.Id == identifier,includeSpecific:true,Expired:true);
 
-            if(announcementVM.vehicle is null)
+            if(announcement.vehicle is null)
             {
                 return NotFound();
             }
 
             /*Gets equimpents witch were checked by user*/
             var specificVehicle = new object();
-            if(announcementVM.vehicle.car != null)
+            if(announcement.vehicle.car != null)
             {
-                specificVehicle = announcementVM.vehicle.car;
+                specificVehicle = announcement.vehicle.car;
             }
-            else if(announcementVM.vehicle.truck != null)
+            else if(announcement.vehicle.truck != null)
             {
-                specificVehicle= announcementVM.vehicle.truck;
+                specificVehicle= announcement.vehicle.truck;
             }
-            else if(announcementVM.vehicle.motorcycle != null)
+            else if(announcement.vehicle.motorcycle != null)
             {
-                specificVehicle= announcementVM.vehicle.motorcycle;
+                specificVehicle= announcement.vehicle.motorcycle;
             }
 
             List<string> EquipmentList = new List<string>();
@@ -291,7 +291,45 @@ namespace AutoVertical_web.Areas.Customer.Controllers
                 }
             }
             ViewBag.EquipmentList = EquipmentList;
-            ViewBag.UserAdvertsConunt = _UnitOfWork.vehicle.GetAll(u=>u.UserId == announcementVM.vehicle.UserId).Count();
+            ViewBag.UserAdvertsConunt = _UnitOfWork.vehicle.GetAll(u=>u.UserId == announcement.vehicle.UserId).Count();
+
+            ///
+            /// <summary>Load similar vehicles</summary>
+            ///
+
+            IEnumerable<Vehicle> recommendedVehicles = _UnitOfWork.vehicle.GetAll(u=>u.Id != announcement.vehicle.Id && u.VehicleType == announcement.vehicle.VehicleType &&
+                                                        (
+                                                            u.Brand == announcement.vehicle.Brand || 
+                                                            u.BodyType == announcement.vehicle.BodyType ||
+                                                            u.GearBox == announcement.vehicle.GearBox
+                                                        )); //Vehicles different as currently main displayed but having similar features
+
+            List<Announcement> recommendedAnnouncements = new List<Announcement>();
+            int maxNumbersRecommendedVehicleToDisplay = 4;
+            int iterator = 0;
+            foreach(Vehicle vehicle in recommendedVehicles)
+            {
+                if(iterator < maxNumbersRecommendedVehicleToDisplay)
+                {
+                    recommendedAnnouncements.Add
+                    (
+                        new Announcement
+                        {
+                            vehicle = vehicle,
+                            images = _UnitOfWork.gallery.GetAll(u=>u.VehicleId== vehicle.Id).ToList()
+                        }
+                    );
+                    iterator++;
+                }
+                else
+                {
+                    break;
+                }
+            }
+
+            announcement.Announcements = recommendedAnnouncements;
+
+
 
             ///
             /// <summary>Increase advert views stats </summary>
@@ -322,11 +360,15 @@ namespace AutoVertical_web.Areas.Customer.Controllers
 
             var claimUser = (ClaimsIdentity)User.Identity;
             var claim = claimUser.FindFirst(ClaimTypes.NameIdentifier);
-            string LoggedUser = claim.Value;
 
-            ViewBag.CurrentUser = LoggedUser;
+            if(claim != null)
+            {
+                string LoggedUser = claim.Value;
 
-            return View(announcementVM.vehicle);
+                ViewBag.CurrentUser = LoggedUser;
+            }
+
+            return View(announcement);
 
         }
         [HttpGet,ActionName("FilterAnnouncement")]

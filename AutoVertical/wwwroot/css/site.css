@@ -63,3 +63,8 @@ a.card:hover {
     transform: scale(1.1);
     transition: transform 600ms;
 }
+@media only screen and (min-width: 992px){
+    .position-lg-fixed{
+        position: fixed;
+    }
+}

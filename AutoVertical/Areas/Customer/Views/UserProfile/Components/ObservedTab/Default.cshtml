@@ -9,7 +9,7 @@
         @foreach(var element in Model)
         {
             <div class="col-lg-3">
-                <a style="height:420px;" class="card medium-tiles">
+                <a asp-controller="Announcement" asp-action="ShowAnnouncement" asp-route-identifier="@element.vehicle.Id" style="height:420px;" class="card medium-tiles shadow-hover">
                    <img style="max-height:200px; min-height:200px; object-fit:cover" src="@element.images[2].Name" class="card-img-top tile-img" alt="Card image cap">
                         <div class="card-body">
                              <h4 class="card-title tile-title">@element.vehicle.Title</h4>

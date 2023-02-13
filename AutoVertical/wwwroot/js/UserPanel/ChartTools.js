@@ -3,14 +3,20 @@ function generateLabels(period)
     {
         let labels = [];
         let currentMonth = new Date().getMonth()+1
+        let numberOfDays = 31;
         if(currentMonth < 10)
         {
             currentMonth = `0${currentMonth}`
+            if(currentMonth == `02`)
+            {
+                numberOfDays = 28;
+            }
         }
+
 
         switch (period){
             case 'month':
-                labels = Array.from({length: 31}, (_, i) => i + 1 + `.${currentMonth}`)
+                labels = Array.from({length: numberOfDays}, (_, i) => i + 1 + `.${currentMonth}`)
             break
 
             case 'week':

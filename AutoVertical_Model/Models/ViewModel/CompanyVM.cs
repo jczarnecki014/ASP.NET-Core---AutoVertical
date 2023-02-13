@@ -8,11 +8,11 @@ namespace AutoVertical_Model.Models.ViewModel
 {
     public class CompanyVM
     {
-        public Company company { get; set; }
         public List<ApplicationUser> members { get; set; }
         public List<Vehicle> companyAdverts { get; set; }
         public List<Advertisement> companyAdvertisements { get; set; }
-        public CompanyRoles LoggedUserRole { get; set; }
+        public ApplicationUser CurrentUser{ get;set; }
+        public List<CompanysInvitations> CompanysInvitations { get;set; }
         public int? SoldVehicles{ get;set; }
     }
 }

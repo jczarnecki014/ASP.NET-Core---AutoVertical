@@ -20,7 +20,6 @@ namespace AutoVertical_web.ViewComponents
                 User = userPanel.User,
                 ActiveAdvertCount = _unitOfWork.vehicle.GetAll(u=>u.UserId == userPanel.User.Id).Count(),
                 ActiveAdvertisementCount = _unitOfWork.advertisement.GetAll(u=>u.UserId == userPanel.User.Id).Count(),
-                userCompany = _unitOfWork.company.GetFirstOfDefault(u=>u.id == userPanel.User.CompanyId),
             };
             return View(viewModel);
         }

@@ -35,7 +35,7 @@ namespace AutoVertical_web.Areas.Customer.Controllers
                 var claimUser = (ClaimsIdentity)User.Identity;
                 var claim = claimUser.FindFirst(ClaimTypes.NameIdentifier);
                 string LoggedUser = claim.Value;
-                userPanel.User = _db.applicationUser.GetFirstOfDefault(u=>u.Id==LoggedUser);
+                userPanel.User = _db.applicationUser.GetFirstOfDefault(u=>u.Id==LoggedUser,includeProperties:"Company");
              return View(userPanel);
  
         }

@@ -21,15 +21,14 @@
 <div class="container-fluid p-5">
     <section name="header" class="row text-light d-flex align-items-center">
         <!-- BLOCK LOGO-->
-        <a asp-controller="home" asp-action="Index" class="col-lg-3">
+        <a asp-controller="home" asp-action="Index" class="col-lg-3 col-12 d-flex justify-content-center">
             <img class="img-fluid w-50" src="/image/main/Logo_trans_white2.png" />
         </a>
         <!-- END LOGO-->
-        <div class="col-lg-7">
-
+        <div class="col-lg-7 d-none d-lg-block">
         </div>
-        <div class="col-lg-2">
-            <div class="row">
+        <div class="col-2">
+            <div class="row d-none d-lg-flex">
                  <!-- BLOCK NOTYFICATION-->
                 <div class="col-lg-2 d-flex align-items-center dropdown ">
                     <i id="notyficationBellIcon" class="fa-regular fa-bell h5" data-bs-toggle="dropdown" href="#" role="button"></i>
@@ -57,12 +56,12 @@
                  <!-- END NOTYFICATION-->
 
                  <!-- BLOCK PROFILE -->
-                <div style="border-left: solid 1px #929292;" class="col-lg-7 d-flex align-items-center ">
+                <div style="border-left: solid 1px #929292;" class="col-7 d-flex align-items-center ">
                     <span style="font-family:'Roboto', sans-serif" class="px-1">@Model.User.Name @Model.User.Surname</span>
                 </div>
-                <div class="col-lg-3 dropdown">
+                <div class="col-2 col-lg-3 dropdown">
                     <div class="rounded-circle p-3 bg-white text-success " data-bs-toggle="dropdown" href="#" role="button">
-                        JC
+                        @Model.User.Name.Substring(0,1)@Model.User.Surname.Substring(0,1) 
                     </div>
                     <div class="dropdown-menu">
                         <div class="row d-flex justify-content-center">
@@ -102,7 +101,7 @@
             <div class="row">
                 @if (Model.Tab == "DashboardTab")
                 {
-                    <a asp-action="Index" asp-route-tab="DashboardTab" style="color:#08a9ab" class="col-2 text-center">
+                    <a asp-action="Index" asp-route-tab="DashboardTab" style="color:#08a9ab" class="col-lg-2 text-center">
                         <i class="fa-solid fa-laptop h3"></i>
                         <h6>Dashboard</h6>
                         <hr style="height:5px;background-color:#08a9ab;" />
@@ -110,14 +109,14 @@
                 }
                 else
                 {
-                    <a asp-action="Index" asp-route-tab="DashboardTab" style="color:#8aa5b4" class="col-2 text-center">
+                    <a asp-action="Index" asp-route-tab="DashboardTab" style="color:#8aa5b4" class="col-lg-2 text-center">
                         <i class="fa-solid fa-laptop h3"></i>
                         <h6>Dashboard</h6>
                     </a>
                 }
                 @if(Model.Tab == "AdvertsTab")
                 {
-                    <a asp-action="Index" asp-route-tab="AdvertsTab" style="color:#08a9ab" class="col-2 text-center">
+                    <a asp-action="Index" asp-route-tab="AdvertsTab" style="color:#08a9ab" class="col-lg-2 text-center">
                         <i class="bi bi-megaphone h3"></i>
                         <h6>Adverts</h6>
                         <hr style="height:5px;background-color:#08a9ab;" />
@@ -125,14 +124,14 @@
                 }
                 else
                 {
-                    <a asp-action="Index" asp-route-tab="AdvertsTab" style="color:#8aa5b4" class="col-2 text-center">
+                    <a asp-action="Index" asp-route-tab="AdvertsTab" style="color:#8aa5b4" class="col-lg-2 text-center">
                         <i class="bi bi-megaphone h3"></i>
                         <h6>Adverts</h6>
                     </a>
                 }
                 @if(Model.Tab == "MessagesTab")
                 {
-                    <a asp-action="Index" asp-route-tab="MessagesTab" style="color:#08a9ab" class="col-2 text-center">
+                    <a asp-action="Index" asp-route-tab="MessagesTab" style="color:#08a9ab" class="col-lg-2 text-center">
                         <i class="bi bi-envelope h3"></i>
                         <h6>Messagebox</h6>
                         <hr style="height:5px;background-color:#08a9ab;" />
@@ -140,14 +139,14 @@
                 }
                 else
                 {
-                    <a asp-action="Index" asp-route-tab="MessagesTab" style="color:#8aa5b4" class="col-2 text-center">
+                    <a asp-action="Index" asp-route-tab="MessagesTab" style="color:#8aa5b4" class="col-lg-2 text-center">
                         <i class="bi bi-envelope h3"></i>
                         <h6>Messagebox</h6>
                     </a>
                 }
                 @if (Model.Tab == "ObservedTab")
                 {
-                    <a asp-action="Index" asp-route-tab="ObservedTab" style="color:#08a9ab" class="col-2 text-center">
+                    <a asp-action="Index" asp-route-tab="ObservedTab" style="color:#08a9ab" class="col-lg-2 text-center">
                         <i class="bi bi-heart h3"></i>
                         <h6>Followed</h6>
                         <hr style="height:5px;background-color:#08a9ab;" />
@@ -155,14 +154,14 @@
                 }
                 else
                 {
-                    <a asp-action="Index" asp-route-tab="ObservedTab" style="color:#8aa5b4" class="col-2 text-center">
+                    <a asp-action="Index" asp-route-tab="ObservedTab" style="color:#8aa5b4" class="col-lg-2 text-center">
                         <i class="bi bi-heart h3"></i>
                         <h6>Followed</h6>
                     </a>
                 }
                 @if (Model.Tab == "CompanyTab")
                 {
-                    <a asp-action="Index" asp-route-tab="CompanyTab"  style="color:#08a9ab" class="col-2 text-center">
+                    <a asp-action="Index" asp-route-tab="CompanyTab"  style="color:#08a9ab" class="col-lg-2 text-center">
                         <i class="bi bi-buildings-fill h3"></i>
                         <h6>Company</h6>
                         <hr style="height:5px;background-color:#08a9ab;" />
@@ -170,14 +169,14 @@
                 }
                 else
                 {
-                    <a asp-action="Index" asp-route-tab="CompanyTab"  style="color:#8aa5b4" class="col-2 text-center">
+                    <a asp-action="Index" asp-route-tab="CompanyTab"  style="color:#8aa5b4" class="col-lg-2 text-center">
                         <i class="bi bi-buildings-fill h3"></i>
                         <h6>Company</h6>
                     </a>
                 }
                 @if (Model.Tab == "AdvertisementTab")
                 {
-                    <a asp-action="Index" asp-route-tab="AdvertisementTab" style="color:#08a9ab" class="col-2 text-center">
+                    <a asp-action="Index" asp-route-tab="AdvertisementTab" style="color:#08a9ab" class="col-lg-2 text-center">
                         <i class="bi bi-headset h3"></i>
                         <h6>advertisements</h6>
                         <hr style="height:5px;background-color:#08a9ab;" />
@@ -185,11 +184,17 @@
                 }
                 else
                 {
-                    <a asp-action="Index" asp-route-tab="AdvertisementTab" style="color:#8aa5b4" class="col-2 text-center">
+                    <a asp-action="Index" asp-route-tab="AdvertisementTab" style="color:#8aa5b4" class="col-lg-2 text-center">
                         <i class="bi bi-headset h3"></i>
                         <h6>advertisements</h6>
                     </a>
                 }
+                        <form id="logoutForm" class="dropdown-item col-12 d-lg-none py-1 d-flex justify-content-center" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                            <button id="logout" type="submit" style="color:#8aa5b4" class="nav-link btn btn-link  border-0">
+                                <i class="bi bi-box-arrow-left h3"></i>
+                                <h6>Singn out</h6>
+                            </button>
+                        </form>
             </div>
         </div>
     </section>
@@ -221,10 +226,9 @@
             </div>
 
             <!-- ASSISTANT -->
-            <div class="row">
-                <div id="AssistentDiv" style="top:150px; -webkit-box-shadow: 8px 8px 24px 0px rgba(66, 68, 90, 1);
--moz-box-shadow: 8px 8px 24px 0px rgba(66, 68, 90, 1);
-box-shadow: 8px 8px 24px 0px rgba(66, 68, 90, 1);" class="col-3 position-fixed end-0 text-secondary animate__animated animate__slideInRight animate__slower">
+            <div class="row d-none d-lg-block">
+                <div id="AssistentDiv" style="top:150px; -webkit-box-shadow: 8px 8px 24px 0px rgba(66, 68, 90, 1);-moz-box-shadow: 8px 8px 24px 0px rgba(66, 68, 90, 1);box-shadow: 8px 8px 24px 0px rgba(66, 68, 90, 1);" 
+                    class="col-3 position-fixed end-0 text-secondary animate__animated animate__slideInRight animate__slower">
                     <div class="row bg-light">
                         <div class="col-3 d-flex align-items-center">
                             <img class="img-thumbnail" src="/image/helpfull/assistant.png" />
@@ -254,6 +258,8 @@ box-shadow: 8px 8px 24px 0px rgba(66, 68, 90, 1);" class="col-3 position-fixed e
     <script src="~/js/UserPanel/ChartTools.js"></script>
     <script src="~/js/UserPanel/BackgroundChangeHover.js"></script>
     <script src="~/js/UserPanel/Notyfications.js"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <script src="~/js/UserPanel/@Model.Tab/Scripts.js"></script>
     <script src="~/js/UserPanel/Assistant.js"></script>
 }

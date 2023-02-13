@@ -40,11 +40,11 @@ namespace AutoVertical_web.ViewComponents.UserPanelContainer
                 //Create companyVM model
                 CompanyVM companyVM = new CompanyVM
                 {
-                    company = _unitOfWork.company.GetFirstOfDefault(u=>u.id==user.CompanyId),
                     members = members,
                     companyAdverts = _unitOfWork.vehicle.GetAll(u=>u.User.CompanyId== user.CompanyId,includeProperties:"User", Expired:true).ToList(),
                     companyAdvertisements = _unitOfWork.advertisement.GetAll(u=>u.User.CompanyId == user.CompanyId,includeProperties:"User").ToList(),
-                    LoggedUserRole = _unitOfWork.companyRoles.GetFirstOfDefault(u=>u.UserId == user.Id),
+                    CompanysInvitations = _unitOfWork.companyInvitations.GetAll(u => u.CompanyId == user.CompanyId,includeProperties:"User").ToList(),
+                    CurrentUser = user,
                     SoldVehicles = soldVehicles
                 };
                 return View(companyVM);
@@ -55,7 +55,11 @@ namespace AutoVertical_web.ViewComponents.UserPanelContainer
                 {
                     ViewBag.search = true;
                 }
-                return View(new CompanyVM());
+                CompanyVM companyVM = new CompanyVM
+                {
+                    CurrentUser = user,
+                };
+                return View(companyVM);
             }
 
 

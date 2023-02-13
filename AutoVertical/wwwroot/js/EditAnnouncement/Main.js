@@ -60,7 +60,7 @@ SetBackgroundHover(vehicleImages,imageVerticallySrc,imageHorizontallySrc,imageSq
 
 function DeletePicture(pictureId){
     Loading.hidden = false;
-    $.post( `/Customer/Announcement/DeleteAnnouncementImage/?imageId=${pictureId}`, function( data ) {
+    $.post( `/Customer/Announcement/announcementImage/?imageId=${pictureId}`, function( data ) {
         Swal.fire({
             position: 'top-end',
             icon: data.resoult,

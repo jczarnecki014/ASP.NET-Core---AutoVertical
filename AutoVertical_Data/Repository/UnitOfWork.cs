@@ -28,7 +28,7 @@ namespace AutoVertical_Data.Repository
             notyfications = new NotyficationRepository(db);
             userFollowedVehicle = new UserFollowedVehicleRepository(db);
             company = new CompanyRepository(db);
-            companyRoles = new CompanyRolesRepository(db);
+            companyInvitations = new CompanyInvitationsRepository(db);
         }
         public IVehicleRepository vehicle { get; private set;}
 
@@ -50,7 +50,7 @@ namespace AutoVertical_Data.Repository
         public IUserFollowedVehicleRepository userFollowedVehicle { get;private set;}
 
         public ICompanyRepostiory company {get;private set;}
-        public ICompanyRolesRepostiory companyRoles { get;private set;}
+        public ICompanyInvitationsRepostiory companyInvitations { get;private set;}
 
         public void Save() 
         {

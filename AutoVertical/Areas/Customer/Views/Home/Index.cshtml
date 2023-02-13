@@ -17,7 +17,7 @@
                             <i class="fa-solid fa-motorcycle"></i>
                             <h6>Motorcycle</h6>
                         </div>
-                        <div class="col-lg-3 d-flex align-items-center tab">Advanced category</div>
+                        <div class="col-lg-3 d-flex align-items-center d-none d-lg-block">Advanced category</div>
                     </div>
                     <form asp-controller="Announcement" asp-action="FilterAnnouncement">
                         <input hidden asp-for="vehicle.VehicleType" id="FilterVehicleType" class="filter"  />
@@ -66,7 +66,7 @@
                                        <i class="h5 bi bi-sliders"></i> <b> &nbsp; Advanced Searching</b>
                                    </button>
                                 </div>
-                                <div class="col-lg-7 d-flex justify-content-end p-3 text-center">
+                                <div class="col-lg-7 d-flex justify-content-lg-end justify-content-center p-3 text-center">
                                    <button type="submit" class="btn btn-danger p-2">
                                        <i class="h5 bi-search"></i> <b> &nbsp; Show <span id="AnnouncementCount"></span> Announcements </b>
                                    </button>
@@ -108,12 +108,12 @@
 
 
         <section name="SpecialsOffers">
-            <section name="4Tiles" class="row">
+            <section name="4Tiles" class="row p-5 p-lg-0">
                 <div class="col-12 mt-5 mb-4">
                     <h5>Special offers</h5>
                 </div>
                 <div class="col-lg-3">
-                     <a href="#" style="height:420px;" class="card medium-tiles">
+                     <a href="#" style="height:420px;" class="card medium-tiles mb-4 mb-lg-0">
                           <img style="max-height:200px; min-height:200px; object-fit:cover" class="card-img-top tile-img" alt="Card image cap">
                                <div class="card-body">
                                    <h4 class="card-title tile-title"></h4>
@@ -137,7 +137,7 @@
                       </a>
                  </div>
                  <div class="col-lg-3">
-                     <a style="height:420px;" class="card medium-tiles">
+                     <a style="height:420px;" class="card medium-tiles mb-4 mb-lg-0">
                           <img style="max-height:200px; min-height:200px; object-fit:cover" class="card-img-top tile-img"  alt="Card image cap">
                                <div class="card-body">
                                    <h4 class="card-title tile-title"></h4>
@@ -161,7 +161,7 @@
                       </a>
                  </div>
                  <div class="col-lg-3">
-                     <a style="height:420px;" class="card medium-tiles">
+                     <a style="height:420px;" class="card medium-tiles mb-4 mb-lg-0">
                           <img style="max-height:200px; min-height:200px; object-fit:cover" class="card-img-top tile-img"  alt="Card image cap">
                                <div class="card-body">
                                    <h4 class="card-title tile-title"></h4>
@@ -185,7 +185,7 @@
                       </a>
                  </div>
                  <div class="col-lg-3">
-                     <a style="height:420px;" class="card medium-tiles">
+                     <a style="height:420px;" class="card medium-tiles mb-4 mb-lg-0">
                           <img style="max-height:200px; min-height:200px; object-fit:cover" class="card-img-top tile-img" alt="Card image cap">
                                <div class="card-body">
                                    <h4 class="card-title tile-title"></h4>
@@ -209,9 +209,9 @@
                       </a>
                  </div>
             </section>
-            <section name="6Tiles" class="row mt-4 tiles-carousel">
+            <section name="6Tiles" class="row mt-4 tiles-carousel p-5 p-lg-0">
                  <div class="col-lg-2">
-                     <a style="height:350px" class="card small-tiles">
+                     <a style="height:350px" class="card small-tiles mb-4 mb-lg-0">
                           <img height="150" object-fit:cover" class="card-img-top tile-img" alt="Card image cap">
                                <div class="card-body">
                                    <h6 class="card-title tile-title"></h6>
@@ -235,7 +235,7 @@
                       </a>
                  </div>
                   <div class="col-lg-2">
-                     <a style="height:350px" class="card small-tiles">
+                     <a style="height:350px" class="card small-tiles mb-4 mb-lg-0">
                           <img height="150" object-fit:cover" class="card-img-top tile-img" alt="Card image cap">
                                <div class="card-body">
                                    <h6 class="card-title tile-title"></h6>
@@ -259,7 +259,7 @@
                       </a>
                  </div>
                  <div class="col-lg-2">
-                     <a style="height:350px" class="card small-tiles">
+                     <a style="height:350px" class="card small-tiles mb-4 mb-lg-0">
                           <img height="150" object-fit:cover" class="card-img-top tile-img" alt="Card image cap">
                                <div class="card-body">
                                    <h6 class="card-title tile-title"></h6>
@@ -283,7 +283,7 @@
                       </a>
                  </div>
                  <div class="col-lg-2">
-                     <a style="height:350px" class="card small-tiles">
+                     <a style="height:350px" class="card small-tiles mb-4 mb-lg-0">
                           <img height="150" object-fit:cover" class="card-img-top tile-img" alt="Card image cap">
                                <div class="card-body">
                                    <h6 class="card-title tile-title"></h6>
@@ -307,7 +307,7 @@
                       </a>
                  </div>
                   <div class="col-lg-2">
-                     <a style="height:350px" class="card small-tiles">
+                     <a style="height:350px" class="card small-tiles mb-4 mb-lg-0">
                           <img height="150" object-fit:cover" class="card-img-top tile-img" alt="Card image cap">
                                <div class="card-body">
                                    <h6 class="card-title tile-title"></h6>
@@ -331,7 +331,7 @@
                       </a>
                  </div>
                  <div class="col-lg-2">
-                     <a style="height:350px" class="card small-tiles">
+                     <a style="height:350px" class="card small-tiles mb-4 mb-lg-0">
                           <img height="150" object-fit:cover" class="card-img-top tile-img" alt="Card image cap">
                                <div class="card-body">
                                    <h6 class="card-title tile-title"></h6>
@@ -339,7 +339,7 @@
                                         <div class="col-12">
                                              <small><b class="tile-year"></b></small> &nbsp;
                                              <i style="font-size:7px;" class="bi bi-circle-fill"></i> &nbsp;
-                                             <small><b class="tile-mileage"></b></small> &nbsp;
+                                             <small><b class="tile-mileage"></b><b> km</b></small> &nbsp;
                                              <i style="font-size:7px;" class="bi bi-circle-fill"></i> &nbsp;
                                              <small><b class="tile-fuel"></b></small> &nbsp;
                                              <i style="font-size:7px;" class="bi bi-circle-fill"></i> &nbsp;
@@ -356,20 +356,20 @@
                  </div>
             </section>
         </section>
-        <section name="advertisement" class="advertisement-lg mt-5">
+        <section name="advertisement" class="advertisement-lg p-5 p-lg-0 mt-5">
             <div class="row">
                 <a class="col-12">
                     <img style="max-height:300px;" src="" class="largeAdvertisement img-fluid w-100 shadow-hover"/>
                 </a>
             </div>
             <div class="row mt-3">
-                <a class="col-4">
+                <a class="col-lg-4 mb-3 mb-lg-0">
                     <img style="max-height:300px;" src="" class="mediumAdvertisement img-fluid w-100 shadow-hover"/>
                 </a>
-                <a class="col-4">
+                <a class="col-lg-4 mb-3 mb-lg-0">
                     <img style="max-height:300px;" src="" class="mediumAdvertisement img-fluid w-100 shadow-hover"/>
                 </a>
-                <a class="col-4">
+                <a class="col-lg-4 mb-3 mb-lg-0">
                     <img style="max-height:300px;" src="" class="mediumAdvertisement img-fluid w-100 shadow-hover"/>
                 </a>
             </div>

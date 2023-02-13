@@ -123,7 +123,6 @@ namespace AutoVertical_web.Areas.Identity.Pages.Account
         {
             returnUrl ??= Url.Content("~/");
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
-            TempData["HideHeaderAndFooter"] = true;
 
             if (ModelState.IsValid)
             {
@@ -166,6 +165,7 @@ namespace AutoVertical_web.Areas.Identity.Pages.Account
 
                     if (_userManager.Options.SignIn.RequireConfirmedAccount)
                     {
+                        TempData["HideHeaderAndFooter"] = true;
                         return RedirectToPage("RegisterConfirmation", new { email = Input.Email, returnUrl = returnUrl });
                     }
                     else

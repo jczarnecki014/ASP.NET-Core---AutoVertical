@@ -74,6 +74,7 @@ namespace AutoVertical_Model.Models
         public int Power{ get;set;}
 
         [Required]
+        [Range(1,10000,ErrorMessage = "This value is unreal" )]
         public int CubicCapacity{ get;set;}
 
         [Required]

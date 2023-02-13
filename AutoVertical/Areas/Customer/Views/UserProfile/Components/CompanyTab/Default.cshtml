@@ -2,85 +2,94 @@
 @using AutoVertical_Utility.Roles;
 @model CompanyVM;
 <div class="container px-5 fw-bold">
-    @if (Model.company != null)
+    @if (Model.CurrentUser.Company != null)
     {
     <div class="row mb-5">
         <div class="col-lg-12 d-flex justify-content-end">
-            @if (Model.LoggedUserRole.CompanyRole == Roles.Role_Company_Owner)
+            @if (Model.CurrentUser.CompanyRole == Roles.Role_Company_Owner)
             {
-                <a class="btn btn-danger mx-3">Delete company</a>
-                <a class="btn btn-warning">Edit company</a>
+                <form method="post" asp-controller="Company" asp-action="LeaveCompany">
+                    <button asp-controller="Company" asp-action="LeaveCompany" class="btn btn-danger mx-3">Delete company</button>
+                </form>
+                <a id="ShowContainerButton" class="btn btn-warning">Edit company</a>
             }
-            else if (Model.LoggedUserRole.CompanyRole == Roles.Role_Company_Employer)
+            else if (Model.CurrentUser.CompanyRole == Roles.Role_Company_Employer)
             {
-                <form method="POST">
-                    <button type="submit" class="btn btn-danger mx-3">Leave company</button>
+                <form method="post" asp-controller="Company" asp-action="LeaveCompany">
+                    <button asp-controller="Company" asp-action="LeaveCompany" class="btn btn-danger mx-3">Leave company</button>
                 </form>
             }
         </div>
     </div>
+
     <div class="row bg-light border border-1 p-3">
             <div class="col-lg-4">
-                <img class="img-thumbnail" src="@Model.company.LogoSrc" />
+                <img class="img-thumbnail" src="@Model.CurrentUser.Company.LogoSrc" />
             </div>
             <div class="col-lg-8">
                 <div class="row">
                     <div class="col-lg-12">
-                        <h3>@Model.company.name</h3>
+                        <h3>@Model.CurrentUser.Company.name</h3>
                     </div>
                     <div class="col-lg-12 mb-5">
                         <span class="small">
-                            @Model.company.WebsiteUrl
+                            @Model.CurrentUser.Company.WebsiteUrl
                         </span>
                     </div>
                     <div class="col-lg-3">
-                        <h6>City: <b>@Model.company.City</b></h6>
+                        <h6>City: <b>@Model.CurrentUser.Company.City</b></h6>
                     </div>
                     <div class="col-lg-3">
-                        <h6>Country: <b>@Model.company.Country</b></h6>
+                        <h6>Country: <b>@Model.CurrentUser.Company.Country</b></h6>
                     </div>
                     <div class="col-lg-3">
-                        <h6>Postal code: <b>@Model.company.PostalCode</b></h6>
+                        <h6>Postal code: <b>@Model.CurrentUser.Company.PostalCode</b></h6>
                     </div>
                      <div class="col-lg-3">
-                        <h6>Street name: <b>@Model.company.StreetName</b></h6>
+                        <h6>Street name: <b>@Model.CurrentUser.Company.StreetName</b></h6>
                     </div>
                      <div class="col-lg-5 mt-3">
-                        <h6>Email: <b>@Model.company.Email</b></h6>
+                        <h6>Email: <b>@Model.CurrentUser.Company.Email</b></h6>
                     </div>
                     <div class="col-lg-4 mt-3">
-                        <h6>Phone number: <b>@Model.company.PhoneNumber</b></h6>
+                        <h6>Phone number: <b>@Model.CurrentUser.Company.PhoneNumber</b></h6>
                     </div>
                     <div class="col-lg-3 mt-2">
-                        <h6>Fax: <b>@Model.company.Fax</b></h6>
+                        <h6>Fax: <b>@Model.CurrentUser.Company.Fax</b></h6>
                     </div>
                     <div class="col-lg-12 mt-3">
-                        <p>@Model.company.description</p>
+                        <p>@Model.CurrentUser.Company.description</p>
                     </div>
                 </div>
             </div>
         </div>
 
             <div class="row mt-5">
-            <div class="col-lg-4 text-center">
-                <h1 class="text-primary fw-bold">@(
-                Model.companyAdverts.Count() > 0 ? Model.companyAdverts.Count() : "0"
-                )</h1>
-                <p>adverts</p>
+                <div class="col-lg-4 text-center">
+                    <h1 class="text-primary fw-bold">@(
+                    Model.companyAdverts.Count() > 0 ? Model.companyAdverts.Count() : "0"
+                    )</h1>
+                    <p>adverts</p>
+                </div>
+                <div class="col-lg-4 text-center">
+                    <h1 class="text-warning fw-bold">@(
+                    Model.companyAdvertisements.Count() > 0 ? Model.companyAdvertisements.Count() : "0"
+                    )</h1>
+                    <p>advertisements</p>
+                </div>
+                <div class="col-lg-4 text-center">
+                    <h1 class="text-success fw-bold">@(
+                    Model.SoldVehicles != null ? Model.SoldVehicles : "0"
+                    )</h1>
+                    <p>Sold vehicles</p>
+                </div>
             </div>
-            <div class="col-lg-4 text-center">
-                <h1 class="text-warning fw-bold">@(
-                Model.companyAdvertisements.Count() > 0 ? Model.companyAdvertisements.Count() : "0"
-                )</h1>
-                <p>advertisements</p>
-            </div>
-            <div class="col-lg-4 text-center">
-                <h1 class="text-success fw-bold">@(
-                Model.SoldVehicles != null ? Model.SoldVehicles : "0"
-                )</h1>
-                <p>Sold vehicles</p>
-            </div>
-        </div>
+
+            //Notyfiacations
+           
+
+             
+
 
             <div class="row">
             <div class="col-lg-12 mt-5">
@@ -95,77 +104,220 @@
                         </div>
                         <div class="col-12 text-center">
                             <h5>@member.Name @member.Surname</h5>
-                            <h6 class="fw-bold text-success">Employer</h6>
-                        </div>
-                        <div class="col-12 text-center">
-                            <button class="btn btn-danger">Manage</button>
+                            @if(member.CompanyRole == Roles.Role_Company_Employer)
+                            {
+                                <h6 class="fw-bold text-success">Employer</h6>
+                            }
+                            else if (member.CompanyRole ==Roles.Role_Company_Owner)
+                            {
+                                <h6 class="fw-bold text-success">Owner</h6> 
+                            }
+                            @if(Model.CurrentUser.CompanyRole == Roles.Role_Company_Owner && member != Model.CurrentUser)
+                            {
+                                <form method="post" asp-controller="Company" asp-action="FireUserFromCompany">
+                                    <input hidden name="userToFireId" value="@member.Id">
+                                    <button type="submit" class="btn btn-danger px-5 my-3">Fire</button>
+                                </form>
+                            }
                         </div>
                     </div>
                 </div>
             }
         </div>
 
-            <div class="row mt-5">
-            <div class="col-lg-12 px-4">
-                <h3 class="my-5">Active announcements</h3>
-                <table class="table table-hover">
-                    <thead>
-                        <tr>
-                            <th scope="col">Id</th>
-                            <th scope="col">User</th>
-                            <th scope="col">Vehicle</th>
-                            <th scope="col">Name</th>
-                            <th scope="col">Expire</th>
-                            <th scope="col">Mention</th>
-                            <th scope="col"></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach(var advert in Model.companyAdverts)
-                        {
-                            <tr>
-                                <th>@advert.Id</th>
-                                <td class="text-primary">@advert.User.UserName</td>
-                                <td>@advert.VehicleType</td>
-                                <td>@advert.Title</td>
-                                <td>@advert.ExpireDate.ToShortDateString() @(DateTime.Compare(advert.ExpireDate, DateTime.Now.Date) < 0 ? Html.Raw("""<span class="badge text-bg-danger">Expired</span>""") : "")</td>
-                                <td>@(DateTime.Compare(advert.MentionTime, DateTime.Now.Date) >= 0 ? advert.MentionTime.ToShortDateString() : "") </td>
-                                <td>
-                                    <a asp-controller="Announcement" asp-action="ShowAnnouncement" asp-route-identifier="@advert.Id" class="btn btn-warning">Show</a>
-                                </td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
-            </div>
+            //invitation
+            @if(Model.CurrentUser.CompanyRole == Roles.Role_Company_Owner)
+            {
+                <div class="row">
+                    <div class="accordion accordion-flush" id="accordionFlushExample">
+                      <div class="accordion-item">
+                        <h2 class="accordion-header" id="flush-headingOne">
+                          <button class="accordion-button collapsed bg-dark text-light" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                            Waiting invitations
+                          </button>
+                        </h2>
+                        <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                          @if(Model.CompanysInvitations.Count() > 0)
+                          {
+                              <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">User Name</th>
+                                        <th scope="col">User Lastname</th>
+                                        <th scope="col">Email</th>
+                                        <th scope="col"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var invitation in Model.CompanysInvitations)
+                                    {
+                                        <tr>
+                                            <td>@invitation.User.Name</td>
+                                            <td>@invitation.User.Surname</td>
+                                            <td class="text-info">@invitation.User.Email</td>
+                                            <td class="d-flex">
+                                                <form class="mx-1" method="post" asp-controller="Company" asp-action="AddUserToCompany">
+                                                    <input hidden name="invitationId" value="@invitation.Id">
+                                                    <button type="submit" class="btn btn-success">Accept</button>
+                                                </form>
+                                                 <form class="mx-1" method="post" asp-controller="Company" asp-action="RemoveInvitation">
+                                                    <input hidden name="invitationId" value="@invitation.Id">
+                                                    <button type="submit" class="btn btn-danger">Delete</button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                          }
+                          else
+                          {
+                                <h5 class="p-4">0 invitations</h5>
+                          }
+                        </div>
+                      </div>
+                    </div>
+                </div>
+            }
 
-            <div class="col-lg-12 px-4">
-                <h3 class="my-5">Active advertisements</h3>
-                <table class="table table-hover">
-                    <thead>
-                        <tr>
-                            <th scope="col">Id</th>
-                            <th scope="col">User</th>
-                            <th scope="col">Size</th>
-                            <th scope="col">Active From</th>
-                            <th scope="col">Active To</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var advertisement in Model.companyAdvertisements)
-                        {
+            <div class="row mt-5 d-md-none">
+                <img class="img-fluid" src="~/image/helpfull/rotate_phone.webp" />
+            </div>
+            
+            <div class="row mt-5 d-none d-md-block">
+                <div class="col-lg-12 px-4">
+                    <h3 class="my-5">Active announcements</h3>
+                    <table class="table table-hover">
+                        <thead>
                             <tr>
-                                <th>@advertisement.Id</th>
-                                <td>@advertisement.User.UserName</td>
-                                <td>@advertisement.Size</td>
-                                <td class="text-success">@advertisement.ActiveFrom.ToShortDateString()</td>
-                                <td class="text-danger">@advertisement.ActiveTo.Date.ToShortDateString() @(DateTime.Compare(advertisement.ActiveTo, DateTime.Now.Date) < 0 ? Html.Raw("""<span class="badge text-bg-danger">Expired</span>""") : "")</td>
+                                <th scope="col">Id</th>
+                                <th scope="col">User</th>
+                                <th scope="col">Vehicle</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Expire</th>
+                                <th scope="col">Mention</th>
+                                <th scope="col"></th>
                             </tr>
-                        }
-                    </tbody>
-                </table>
-           </div>
+                        </thead>
+                        <tbody>
+                            @foreach(var advert in Model.companyAdverts)
+                            {
+                                <tr>
+                                    <th>@advert.Id</th>
+                                    <td class="text-primary">@advert.User.UserName</td>
+                                    <td>@advert.VehicleType</td>
+                                    <td>@advert.Title</td>
+                                    <td>@advert.ExpireDate.ToShortDateString() @(DateTime.Compare(advert.ExpireDate, DateTime.Now.Date) < 0 ? Html.Raw("""<span class="badge text-bg-danger">Expired</span>""") : "")</td>
+                                    <td>@(DateTime.Compare(advert.MentionTime, DateTime.Now.Date) >= 0 ? advert.MentionTime.ToShortDateString() : "") </td>
+                                    <td>
+                                        <a asp-controller="Announcement" asp-action="ShowAnnouncement" asp-route-identifier="@advert.Id" class="btn btn-warning">Show</a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="col-lg-12 px-4">
+                    <h3 class="my-5">Active advertisements</h3>
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th scope="col">Id</th>
+                                <th scope="col">User</th>
+                                <th scope="col">Size</th>
+                                <th scope="col">Active From</th>
+                                <th scope="col">Active To</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var advertisement in Model.companyAdvertisements)
+                            {
+                                <tr>
+                                    <th>@advertisement.Id</th>
+                                    <td>@advertisement.User.UserName</td>
+                                    <td>@advertisement.Size</td>
+                                    <td class="text-success">@advertisement.ActiveFrom.ToShortDateString()</td>
+                                    <td class="text-danger">@advertisement.ActiveTo.Date.ToShortDateString() @(DateTime.Compare(advertisement.ActiveTo, DateTime.Now.Date) < 0 ? Html.Raw("""<span class="badge text-bg-danger">Expired</span>""") : "")</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+               </div>
         </div>
+        //Edit company 
+        @if(Model.CurrentUser.CompanyRole == Roles.Role_Company_Owner)
+        {
+            <div class="row">
+                 <div style="display:none;" id="Container" class="col-9 bg-dark position-fixed top-0 'animate__animated', 'animate__slideOutUp' text-secondary p-5">
+                     <div class="row">
+                         <div class="col-lg-11">
+                             <h1>Edit your company</h1>
+                         </div>
+                         <div class="col-lg-1 text-end">
+                             <h1 id="CloseContainerButton"><i class="bi bi-x text-secondary"></i></h1>
+                         </div>
+                         <div class="col-lg-3 text-justify mt-4 d-flex align-items-center">
+                             <img id="AdvertImg" class="img-thumbnail mb-4"  src="@Model.CurrentUser.Company.LogoSrc" />
+                         </div>
+                         <form asp-controller="Company" asp-action="EditCompany" method="post" class="col-lg-9" enctype="multipart/form-data">
+                             <input id="AdvertisementId" asp-for="CurrentUser.Company.id"  hidden  />
+                             <div class="row d-flex align-items-center">
+                                 <div class="col-lg-12 mt-3">
+                                     <h5 class="text-secondary">Company details</h5>
+                                     <hr />
+                                     <label asp-for="CurrentUser.Company.name"></label>
+                                     <input  asp-for="CurrentUser.Company.name"  class="form-control text-secondary bg-dark border-secondary" placeholder="Company name" />
+                                 </div>
+                                 <div class="col-lg-6 mt-3">
+                                     <label asp-for="CurrentUser.Company.Email"></label>
+                                     <input  asp-for="CurrentUser.Company.Email"  class="form-control text-secondary bg-dark border-secondary" placeholder="Company Email" />
+                                 </div>
+                                 <div class="col-lg-6 mt-3">
+                                     <label asp-for="CurrentUser.Company.PhoneNumber"></label>
+                                     <input  asp-for="CurrentUser.Company.PhoneNumber"  class="form-control text-secondary bg-dark border-secondary" placeholder="Company Phone number" />
+                                 </div>
+                                 <div class="col-lg-6 mt-3">
+                                     <label asp-for="CurrentUser.Company.Fax"></label>
+                                     <input  asp-for="CurrentUser.Company.Fax"  class="form-control text-secondary bg-dark border-secondary" placeholder="Company Fax" />
+                                 </div>
+                                 <div class="col-lg-6 mt-3">
+                                     <label asp-for="CurrentUser.Company.WebsiteUrl"></label>
+                                     <input  asp-for="CurrentUser.Company.WebsiteUrl"  class="form-control text-secondary bg-dark border-secondary" placeholder="Company website" />
+                                 </div>
+                                 <div class="col-lg-12 mt-3">
+                                     <label asp-for="CurrentUser.Company.Country"></label>
+                                     <input  asp-for="CurrentUser.Company.Country"  class="form-control text-secondary bg-dark border-secondary" placeholder="Company Country" />
+                                 </div>
+                                 <div class="col-lg-4 mt-3">
+                                     <label asp-for="CurrentUser.Company.City"></label>
+                                     <input  asp-for="CurrentUser.Company.City"  class="form-control text-secondary bg-dark border-secondary" placeholder="Company City" />
+                                 </div>
+                                 <div class="col-lg-4 mt-3">
+                                     <label asp-for="CurrentUser.Company.StreetName"></label>
+                                     <input  asp-for="CurrentUser.Company.StreetName"  class="form-control text-secondary bg-dark border-secondary" placeholder="Company Streetname" />
+                                 </div>
+                                 <div class="col-lg-4 mt-3">
+                                     <label asp-for="CurrentUser.Company.PostalCode"></label>
+                                     <input  asp-for="CurrentUser.Company.PostalCode"  class="form-control text-secondary bg-dark border-secondary" placeholder="Company Postal code" />
+                                 </div>
+                                 <div class="col-lg-12 mt-3">
+                                     <label asp-for="CurrentUser.Company.StreetNumber"></label>
+                                     <input  asp-for="CurrentUser.Company.StreetNumber"  class="form-control text-secondary bg-dark border-secondary" placeholder="Company Street number" />
+                                 </div>
+                                 <div class="col-lg-12 mt-3">
+                                     <label>Change logo</label>
+                                     <input type="file" name="file" class="form-control text-secondary bg-dark border-secondary" placeholder="Change your logo" />
+                                 </div>
+                                 <div class="col-lg-12 mt-3 d-flex justify-content-end">
+                                     <button class="btn btn-outline-secondary" type="submit">Update</button>
+                                 </div>
+                             </div>
+                         </form>
+                     </div>
+                 </div>
+             </div>
+        }
     }
     else
     {

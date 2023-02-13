@@ -1,5 +1,6 @@
 ﻿using AutoVertical_Data.Repository.IRepository;
 using AutoVertical_Model.Models;
+using AutoVertical_Model.Models.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AutoVertical_web.ViewComponents.LoginPartial
@@ -13,8 +14,14 @@ namespace AutoVertical_web.ViewComponents.LoginPartial
         }
         public async Task<IViewComponentResult> InvokeAsync(string userId)
         {
-            ApplicationUser user = _unitOfWork.applicationUser.GetFirstOfDefault( u=>u.Id == userId );
-            return View(user);
+            ApplicationUser appUser = _unitOfWork.applicationUser.GetFirstOfDefault( u=>u.Id == userId );
+            FloatingUserMenuVm viewModel = new FloatingUserMenuVm()
+            {
+                user = appUser,
+                userCompany = _unitOfWork.company.GetFirstOfDefault( u=>u.id == appUser.CompanyId ),
+                userNotyficationsCount = _unitOfWork.notyfications.GetAll(u=>u.UserId== appUser.Id).Count()
+            };
+            return View(viewModel);
         }
     }
 }

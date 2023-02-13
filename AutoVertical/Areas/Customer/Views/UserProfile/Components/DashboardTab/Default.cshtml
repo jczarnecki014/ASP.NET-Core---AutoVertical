@@ -83,9 +83,12 @@
                                  <div class="col-6 my-3">
                                      <i class="bi bi-telephone"></i>&nbsp;  @Model.User.PhoneNumber
                                  </div>
-                                 <div class="col-6 my-3">
-                                     <b>Employe in: </b>&nbsp;  Liceria & Go
-                                 </div>
+                                 @if(Model.User.Company != null)
+                                 {
+                                     <div class="col-6 my-3">
+                                         <b>Employe in: </b>&nbsp;  @Model.User.Company.name
+                                     </div>
+                                 }
                              </div>
                          </div>
                          <hr />
@@ -98,27 +101,27 @@
                      </div>
                  </div>
              </div>
-             @if(Model.userCompany != null)
+             @if(Model.User.Company != null)
              {
-                 <div class="row border border-1 gx-0 mt-5">
-                     <div class="col-lg-9 p-4">
+                 <div class="row gx-0 mt-5">
+                     <div class="col-lg-9 p-4 border border-1">
                          <div class="row">
                              <div class="col-lg-12">
-                                 <h4>@Model.userCompany.name</h4>
+                                 <h4>@Model.User.Company.name</h4>
                              </div>
                              <hr />
                              <div class="col-lg-12">
                                  <div class="row">
-                                     <div class="col-6">
-                                         <i class="bi bi-geo-alt"></i>&nbsp;  @Model.userCompany.City, ul. @Model.userCompany.StreetName @Model.userCompany.StreetNumber
+                                     <div class="col-lg-6">
+                                         <i class="bi bi-geo-alt"></i>&nbsp;  @Model.User.Company.City, ul. @Model.User.Company.StreetName @Model.User.Company.StreetNumber
                                      </div>
-                                     <div class="col-6">
-                                         <i class="bi bi-envelope"></i>&nbsp;  @Model.userCompany.Email
+                                     <div class="col-lg-6">
+                                         <i class="bi bi-envelope"></i>&nbsp;  @Model.User.Company.Email
                                      </div>
-                                     <div class="col-6 my-3">
-                                         <i class="bi bi-telephone"></i>&nbsp;  (+48) @Model.userCompany.PhoneNumber
+                                     <div class="col-lg-6 my-3">
+                                         <i class="bi bi-telephone"></i>&nbsp;  (+48) @Model.User.Company.PhoneNumber
                                      </div>
-                                     <div class="col-6 my-3">
+                                     <div class="col-lg-6 my-3">
                                          <b>NIP:</b>&nbsp;  -||-
                                      </div>
                                  </div>
@@ -127,7 +130,7 @@
                          </div>
                      </div>
                      <div class="col-lg-3">
-                         <img class="img-thumbnail"  src="@Model.userCompany.LogoSrc" />
+                         <img class="img-thumbnail"  src="@Model.User.Company.LogoSrc" />
                      </div>
                  </div>
              }

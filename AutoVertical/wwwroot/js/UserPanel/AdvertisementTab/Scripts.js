@@ -28,7 +28,6 @@ function EveryAdvertisementActive(){
     return condition
   }
   statuses.forEach(status =>{
-    console.log(status)
       if(status.dataset.expired == "true"){
         condition = false;
       }

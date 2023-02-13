@@ -5,7 +5,7 @@
 @if (SignInManager.IsSignedIn(User))
 {
 
-    <div style="z-index:5;top:150px;" class="position-fixed end-0 border border-1 bg-dark text-light">
+    <div style="z-index:5;top:150px; max-width:300px;" class="position-fixed end-0 border border-1 bg-dark text-light">
          @await Component.InvokeAsync("FloatingUserMenu",UserManager.GetUserId(User))
     </div>
 }
