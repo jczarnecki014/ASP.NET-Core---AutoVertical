@@ -10,6 +10,7 @@ using AutoVertical_Data.DbInitializer;
 using AutoVertical_Utility.FileAcces;
 using AutoVertical_Utility.Stripe;
 using Stripe;
+using AutoVertical_Data.DbInitializer.EntityInitiaizers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -56,11 +57,14 @@ app.MapControllerRoute(
 
 app.Run();
 
-void SeedDatabase()
+async Task SeedDatabase()
 {
     using(var scope = app.Services.CreateScope())
     {
         var dbInitializer = scope.ServiceProvider.GetRequiredService<IDbInitializer>();
-        dbInitializer.Initialize();
+        await dbInitializer.InitializeAsync
+        (
+            new CarInitializer()
+        );
     }
 }

@@ -145,13 +145,6 @@ namespace AutoVertical_Model.Models
         [DefaultValue(false)]
         public bool Leasing{ get;set;}
 
-        //____________________________________________________________________________________________ User Data
-
-        /*[Required]
-        public  int UserId{ get;set;}
-
-        [ForeignKey("UserId")]
-        public  ApplicationUser User{ get;set;}*/
 
         //____________________________________________________________________________________________ Specific vehicle
 
@@ -184,5 +177,6 @@ namespace AutoVertical_Model.Models
         [ValidateNever]
         [ForeignKey("UserId")]
         public ApplicationUser User{ get;set;}
+        public ICollection<ImgGallery>? gallery { get;set;}
     }
 }

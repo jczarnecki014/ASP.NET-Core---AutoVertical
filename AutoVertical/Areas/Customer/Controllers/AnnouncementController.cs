@@ -218,10 +218,6 @@ namespace AutoVertical_web.Areas.Customer.Controllers
             }
         }
 
-       //public IActionResult OrderConfirmation(Announcement announcement)
-        //{
-
-        //}
 
         [HttpPost]
         public IActionResult announcementImage(int imageId)
@@ -722,7 +718,7 @@ namespace AutoVertical_web.Areas.Customer.Controllers
                 IEnumerable<Vehicle>vehicles;
                 if(VehicleType != null)
                 { 
-                    vehicles = _UnitOfWork.vehicle.GetAll(u=> u.VehicleType == VehicleType && DateTime.Compare(u.MentionTime,DateTime.Now.Date) > 0); // Compare date in order to check vehicle witch current announcement mention boost
+                    vehicles = _UnitOfWork.vehicle.GetAll(u=> u.VehicleType == VehicleType && DateTime.Compare(u.MentionTime,DateTime.Now.Date) >= 0); // Compare date in order to check vehicle witch current announcement mention boost
                     if(vehicles.Count() < 12)
                     {
                         /// If numer of mentioned announcements is less than 12 recives announcements without payed mention status (12  is minimal number of announcements required to display on the home page )

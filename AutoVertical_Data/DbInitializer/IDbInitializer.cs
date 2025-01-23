@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AutoVertical_Data.DbInitializer.EntityInitiaizers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,6 @@ namespace AutoVertical_Data.DbInitializer
 {
     public interface IDbInitializer
     {
-        public void Initialize();
+        public Task InitializeAsync(params IEntityInitializer[] modelList);
     }
 }

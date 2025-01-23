@@ -58,7 +58,19 @@ function SetMentionedAnnouncement(vehicleType){
     const SmallAnnouncementTiles = document.querySelectorAll(".small-tiles");
     const MediumAnnouncementTiles = document.querySelectorAll(".medium-tiles");
     const LargeAnnouncementTiles = document.querySelectorAll(".large-tiles");
+    const SpecialsOffersSection = document.querySelector('[name="SpecialsOffers"]');
+    const NoAnnouncementsAlert = document.querySelector('[name="NoAnnouncementsAlert"]');
+    console.log(NoAnnouncementsAlert)
     $.getJSON(`/customer/Announcement/GetMentionedVehicle?VehicleType=${vehicleType}`,function(values){
+        if(values.length == 0)
+        {
+            SpecialsOffersSection.style.display = 'none';
+            NoAnnouncementsAlert.style.display = 'block';
+        }
+        else {
+            SpecialsOffersSection.style.display = 'block';
+            NoAnnouncementsAlert.style.display = 'none';
+        }
         document.querySelector("#Loading").style.display="none";
         announcementCarousel = new MentionedAnnouncement(values);
         announcementCarousel.SetTiles(SmallAnnouncementTiles,random=true); // first set

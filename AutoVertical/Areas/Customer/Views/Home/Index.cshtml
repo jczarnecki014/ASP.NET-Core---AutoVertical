@@ -79,20 +79,20 @@
                     <div class="row">
                         <div class="col-12">
                             <a class="card large-tiles">
-                                <img style="max-height:336px; object-fit:cover" class="card-img-top tile-img" src="~/image/tempAnnouncement/aaa33fa7-a368-448c-878c-84465d503a2d.jpg" alt="Card image cap">
+                                <img style="max-height:336px; object-fit:cover" class="card-img-top tile-img" src="~/image/tempAnnouncement/daily.png" alt="Card image cap">
                                 <div class="card-body">
-                                    <h4 class="card-title tile-title">Vehicle title</h4>
+                                    <h4 class="card-title tile-title">Add your first vehicle</h4>
                                     <div class="row">
                                         <div class="col-12">
-                                             <small><b class="tile-year"></b></small> &nbsp;
+                                             <small><b class="tile-year">XXX</b></small> &nbsp;
                                              <i style="font-size:7px;" class="bi bi-circle-fill"></i> &nbsp;
-                                             <small><b class="tile-mileage"></b><b> km</b></small> &nbsp;
+                                             <small><b class="tile-mileage">XXXX</b><b> km</b></small> &nbsp;
                                              <i style="font-size:7px;" class="bi bi-circle-fill"></i> &nbsp;
-                                             <small><b class="tile-fuel"></b></small> &nbsp;
+                                             <small><b class="tile-fuel">XXXX</b></small> &nbsp;
                                              <i style="font-size:7px;" class="bi bi-circle-fill"></i> &nbsp;
-                                             <small><b class="tile-capacity"></b></small>
+                                             <small><b class="tile-capacity">XXXX</b></small>
                                         </div>
-                                       <h4 class="text-danger pt-3 tile-price"> <sub></sub></h4>
+                                       <h4 class="text-danger pt-3 tile-price">99999<sub>PLN</sub></h4>
                                         <div class="col-4 bg-warning position-absolute bottom-50 end-0 pt-1">
                                             <h6>Daily deal</h6>
                                         </div>
@@ -106,10 +106,21 @@
             </section>
         </section>
 
+        <section style="display:none" name="NoAnnouncementsAlert" class="row mt-5 mb-5 p-5 p-lg-0">
+        <div class="col-12 d-flex flex-column justify-content-center align-items-center text-center">
+                <h1 style="font-size: 64px;">0</h1>
+                <h2>Announcement</h2>
+                <p>Oh... it looks like there are no ads on our site... Add your vehicles to our sales system to display every features of this application!</p>
+            <p>Special for you we prepare we have prepared couple of vehicle images in ./DefaultImages/Announcement. You can use them to add your first announcements !</p>
+                <div class="nav-item mx-2">
+                    <a asp-area="customer" asp-controller="Home" asp-action="StartSellingMenu" style="width: 200px;" class="text-light btn btn-primary">Start Selling</a>
+                </div>
+            </div>
+        </section>
 
         <section name="SpecialsOffers">
             <section name="4Tiles" class="row p-5 p-lg-0">
-                <div class="col-12 mt-5 mb-4">
+            <div class="col-12 mt-5 mb-4">
                     <h5>Special offers</h5>
                 </div>
                 <div class="col-lg-3">

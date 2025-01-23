@@ -8,6 +8,8 @@ using System.Threading.Tasks;
 using AutoVertical_Utility.Roles;
 using AutoVertical_Utility;
 using AutoVertical_Model.Models;
+using Microsoft.EntityFrameworkCore;
+using AutoVertical_Data.DbInitializer.EntityInitiaizers;
 
 namespace AutoVertical_Data.DbInitializer
 {
@@ -23,16 +25,46 @@ namespace AutoVertical_Data.DbInitializer
             _db = db;
         }
 
-        public void Initialize()
+        public async Task InitializeAsync(params IEntityInitializer[] modelList)
         {
-            //Create roles if are not created
-            if(!_roleManager.RoleExistsAsync(Roles.Role_User_Admin).GetAwaiter().GetResult())
+            if(_db.Database.IsRelational())
             {
-                _roleManager.CreateAsync(new IdentityRole(Roles.Role_User_Admin)).GetAwaiter().GetResult();
-                _roleManager.CreateAsync(new IdentityRole(Roles.Role_User_Employer)).GetAwaiter().GetResult();
-                _roleManager.CreateAsync(new IdentityRole(Roles.Role_User_Normal)).GetAwaiter().GetResult();
+                if(_db.Database.GetPendingMigrations() != null)
+                {
+                    _db.Database.Migrate();
+                }
 
-                _userManager.CreateAsync(new ApplicationUser
+                await CreateDefaultRole();
+                await CreateDefaultAdminUser();
+
+
+                //Set only test mode
+
+                foreach(var model in modelList )
+                {
+                    await model.PushEntityAsync(_db);
+                }
+
+                
+            }
+        }
+
+        private async Task CreateDefaultRole()
+        {
+            if(! await _roleManager.RoleExistsAsync(Roles.Role_User_Admin))
+            {
+                await _roleManager.CreateAsync(new IdentityRole(Roles.Role_User_Admin));
+                await _roleManager.CreateAsync(new IdentityRole(Roles.Role_User_Employer));
+                await  _roleManager.CreateAsync(new IdentityRole(Roles.Role_User_Normal));
+            }
+        }
+
+        private async Task CreateDefaultAdminUser()
+        {
+            var existUser = _db.Users.FirstOrDefault(u => u.Email == Options.DefaultRootEmail);
+            if(existUser is null)
+            {
+                await _userManager.CreateAsync(new ApplicationUser
                 {
                     UserName = Options.DefaultRootEmail,
                     PhoneNumber = "700-200-300",
@@ -48,11 +80,12 @@ namespace AutoVertical_Data.DbInitializer
                     StreetNumber = "5",
                     Verificated = true,
 
-                },Options.DefaultRootPass).GetAwaiter().GetResult();
+                },Options.DefaultRootPass);
 
-                ApplicationUser user = _db.ApplicationUser.FirstOrDefault(u=>u.Email == Options.DefaultRootEmail);
-                _userManager.AddToRoleAsync(user,Roles.Role_User_Admin).GetAwaiter().GetResult();
+                ApplicationUser newUser = _db.ApplicationUser.FirstOrDefault(u=>u.Email == Options.DefaultRootEmail);
+                await _userManager.AddToRoleAsync(newUser,Roles.Role_User_Admin);
             }
         }
     }
+
 }
